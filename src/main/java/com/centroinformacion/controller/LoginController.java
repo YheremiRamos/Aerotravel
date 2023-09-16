@@ -29,6 +29,7 @@ public class LoginController {
 			request.setAttribute("mensaje", "El usuario no existe");
 			return "intranetLogin";
 		} else {
+			
 			List<Rol> roles = servicio.traerRolesDeUsuario(usuario.getIdUsuario());
 			List<Opcion> menus = servicio.traerEnlacesDeUsuario(usuario.getIdUsuario());
 			List<Opcion> menusTipo1 = menus.stream().filter(p -> p.getTipo() == 1).toList();
