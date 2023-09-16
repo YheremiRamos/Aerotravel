@@ -119,8 +119,6 @@ $('#id_form').bootstrapValidator({
     	
     }   
 });
-</script>
-
-</script>   		
+</script> 		
 </body>
 </html>
