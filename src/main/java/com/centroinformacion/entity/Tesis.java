@@ -37,11 +37,6 @@ public class Tesis {
 	private String titulo;
 	private String tema;
 	
-	/**
-	 * @Temporal(TemporalType.DATE)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "America/Lima")
-	private Date fechaCreacion;**/
-	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaCreacion;

@@ -34,29 +34,24 @@
 		<form id="id_form" method="post">
 			<div class="col-md-12" style="margin-top: 2%">
 				<div class="row">
-					<div class="form-group col-md-9">
+					<div class="form-group col-md-6">
 						<label class="control-label" for="id_titulo">Título</label> <input
 							class="form-control" type="text" id="id_titulo" name="titulo"
 							placeholder="Ingrese el título">
 					</div>
-					<div class="form-group col-md-9">
+					<div class="form-group col-md-6">
 						<label class="control-label" for="id_tema">Tema</label> <input
 							class="form-control" type="text" id="id_tema" name="tema"
 							placeholder="Ingrese el tema">
 					</div>
 					<div class="form-group  col-sm-6">
-						<div class="col-sm-4">
 							<label class="control-label" for="id_fechaCreacion">Fecha
 								de Creación</label>
-						</div>
-						<div class="col-sm-6">
 							<input class="form-control" type="date" id="id_fechaCreacion"
 								name="fechaCreacion" placeholder="Ingrese la fecha de Creación"
 								maxlength="100">
-
-						</div>
 					</div>
-					<div class="form-group col-md-3">
+					<div class="form-group col-md-6">
 						<label class="control-label" for="id_alumno">Alumno</label> <select
 							id="id_alumno" name="alumno.idAlumno" class='form-control'>
 							<option value=" ">[Seleccione]</option>
