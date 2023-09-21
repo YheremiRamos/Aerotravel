@@ -45,11 +45,10 @@
 							placeholder="Ingrese el tema">
 					</div>
 					<div class="form-group  col-sm-6">
-							<label class="control-label" for="id_fechaCreacion">Fecha
-								de Creación</label>
-							<input class="form-control" type="date" id="id_fechaCreacion"
-								name="fechaCreacion" placeholder="Ingrese la fecha de Creación"
-								maxlength="100">
+						<label class="control-label" for="id_fechaCreacion">Fecha
+							de Creación</label> <input class="form-control" type="date"
+							id="id_fechaCreacion" name="fechaCreacion"
+							placeholder="Ingrese la fecha de Creación" maxlength="100">
 					</div>
 					<div class="form-group col-md-6">
 						<label class="control-label" for="id_alumno">Alumno</label> <select
@@ -70,8 +69,10 @@
 	<script type="text/javascript">
 		$.getJSON("listaAlumno", {}, function(data) {
 			$.each(data, function(index, item) {
+				// Se crea una variable que combina los campos "nombres" y "apellidos" para formar el nombre completo
+				var nombreCompleto = item.nombres + " " + item.apellidos;
 				$("#id_alumno").append(
-						"<option value="+item.idAlumno +">" + item.nombres
+						"<option value=" + item.idAlumno + ">" + nombreCompleto
 								+ "</option>");
 			});
 		});
@@ -119,12 +120,17 @@
 							message : 'El título es un campo obligatorio'
 						},
 						stringLength : {
-							message : 'El título es de 5 a 100 caracteres',
-							min : 5,
-							max : 100
+							message : 'El título es de 2 a 40 caracteres',
+							min : 2,
+							max : 40
 						},
-					}
-				},
+						remote :{
+		            	    delay: 1000,
+		            	 	url: 'buscaPorTituloOrTemaTesis',
+		            	 	message: 'El Título ya existe'
+		             	}
+		            }
+		        },
 				tema : {
 					selector : '#id_tema',
 					validators : {
@@ -132,12 +138,17 @@
 							message : 'El tema es un campo obligatorio'
 						},
 						stringLength : {
-							message : 'El tema es de 5 a 100 caracteres',
-							min : 5,
-							max : 100
+							message : 'El tema es de 2 a 40 caracteres',
+							min : 2,
+							max : 40
 						},
-					}
-				},
+		                remote :{
+		            	    delay: 1000,
+		            	 	url: 'buscaPorTituloOrTemaTesis',
+		            	 	message: 'El Tema ya existe'
+		             	}
+		            }
+		        },
 				fechaCreacion : {
 					selector : "#id_fechaCreacion",
 					validators : {
