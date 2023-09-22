@@ -206,11 +206,7 @@
 		                        max: 40,
 		                        message: 'El nombre es de 2 a 40 caracteres'
 		                   
-		            },remote :{
-	            	    delay: 1000,
-	            	 	url: 'buscaPorNombres',
-	            	 	message: 'El Nombre ya existe'
-	             	}
+		            }
 	            }
 	        },
 		            apellidos: {
@@ -224,11 +220,7 @@
 		                        max: 40,
 		                        message: 'El apellido es de 2 a 40 caracteres'
 		             
-		            },remote :{
-	            	    delay: 1000,
-	            	 	url: 'buscaPorApellidos',
-	            	 	message: 'El Nombre ya existe'
-	             	}
+		            }
 	            }
 	        },
 		            telefono: {
@@ -240,7 +232,11 @@
 		                    regexp: {
 		                        regexp: /^[0-9]{9}$/,
 		                        message: 'El teléfono debe tener 9 dígitos'
-		                    }
+		                    },remote :{
+			            	    delay: 1000,
+			            	 	url: 'buscaPorTelefono',
+			            	 	message: 'El teléfono ya existe'
+			             	}
 		                }
 		            },
 		            fechaNacimiento: {

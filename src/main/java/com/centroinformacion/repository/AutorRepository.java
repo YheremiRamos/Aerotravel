@@ -9,7 +9,7 @@ import com.centroinformacion.entity.Autor;
 public interface AutorRepository  extends JpaRepository<Autor, Integer> {
 
 	/*Buscar por nombre ignorando las mayuscula y miniscula*/
-	public List<Autor> findByNombresIgnoreCase(String nombres);
+	public List<Autor> findByTelefonoIgnoreCase(String telefono);
 
-	public List<Autor> findByApellidosIgnoreCase(String apellidos);
+
 }

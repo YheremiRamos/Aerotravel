@@ -50,10 +50,10 @@ public class AutorRegistroController {
 	
 	
 	
-@GetMapping("/buscaPorNombres")
+@GetMapping("/buscaPorTelefono")
 	@ResponseBody
-	public String validaNombre(String nombres) {
-		List<Autor> lstAutor = autorService.listaPorNombres(nombres);
+	public String validaTelefono(String telefono) {
+		List<Autor> lstAutor = autorService.listaPorTelefono(telefono);
 		if (CollectionUtils.isEmpty(lstAutor)) {
 			return "{\"valid\" : true }";
 		} else {
@@ -61,17 +61,5 @@ public class AutorRegistroController {
 		}
 	}
 	
-	
-	
-	@GetMapping("/buscaPorApellidos")
-	@ResponseBody
-	public String validarApe(String apellidos) {
-		List<Autor> lstApe = autorService.listaPorApellidos(apellidos);
-		if (CollectionUtils.isEmpty(lstApe)) {
-			return "{\"valid\" : true }";
-		} else {
-			return "{\"valid\" : false }";
-		}
-	}
-	
 }
+	
