@@ -59,10 +59,20 @@ public class Autor {
 	@JoinColumn(name = "idPais")
 	private Pais pais;
 
+	/*@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idGrado")
+	private DataCatalogo grado;*/
+	
+
+	
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idGrado")
 	private DataCatalogo grado;
+	
+	
 	
 	
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
