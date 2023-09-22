@@ -217,12 +217,12 @@
 		                selector: "#id_apellidos",
 		                validators: {
 		                    notEmpty: {
-		                        message: 'Los apellido son obligatorios'
+		                        message: 'El apellido es obligatorio'
 		                    },
 		                    stringLength: {
 		                        min: 2,
 		                        max: 40,
-		                        message: 'Los apellido son de 2 a 40 caracteres'
+		                        message: 'El apellido es de 2 a 40 caracteres'
 		             
 		            },remote :{
 	            	    delay: 1000,
