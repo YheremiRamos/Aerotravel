@@ -111,7 +111,7 @@
 
 			<div class="form-group col-md-3">
 				<label class="control-label" for="id_grado">Grado</label> <select
-					id="id_grado" name="DataCatalogo.grado.idGrado" class='form-control'>
+					id="id_grado" name="grado.idDataCatalogo" class='form-control'>
 					<option value=" ">[Seleccione]</option>
 				</select>
 			</div>
@@ -146,7 +146,7 @@
 	
 	$.getJSON("listaGradoAutor", {}, function(data) {
 	    $.each(data, function(index, item) {
-	        $("#id_grado").append("<option value=" + item.idGrado + ">" + item.descripcion + "</option>");
+	        $("#id_grado").append("<option value=" + item.idDataCatalogo + ">" + item.descripcion + "</option>");
 	    });
 	});
 	
@@ -217,12 +217,12 @@
 		                selector: "#id_apellidos",
 		                validators: {
 		                    notEmpty: {
-		                        message: 'Los apellidos son obligatorios'
+		                        message: 'El apellido es obligatorio'
 		                    },
 		                    stringLength: {
 		                        min: 2,
 		                        max: 40,
-		                        message: 'Los apellidos son de 2 a 40 caracteres'
+		                        message: 'El apellido es de 2 a 40 caracteres'
 		             
 		            },remote :{
 	            	    delay: 1000,
