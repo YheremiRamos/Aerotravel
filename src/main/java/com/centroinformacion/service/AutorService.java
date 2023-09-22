@@ -8,8 +8,7 @@ public interface AutorService {
 
 	
 	public abstract Autor insertaActualizaAutor(Autor obj);
-	public abstract List<Autor> listaPorNombres(String nombres);
-	public abstract List<Autor> listaPorApellidos(String apellidos);
+	public abstract List<Autor> listaPorTelefono(String telefono);
 
 	
 }

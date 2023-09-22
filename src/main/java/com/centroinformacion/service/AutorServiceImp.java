@@ -22,12 +22,9 @@ public class AutorServiceImp implements AutorService{
 	}
 
 	@Override
-	public List<Autor> listaPorNombres(String nombres) {
-		return repository.findByNombresIgnoreCase(nombres);
+	public List<Autor> listaPorTelefono(String telefono) {
+		return repository.findByTelefonoIgnoreCase(telefono);
 	}
 
-	@Override
-	public List<Autor> listaPorApellidos(String apellidos) {
-		return repository.findByApellidosIgnoreCase(apellidos);
-	}
+	
 }
