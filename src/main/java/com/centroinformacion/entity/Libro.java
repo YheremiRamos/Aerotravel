@@ -1,5 +1,7 @@
 package com.centroinformacion.entity;
-
+/**
+ * @author Gorge Jacinto
+ */
 import java.util.Date;
 
 import jakarta.persistence.Entity;
