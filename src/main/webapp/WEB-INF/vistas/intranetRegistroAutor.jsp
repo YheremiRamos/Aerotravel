@@ -122,8 +122,7 @@
 
 
 			<div class="row" style="margin-top: 2%" align="center">
-				<button id="id_registrar" type="button" class="btn btn-primary">Crea
-					Alumno</button>
+				<button id="id_registrar" type="button" class="btn btn-primary">REGISTRAR</button>
 			</div>
 		</form>
 	</div>
