@@ -38,8 +38,8 @@
 				</div>
 				
 				<div class="form-group col-md-9">
-					<label class="control-label" for="id_aÒo">AÒo</label>
-					<input class="form-control" type="text" id="id_aÒo" name="aÒo" placeholder="Ingrese el AÒo">
+					<label class="control-label" for="id_a√±o">A√±o</label>
+					<input class="form-control" type="text" id="id_a√±o" name="a√±o" placeholder="Ingrese el A√±o">
 				</div>
 				
 				<div class="form-group col-md-9">
@@ -47,16 +47,16 @@
 					<input class="form-control" type="text" id="id_serie" name="serie" placeholder="Ingrese la Serie">
 				</div>
 				
-				<div class="form-group col-md-3">
+<div class="form-group col-md-3">
 					<label class="control-label" for="id_categoria">Categoria</label>
-					<select id="id_categoria" name="categoria.idCategoria" class='form-control'>
+					<select id="id_categoria" name="categoriaLibro.idDataCatalogo" class='form-control'>
 						<option value=" ">[Seleccione]</option>    
 					</select>
 			    </div>
 			    
 			    <div class="form-group col-md-3">
 					<label class="control-label" for="id_tipo">Tipo</label>
-					<select id="id_tipo" name="tipo.idTipo" class='form-control'>
+					<select id="id_tipo" name="tipoLibro.idDataCatalogo" class='form-control'>
 						<option value=" ">[Seleccione]</option>    
 					</select>
 			    </div>
@@ -104,7 +104,7 @@ $("#id_registrar").click(function (){
 
 function limpiarFormulario(){
 	$("#id_titulo").val('');
-	$("#id_aÒo").val(' ');
+	$("#id_a√±o").val(' ');
 	$("#id_serie").val(' ');
 	$("#id_categoria").val(' ');
 	$("#id_tipo").val(' ');
@@ -131,14 +131,14 @@ $('#id_form').bootstrapValidator({
                 },
             }
         },
-        aÒo:{
-        	selector : '#id_aÒo',
+        a√±o:{
+        	selector : '#id_a√±o',
         	validators:{
         		notEmpty:{
-        			message: 'El AÒo es obligatorio'
+        			message: 'El A√±o es obligatorio'
         		},regexp: {
                     regexp: /^\d{4}$/,
-                    message: 'El AÒo debe consistir en 4 dÌgitos numÈricos'
+                    message: 'El A√±o debe consistir en 4 d√≠gitos num√©ricos'
                 },
         		 
         	}
@@ -151,7 +151,7 @@ $('#id_form').bootstrapValidator({
         		},
         		regexp: {
                     regexp: /^[A-Za-z]{2}\d{3}$/,
-                    message: 'La Serie debe consistir en 2 letras seguidas de 3 n˙meros'
+                    message: 'La Serie debe consistir en 2 letras seguidas de 3 n√∫meros'
                 },
         	}
         },
@@ -159,7 +159,105 @@ $('#id_form').bootstrapValidator({
     		selector : '#id_pais',
             validators: {
             	notEmpty: {
-                    message: 'PaÌs es un campo obligatorio'
+                    message: 'Pa√≠s es un campo obligatorio'
+                },
+            }
+        },
+    	
+    }   
+});
+
+$.getJSON("listaCategoriaDeLibro", {}, function(data) {
+	$.each(data, function(index, item) {
+		$("#id_categoria").append("<option value="+item.idDataCatalogo +">" + item.descripcion + "</option>");
+	});
+});
+
+$.getJSON("listaTipoLibroRevista", {}, function(data) {
+	$.each(data, function(index, item) {
+		$("#id_tipo").append("<option value="+item.idDataCatalogo +">" + item.descripcion+ "</option>");});
+});
+
+
+$("#id_registrar").click(function (){ 
+	var validator = $('#id_form').data('bootstrapValidator');
+    validator.validate();
+    
+	if (validator.isValid()){
+		$.ajax({
+    		type: "POST",
+            url: "registraLibro", 
+            data: $('#id_form').serialize(),
+            success: function(data){
+            	mostrarMensaje(data.MENSAJE);
+            	validator.resetForm();
+            	limpiarFormulario();
+            },
+            error: function(){
+            	mostrarMensaje(MSG_ERROR);
+            }
+    	});
+	}   
+});
+
+function limpiarFormulario(){
+	$("#id_titulo").val('');
+	$("#id_a√±o").val(' ');
+	$("#id_serie").val(' ');
+	$("#id_categoria").val(' ');
+	$("#id_tipo").val(' ');
+}
+
+$('#id_form').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+    	descripcion: {
+    		selector : '#id_titulo',
+            validators: {
+                notEmpty: {
+                    message: 'El titulo es un campo obligatorio'
+                },
+                stringLength :{
+                	message:'El titulo es de 2 a 40 caracteres',
+                	min : 2,
+                	max : 40
+                },
+            }
+        },
+        a√±o:{
+        	selector : '#id_a√±o',
+        	validators:{
+        		notEmpty:{
+        			message: 'El A√±o es obligatorio'
+        		},regexp: {
+                    regexp: /^\d{4}$/,
+                    message: 'El A√±o debe consistir en 4 d√≠gitos num√©ricos'
+                },
+        		 
+        	}
+        },
+        serie: {
+        	selector: '#id_serie',
+        	validators:{
+        		notEmpty:{
+        			message: 'La serie es obligatoria'
+        		},
+        		regexp: {
+                    regexp: /^[A-Za-z]{2}\d{3}$/,
+                    message: 'La Serie debe consistir en 2 letras seguidas de 3 n√∫meros'
+                },
+        	}
+        },
+        pais: {
+    		selector : '#id_pais',
+            validators: {
+            	notEmpty: {
+                    message: 'Pa√≠s es un campo obligatorio'
                 },
             }
         },
