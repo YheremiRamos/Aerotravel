@@ -6,6 +6,4 @@ import com.centroinformacion.entity.Ejemplo;
 
 public interface EjemploRepository extends JpaRepository<Ejemplo, Integer>{
 	
-	
-
 }

@@ -5,33 +5,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.centroinformacion.entity.Alumno;
+import com.centroinformacion.entity.Autor;
 import com.centroinformacion.entity.Usuario;
-import com.centroinformacion.service.AlumnoService;
+import com.centroinformacion.service.AutorService;
 import com.centroinformacion.util.AppSettings;
 
 import jakarta.servlet.http.HttpSession;
 
-/**
- * @author PAUL PONCE
- */
+
 
 @Controller
-public class AlumnoRegistroController {
-
+public class AutorRegistroController {
 	@Autowired
-	private AlumnoService alumnoService;
-	
-	@PostMapping("/registraAlumno")
+	private AutorService autorService;
+
+	@PostMapping("/registraAutor")
 	@ResponseBody
-	public Map<?, ?> registra(Alumno obj, HttpSession session){
+	public Map<?, ?> registra(Autor obj, HttpSession session){
 		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
 		obj.setFechaRegistro(new Date());
 		obj.setFechaActualizacion(new Date());
@@ -40,7 +37,7 @@ public class AlumnoRegistroController {
 		obj.setUsuarioActualiza(objUsuario);
 		
 		HashMap<String, String> map = new HashMap<String, String>();
-		Alumno objSalida = alumnoService.insertaActualizaAlumno(obj);
+		Autor objSalida = autorService.insertaActualizaAutor(obj);
 		if (objSalida == null) {
 			map.put("MENSAJE", "Error en el registro");
 		}else {
@@ -48,15 +45,21 @@ public class AlumnoRegistroController {
 		}
 		return map;
 	}
+
 	
-	@GetMapping("/buscaPorDniAlumno" )
+	
+	
+	
+@GetMapping("/buscaPorTelefono")
 	@ResponseBody
-	public String validaDni(String dni){
-		List<Alumno> lstAlumno = alumnoService.listaPorDni(dni);
-		if (CollectionUtils.isEmpty(lstAlumno)) {
+	public String validaTelefono(String telefono) {
+		List<Autor> lstAutor = autorService.listaPorTelefono(telefono);
+		if (CollectionUtils.isEmpty(lstAutor)) {
 			return "{\"valid\" : true }";
 		} else {
 			return "{\"valid\" : false }";
 		}
 	}
+	
 }
+	

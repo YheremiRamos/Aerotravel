@@ -1,4 +1,7 @@
 package com.centroinformacion.controller;
+/**
+ * @author Astrid Yovera
+ */
 
 import java.util.Date;
 import java.util.HashMap;
@@ -12,35 +15,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.centroinformacion.entity.Alumno;
+import com.centroinformacion.entity.Tesis;
 import com.centroinformacion.entity.Usuario;
-import com.centroinformacion.service.AlumnoService;
+import com.centroinformacion.service.TesisService;
 import com.centroinformacion.util.AppSettings;
 
 import jakarta.servlet.http.HttpSession;
 
-/**
- * @author PAUL PONCE
- */
-
 @Controller
-public class AlumnoRegistroController {
-
+public class TesisRegistroController {
 	@Autowired
-	private AlumnoService alumnoService;
+	private TesisService tesisService;
 	
-	@PostMapping("/registraAlumno")
+	@PostMapping("/registraTesis")
 	@ResponseBody
-	public Map<?, ?> registra(Alumno obj, HttpSession session){
+	public Map<?, ?> registra(Tesis obj, HttpSession session){
 		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
 		obj.setFechaRegistro(new Date());
-		obj.setFechaActualizacion(new Date());
 		obj.setEstado(AppSettings.ACTIVO);
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
 		
 		HashMap<String, String> map = new HashMap<String, String>();
-		Alumno objSalida = alumnoService.insertaActualizaAlumno(obj);
+		Tesis objSalida = tesisService.insertaActualizaTesis(obj);
 		if (objSalida == null) {
 			map.put("MENSAJE", "Error en el registro");
 		}else {
@@ -49,11 +46,12 @@ public class AlumnoRegistroController {
 		return map;
 	}
 	
-	@GetMapping("/buscaPorDniAlumno" )
+	
+	@GetMapping("/buscaPorTituloOrTemaTesis")
 	@ResponseBody
-	public String validaDni(String dni){
-		List<Alumno> lstAlumno = alumnoService.listaPorDni(dni);
-		if (CollectionUtils.isEmpty(lstAlumno)) {
+	public String validaTituloOrTema(String titulo, String tema) {
+		List<Tesis> lstTesis = tesisService.listaPorTituloOrTema(titulo, tema);
+		if (CollectionUtils.isEmpty(lstTesis)) {
 			return "{\"valid\" : true }";
 		} else {
 			return "{\"valid\" : false }";
