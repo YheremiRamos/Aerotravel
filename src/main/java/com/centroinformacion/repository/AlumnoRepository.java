@@ -9,7 +9,6 @@ import com.centroinformacion.entity.Alumno;
 public interface AlumnoRepository extends JpaRepository<Alumno, Integer>{
 	
 	public abstract List<Alumno> findByOrderByApellidosAsc();
-	public List<Alumno> findByNombres(String nombres);
 	public List<Alumno> findByDni(String dni);
 	
 }
