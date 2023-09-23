@@ -95,7 +95,7 @@ $("#id_registrar").click(function (){
 	if (validator.isValid()){
 		$.ajax({
     		type: "POST",
-            url: "registraEjemplo", 
+            url: "registraLibro", 
             data: $('#id_form').serialize(),
             success: function(data){
             	mostrarMensaje(data.MENSAJE);
