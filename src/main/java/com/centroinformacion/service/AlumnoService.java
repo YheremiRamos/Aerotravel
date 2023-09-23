@@ -7,5 +7,9 @@ import com.centroinformacion.entity.Alumno;
 public interface AlumnoService {
 
 	public abstract List<Alumno> listaTodos();
+	
+	public abstract Alumno insertaActualizaAlumno(Alumno obj);
+	public abstract List<Alumno> listaPorNombres(String nombres);
+	public abstract List<Alumno> listaPorDni(String dni);
 
 }
