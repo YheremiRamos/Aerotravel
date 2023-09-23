@@ -49,14 +49,14 @@
 				
 				<div class="form-group col-md-3">
 					<label class="control-label" for="id_categoria">Categoria</label>
-					<select id="id_categoria" name="categoria.idCategoria" class='form-control'>
+					<select id="id_categoria" name="categoriaLibro.idDataCatalogo" class='form-control'>
 						<option value=" ">[Seleccione]</option>    
 					</select>
 			    </div>
 			    
 			    <div class="form-group col-md-3">
 					<label class="control-label" for="id_tipo">Tipo</label>
-					<select id="id_tipo" name="tipo.idTipo" class='form-control'>
+					<select id="id_tipo" name="tipoLibro.idDataCatalogo" class='form-control'>
 						<option value=" ">[Seleccione]</option>    
 					</select>
 			    </div>
@@ -75,11 +75,18 @@
 
 <script type="text/javascript">
 
-$.getJSON("listaLibros", {}, function(data){
-	$.each(data, function(index,item){
-		$("#id_titulo").append("<option value="+item.idTitulo +">"+ item.nombre +"</option>");
+
+$.getJSON("listaCategoriaDeLibro", {}, function(data) {
+	$.each(data, function(index, item) {
+		$("#id_categoria").append("<option value="+item.idDataCatalogo +">" + item.descripcion + "</option>");
 	});
 });
+
+$.getJSON("listaTipoLibroRevista", {}, function(data) {
+	$.each(data, function(index, item) {
+		$("#id_tipo").append("<option value="+item.idDataCatalogo +">" + item.descripcion+ "</option>");});
+});
+
 
 $("#id_registrar").click(function (){ 
 	var validator = $('#id_form').data('bootstrapValidator');
