@@ -1,5 +1,13 @@
 package com.centroinformacion.repository;
 
-public interface EditorialRepository {
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.centroinformacion.entity.Editorial;
+
+public interface EditorialRepository extends JpaRepository<Editorial, Integer> {
+	
+	public List<Editorial> findByRuc(String ruc);
 
 }
