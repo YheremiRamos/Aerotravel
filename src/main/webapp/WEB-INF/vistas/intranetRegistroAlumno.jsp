@@ -149,11 +149,6 @@ function limpiarFormulario(){
                             max: 40,
                             message: 'El nombre es de 2 a 40 caracteres'
                         },
-                        remote :{
-                        	delay: 1000,
-                        	url: 'buscaPorNombresAlumno',
-                        	message: 'El nombre ya existe'
-                        }
                     }
                 },
                 apellidos:{

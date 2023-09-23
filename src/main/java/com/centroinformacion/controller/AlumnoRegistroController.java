@@ -49,17 +49,6 @@ public class AlumnoRegistroController {
 		return map;
 	}
 	
-	@GetMapping("/buscaPorNombresAlumno" )
-	@ResponseBody
-	public String validaNombres(String nombres){
-		List<Alumno> lstAlumno = alumnoService.listaPorNombres(nombres);
-		if (CollectionUtils.isEmpty(lstAlumno)) {
-			return "{\"valid\" : true }";
-		} else {
-			return "{\"valid\" : false }";
-		}
-	}
-	
 	@GetMapping("/buscaPorDniAlumno" )
 	@ResponseBody
 	public String validaDni(String dni){

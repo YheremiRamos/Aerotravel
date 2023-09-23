@@ -25,11 +25,6 @@ public class AlumnoServiceImp implements AlumnoService {
 	}
 
 	@Override
-	public List<Alumno> listaPorNombres(String nombres) {
-		return repository.findByNombres(nombres);
-	}
-
-	@Override
 	public List<Alumno> listaPorDni(String dni) {
 		return repository.findByDni(dni);
 	}
