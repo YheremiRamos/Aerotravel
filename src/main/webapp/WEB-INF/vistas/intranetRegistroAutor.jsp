@@ -1,9 +1,6 @@
 <jsp:include page="intranetValida.jsp" />
 <!DOCTYPE html>
-<html lang="esS">
-<head>
-
-
+<html lang="esS" >
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -13,8 +10,6 @@
 <meta http-equiv="Cache-Control" content="private" />
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="Pragma" content="no-cache" />
-
-
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
@@ -27,48 +22,47 @@
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="css/bootstrapValidator.css" />
 
+
 <title>Intranet</title>
 </head>
 <body>
 	<jsp:include page="intranetCabecera.jsp" />
 	<div class="container" style="margin-top: 4%">
-		<h4>Registro Autor</h4>
+		<h4>&nbsp;&nbsp;&nbsp;Registro Autor</h4>
 	</div>
 
 	<div class="container" style="margin-top: 5px">
 		<!-- Agregar aquí -->
+
+
 		<form id="id_form" method="post">
-
 			<!--  NOMBRE -->
-
-			<div class="row" style="margin-top: 5%">
+			<div class="row" style="margin-top: 2%">
 				<div class="form-group col-sm-6">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_nombres">Nombre</label>
 					</div>
-					<div class="col-sm-8">
+					<div class="col-sm-6">
 						<input class="form-control" type="text" id="id_nombres"
 							name="nombres" placeholder="Ingrese el nombre del autor"
-							type="text" maxlength="25">
+							type="text" maxlength="40">
 					</div>
 				</div>
 
 				<!--  APELLIDO -->
-
-				<div class="form-group  col-sm-6">
+				<div class="form-group col-sm-6">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_apellidos">Apellido</label>
 					</div>
 					<div class="col-sm-6">
 						<input class="form-control" id="id_apellidos" name="apellidos"
 							placeholder="Ingrese el apellido del autor" type="text"
-							maxlength="25" />
+							maxlength="40" />
 					</div>
 				</div>
 
 				<!--  FECHA NACIMIENTO -->
-
-				<div class="form-group  col-sm-6">
+				<div class="form-group col-sm-6">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_fechaNacimiento">Fecha
 							de Nacimiento</label>
@@ -82,9 +76,7 @@
 				</div>
 
 				<!--  TELEFONO -->
-
-
-				<div class="form-group  col-sm-6">
+				<div class="form-group col-sm-6">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_telefono">Teléfono</label>
 					</div>
@@ -96,40 +88,45 @@
 				</div>
 			</div>
 
-			<!--  LISTA DESPLEGABLE PAIS -->
+			<!-- LISTA DESPLEGABLE PAIS -->
+			<div class="row">
 
+				<div class="form-group col-md-6">
+					<label class="control-label
+		col-sm-4" for="id_pais">País</label>
+					<div class="col-sm-8">
+						<select id="id_pais" name="pais.idPais" class="form-control">
+							<option value="">[Seleccione]</option>
+						</select>
+					</div>
+				</div>
 
-			<div class="form-group col-md-3">
-				<label class="control-label" for="id_pais">País</label> <select
-					id="id_pais" name="pais.idPais" class='form-control'>
-					<option value=" ">[Seleccione]</option>
-				</select>
-			</div>
-
-			<!--  LISTA DESPLEGABLE GRADO -->
-
-
-			<div class="form-group col-md-3">
-				<label class="control-label" for="id_grado">Grado</label> <select
-					id="id_grado" name="grado.idDataCatalogo" class='form-control'>
-					<option value=" ">[Seleccione]</option>
-				</select>
+				<!-- LISTA DESPLEGABLE GRADO -->
+				<div class="form-group col-md-6">
+					<label class="control-label col-sm-4" for="id_grado">Grado</label>
+					<div class="col-sm-8">
+						<select id="id_grado" name="grado.idDataCatalogo"
+							class="form-control">
+							<option value="">[Seleccione]</option>
+						</select>
+					</div>
+				</div>
 			</div>
 
 
 			<!--  BOTON -->
-
-
-
 			<div class="row" style="margin-top: 2%" align="center">
-				<button id="id_registrar" type="button" class="btn btn-primary">REGISTRAR</button>
+				<button id="id_registrar" type="button" class="btn btn-primary">Registrar
+				</button>
 			</div>
 		</form>
 	</div>
 
 
-<!-- VALIDACIONES -->
 
+
+
+	<!-- VALIDACIONES -->
 	<script type="text/javascript">
 	
 	
