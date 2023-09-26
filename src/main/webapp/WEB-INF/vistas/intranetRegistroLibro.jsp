@@ -33,13 +33,13 @@
 	 <div class="col-md-12" style="margin-top: 2%">
 			<div class="row">
 				<div class="form-group col-md-9">
-					<label class="control-label" for="id_titulo">Titulo</label>
-					<input class="form-control" type="text" id="id_titulo" name="titulo" placeholder="Ingrese el Titulo">
+					<label class="control-label" for="id_titulo">TÌtulo</label>
+					<input class="form-control" type="text" id="id_titulo" name="titulo" placeholder="Ingrese el TÌtulo">
 				</div>
 				
 				<div class="form-group col-md-9">
-					<label class="control-label" for="id_a√±o">A√±o</label>
-					<input class="form-control" type="text" id="id_a√±o" name="a√±o" placeholder="Ingrese el A√±o">
+					<label class="control-label" for="id_anio">AÒo</label>
+					<input class="form-control" type="text" id="id_anio" name="anio" placeholder="Ingrese el AÒo">
 				</div>
 				
 				<div class="form-group col-md-9">
@@ -48,7 +48,7 @@
 				</div>
 				
 <div class="form-group col-md-3">
-					<label class="control-label" for="id_categoria">Categoria</label>
+					<label class="control-label" for="id_categoria">CategorÌa</label>
 					<select id="id_categoria" name="categoriaLibro.idDataCatalogo" class='form-control'>
 						<option value=" ">[Seleccione]</option>    
 					</select>
@@ -74,98 +74,6 @@
 </div>
 
 <script type="text/javascript">
-
-$.getJSON("listaLibros", {}, function(data){
-	$.each(data, function(index,item){
-		$("#id_titulo").append("<option value="+item.idTitulo +">"+ item.nombre +"</option>");
-	});
-});
-
-$("#id_registrar").click(function (){ 
-	var validator = $('#id_form').data('bootstrapValidator');
-    validator.validate();
-    
-	if (validator.isValid()){
-		$.ajax({
-    		type: "POST",
-            url: "registraEjemplo", 
-            data: $('#id_form').serialize(),
-            success: function(data){
-            	mostrarMensaje(data.MENSAJE);
-            	validator.resetForm();
-            	limpiarFormulario();
-            },
-            error: function(){
-            	mostrarMensaje(MSG_ERROR);
-            }
-    	});
-	}   
-});
-
-function limpiarFormulario(){
-	$("#id_titulo").val('');
-	$("#id_a√±o").val(' ');
-	$("#id_serie").val(' ');
-	$("#id_categoria").val(' ');
-	$("#id_tipo").val(' ');
-}
-
-$('#id_form').bootstrapValidator({
-    message: 'This value is not valid',
-    feedbackIcons: {
-        valid: 'glyphicon glyphicon-ok',
-        invalid: 'glyphicon glyphicon-remove',
-        validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-    	descripcion: {
-    		selector : '#id_titulo',
-            validators: {
-                notEmpty: {
-                    message: 'El titulo es un campo obligatorio'
-                },
-                stringLength :{
-                	message:'El titulo es de 2 a 40 caracteres',
-                	min : 2,
-                	max : 40
-                },
-            }
-        },
-        a√±o:{
-        	selector : '#id_a√±o',
-        	validators:{
-        		notEmpty:{
-        			message: 'El A√±o es obligatorio'
-        		},regexp: {
-                    regexp: /^\d{4}$/,
-                    message: 'El A√±o debe consistir en 4 d√≠gitos num√©ricos'
-                },
-        		 
-        	}
-        },
-        serie: {
-        	selector: '#id_serie',
-        	validators:{
-        		notEmpty:{
-        			message: 'La serie es obligatoria'
-        		},
-        		regexp: {
-                    regexp: /^[A-Za-z]{2}\d{3}$/,
-                    message: 'La Serie debe consistir en 2 letras seguidas de 3 n√∫meros'
-                },
-        	}
-        },
-        pais: {
-    		selector : '#id_pais',
-            validators: {
-            	notEmpty: {
-                    message: 'Pa√≠s es un campo obligatorio'
-                },
-            }
-        },
-    	
-    }   
-});
 
 $.getJSON("listaCategoriaDeLibro", {}, function(data) {
 	$.each(data, function(index, item) {
@@ -202,11 +110,13 @@ $("#id_registrar").click(function (){
 
 function limpiarFormulario(){
 	$("#id_titulo").val('');
-	$("#id_a√±o").val(' ');
+	$("#id_anio").val(' ');
 	$("#id_serie").val(' ');
 	$("#id_categoria").val(' ');
 	$("#id_tipo").val(' ');
 }
+
+
 
 $('#id_form').bootstrapValidator({
     message: 'This value is not valid',
@@ -216,27 +126,27 @@ $('#id_form').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-    	descripcion: {
+    	titulo: {
     		selector : '#id_titulo',
             validators: {
                 notEmpty: {
-                    message: 'El titulo es un campo obligatorio'
+                    message: 'El tÌtulo es un campo obligatorio'
                 },
                 stringLength :{
-                	message:'El titulo es de 2 a 40 caracteres',
+                	message:'El tÌtulo es de 2 a 40 caracteres',
                 	min : 2,
                 	max : 40
                 },
             }
         },
-        a√±o:{
-        	selector : '#id_a√±o',
+        anio:{
+        	selector : '#id_anio',
         	validators:{
         		notEmpty:{
-        			message: 'El A√±o es obligatorio'
+        			message: 'El AÒo es obligatorio'
         		},regexp: {
                     regexp: /^\d{4}$/,
-                    message: 'El A√±o debe consistir en 4 d√≠gitos num√©ricos'
+                    message: 'El AÒo debe consistir en 4 dÌgitos numÈricos'
                 },
         		 
         	}
@@ -249,21 +159,29 @@ $('#id_form').bootstrapValidator({
         		},
         		regexp: {
                     regexp: /^[A-Za-z]{2}\d{3}$/,
-                    message: 'La Serie debe consistir en 2 letras seguidas de 3 n√∫meros'
+                    message: 'La Serie debe consistir en 2 letras seguidas de 3 n˙meros'
                 },
         	}
         },
-        pais: {
-    		selector : '#id_pais',
+        categoria: {
+    		selector : '#id_categoria',
             validators: {
             	notEmpty: {
-                    message: 'Pa√≠s es un campo obligatorio'
+                    message: 'CategorÌa es un campo obligatorio'
                 },
             }
         },
-    	
+       	tipo: {
+    		selector : '#id_tipo',
+            validators: {
+            	notEmpty: {
+                    message: 'Tipo es un campo obligatorio'
+                },
+            }
+        },
     }   
 });
+
 
 </script>   		
 </body>

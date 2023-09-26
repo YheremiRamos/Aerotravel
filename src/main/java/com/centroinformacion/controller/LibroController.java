@@ -39,6 +39,7 @@ public class LibroController {
 		DataCatalogo objData = new DataCatalogo();
 		objData.setIdDataCatalogo(27);
 		obj.setEstadoPrestamo(objData);
+
 		
 		HashMap<String, String> map = new HashMap<String, String>();
 		Libro objSalida = libroService.insertaActualizaLibro(obj);
