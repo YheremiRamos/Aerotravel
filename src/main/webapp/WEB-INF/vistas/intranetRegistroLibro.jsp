@@ -161,6 +161,11 @@ $('#id_form').bootstrapValidator({
                     regexp: /^[A-Za-z]{2}\d{3}$/,
                     message: 'La Serie debe consistir en 2 letras seguidas de 3 números'
                 },
+                remote :{
+                	delay: 200,
+                	url: 'buscaPorSerie',
+                	message: 'El numero de Serie ya existe'
+                }
         	}
         },
         categoria: {

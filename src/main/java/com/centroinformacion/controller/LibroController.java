@@ -6,10 +6,13 @@ package com.centroinformacion.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.centroinformacion.entity.DataCatalogo;
@@ -50,6 +53,20 @@ public class LibroController {
 		}
 		return map;
 	}
+	
+	
+	           
+	@GetMapping("/buscaPorSerie")
+	@ResponseBody
+	public String validaPorNumeroSerie(String serie) {
+		List<Libro> lstNumSerie = libroService.listaPorNumeroSerie(serie);
+		if (CollectionUtils.isEmpty(lstNumSerie)) {
+			return "{\"valid\" : true }";
+		} else {
+			return "{\"valid\" : false }";
+		}
+	}
+	
 	
 	
 }
