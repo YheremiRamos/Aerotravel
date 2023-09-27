@@ -44,6 +44,8 @@
 							class="form-control" type="text" id="id_tema" name="tema"
 							placeholder="Ingrese el tema">
 					</div>
+					</div>
+					<div class="row">
 					<div class="form-group  col-sm-6">
 						<label class="control-label" for="id_fechaCreacion">Fecha
 							de Creación</label> <input class="form-control" type="date"
