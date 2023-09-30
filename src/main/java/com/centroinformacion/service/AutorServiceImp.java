@@ -27,4 +27,10 @@ public class AutorServiceImp implements AutorService{
 	}
 
 	
+	@Override
+	public List<Autor> listaPorNombreLike(String filtro) {
+		return repository.listaPorNombreLike(filtro);
+	}
+
+	 
 }
