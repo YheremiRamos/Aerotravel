@@ -8,5 +8,11 @@ public interface EditorialService {
 
 	public abstract Editorial insertaEditorial(Editorial obj);
 	public abstract List<Editorial> listaPorRuc(String ruc);
+	
+	
+	
+	
+	
+	public abstract List<Editorial> listaPorRucLike(String filtro);
 
 }
