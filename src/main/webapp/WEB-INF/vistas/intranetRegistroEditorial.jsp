@@ -130,7 +130,7 @@ $('#id_form').bootstrapValidator({
                     message:'La razón social es un campo obligatorio'
                 },
                 stringLength :{
-                	message:'La razón social es de 2 a 40 caracteres',
+                	message:'La razón social es de 2 a 40 carácteres',
                 	min : 2,
                 	max : 40
                 },
@@ -145,7 +145,7 @@ $('#id_form').bootstrapValidator({
                     message: 'La dirección es un campo obligatorio'
                 },
                 stringLength :{
-                	message:'La dirección es de 2 a 40 caracteres',
+                	message:'La dirección es de 2 a 40 carácteres',
                 	min : 2,
                 	max : 40
                 },
