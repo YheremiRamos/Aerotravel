@@ -38,7 +38,7 @@
 		<form id="id_form" method="post">
 			<!--  NOMBRE -->
 			<div class="row" style="margin-top: 2%">
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-4">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_nombres">Nombre</label>
 					</div>
@@ -48,9 +48,8 @@
 							type="text" maxlength="40">
 					</div>
 				</div>
-
-				<!--  APELLIDO -->
-				<div class="form-group col-sm-6">
+					<!--  APELLIDO -->
+				<div class="form-group col-sm-4">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_apellidos">Apellido</label>
 					</div>
@@ -60,9 +59,8 @@
 							maxlength="40" />
 					</div>
 				</div>
-
 				<!--  FECHA NACIMIENTO -->
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-4">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_fechaNacimiento">Fecha
 							de Nacimiento</label>
@@ -74,9 +72,10 @@
 							maxlength="100">
 					</div>
 				</div>
-
+			</div>
+			<div class="row">
 				<!--  TELEFONO -->
-				<div class="form-group col-sm-6">
+				<div class="form-group col-sm-4">
 					<div class="col-sm-4">
 						<label class="control-label" for="id_telefono">Teléfono</label>
 					</div>
@@ -86,23 +85,17 @@
 							maxlength="9" />
 					</div>
 				</div>
-			</div>
-
-			<!-- LISTA DESPLEGABLE PAIS -->
-			<div class="row">
-
-				<div class="form-group col-md-6">
-					<label class="control-label
-		col-sm-4" for="id_pais">País</label>
+				<!-- LISTA DESPLEGABLE PAIS -->
+				<div class="form-group col-md-4">
+					<label class="control-label col-sm-4" for="id_pais">País</label>
 					<div class="col-sm-8">
 						<select id="id_pais" name="pais.idPais" class="form-control">
 							<option value="">[Seleccione]</option>
 						</select>
 					</div>
 				</div>
-
 				<!-- LISTA DESPLEGABLE GRADO -->
-				<div class="form-group col-md-6">
+				<div class="form-group col-md-4">
 					<label class="control-label col-sm-4" for="id_grado">Grado</label>
 					<div class="col-sm-8">
 						<select id="id_grado" name="grado.idDataCatalogo"
@@ -111,9 +104,9 @@
 						</select>
 					</div>
 				</div>
-			</div>
-
-
+			
+		 </div>
+  
 			<!--  BOTON -->
 			<div class="row" style="margin-top: 2%" align="center">
 				<button id="id_registrar" type="button" class="btn btn-primary">Registrar

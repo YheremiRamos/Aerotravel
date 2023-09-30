@@ -35,29 +35,29 @@
 	 
 			<div class="row">
 			
-				<div class="form-group col-md-9">
+				<div class="form-group col-md-6">
 					<label class="control-label" for="id_razon_social">Razón Social</label>
 					<input class="form-control" type="text" id="id_razon_social" name="razonSocial" placeholder="Ingrese la razón social">
 				</div>
 				
 				
-				<div class="form-group col-md-9">
+				<div class="form-group col-md-3">
 					<label class="control-label" for="id_direccion">Dirección</label>
 					<input class="form-control" type="text" id="id_direccion" name="direccion" placeholder="Ingrese la dirección">
 				</div>
 				
-				<div class="form-group col-md-9">
+				<div class="form-group col-md-3">
 					<label class="control-label" for="id_ruc">RUC</label>
 					<input class="form-control" type="text" id="id_ruc" name="ruc" placeholder="Ingrese el RUC">
 				</div>
-				
-				
-				<div class="form-group col-md-9">
+			</div>
+			<div class="row">
+				<div class="form-group col-md-3">
 					<label class="control-label" for="id_fecha_creacion">Fecha Creación</label>
 					<input class="form-control" type="date" id="id_fecha_creacion" name="fechaCreacion" placeholder="Ingrese la fecha de creación">
 				</div>
 				
-				<div class="form-group col-md-9">
+				<div class="form-group col-md-3">
 					<label class="control-label" for="id_pais">País</label>
 					<select id="id_pais" name="pais.idPais" class='form-control'>
 						<option value=" ">[Seleccione]</option>    

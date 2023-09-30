@@ -32,22 +32,23 @@
 	<form  id="id_form" method="post"> 
 	 <div class="col-md-12" style="margin-top: 2%">
 			<div class="row">
-				<div class="form-group col-md-9">
+				<div class="form-group col-md-6">
 					<label class="control-label" for="id_titulo">Título</label>
 					<input class="form-control" type="text" id="id_titulo" name="titulo" placeholder="Ingrese el Título">
 				</div>
 				
-				<div class="form-group col-md-9">
+				<div class="form-group col-md-3">
 					<label class="control-label" for="id_anio">Año</label>
 					<input class="form-control" type="text" id="id_anio" name="anio" placeholder="Ingrese el Año">
 				</div>
 				
-				<div class="form-group col-md-9">
+				<div class="form-group col-md-3">
 					<label class="control-label" for="id_serie">Serie</label>
 					<input class="form-control" type="text" id="id_serie" name="serie" placeholder="Ingrese la Serie">
 				</div>
-				
-<div class="form-group col-md-3">
+			</div>
+			<div class="row">	
+				<div class="form-group col-md-3">
 					<label class="control-label" for="id_categoria">Categoría</label>
 					<select id="id_categoria" name="categoriaLibro.idDataCatalogo" class='form-control'>
 						<option value=" ">[Seleccione]</option>    

@@ -125,8 +125,8 @@ function limpiarFormulario(){
 	$('#id_dni').val('');
 	$('#id_correo').val('');
 	$('#id_fecha').val('');
-	$('#id_pais').val('');
-	$('#id_modalidad').val('');
+	$('#id_pais').val(' ');
+	$('#id_modalidad').val(' ');
 }
 
 
