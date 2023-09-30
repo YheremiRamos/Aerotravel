@@ -23,4 +23,9 @@ public class TesisServiceImp implements TesisService{
 		return repository.findByTituloOrTemaIgnoreCase(titulo, tema);
 	}
 
+	@Override
+	public List<Tesis> listaPorTituloLike(String filtro) {
+		return repository.listaPorTituloLike(filtro);
+	}
+
 }
