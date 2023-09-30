@@ -101,10 +101,10 @@
 		});
 
 		function limpiarFormulario() {
-			$('#id_titulo').val('');
-			$('#id_tema').val('');
-			$('#id_fechaCreacion').val('');
-			$('#id_alumno').val('');
+			$('#id_titulo').val(' ');
+			$('#id_tema').val(' ');
+			$('#id_fechaCreacion').val(' ');
+			$('#id_alumno').val(' ');
 		}
 
 		$('#id_form').bootstrapValidator({
