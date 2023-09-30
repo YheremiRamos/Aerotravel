@@ -22,4 +22,11 @@ public class EditorialServiceImp implements EditorialService {
 	public List<Editorial> listaPorRuc(String ruc){
 		return repository.findByRuc(ruc);
 	}
+
+	
+	
+	@Override
+	public List<Editorial> listaPorRucLike(String filtro) {
+		return repository.listaPorRucLike(filtro);
+	}
 }
