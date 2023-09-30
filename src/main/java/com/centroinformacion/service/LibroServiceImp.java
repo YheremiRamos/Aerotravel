@@ -26,4 +26,9 @@ public class LibroServiceImp implements LibroService {
 	public List<Libro> listaPorNumeroSerie(String serie) {
 		return repository.findBySerieIgnoreCase(serie);
 	}
+
+	@Override
+	public List<Libro> listaPorTituloLike(String filtro) {
+		return repository.listPorTituloLike(filtro);
+	}
 }

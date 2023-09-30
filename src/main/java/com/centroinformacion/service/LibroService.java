@@ -11,5 +11,6 @@ public interface LibroService {
 	public abstract List<Libro> listaPorNumeroSerie(String serie);
 	
 	
+	public abstract List<Libro> listaPorTituloLike(String filtro);
 	
 }
