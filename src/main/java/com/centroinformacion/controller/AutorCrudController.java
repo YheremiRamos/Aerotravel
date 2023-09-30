@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.centroinformacion.entity.Autor;
 import com.centroinformacion.service.AutorService;
@@ -15,7 +16,8 @@ public class AutorCrudController {
 	@Autowired
 	private AutorService autorService;
 
-	@GetMapping("/ConsultaCrudAutor")
+	@ResponseBody
+	@GetMapping("/consultaCrudAutor")
 	public List<Autor> consulta(String filtro){
 	 List<Autor>  listSalida =autorService.listaPorNombreLike("%"+filtro+"%");
 	

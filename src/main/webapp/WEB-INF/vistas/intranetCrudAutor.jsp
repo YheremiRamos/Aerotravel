@@ -24,20 +24,12 @@
 <title>Intranet</title>
 </head>
 <body>
-
-
-
 <jsp:include page="intranetCabecera.jsp" />
 <div class="container" style="margin-top: 4%"><h4>CRUD Autor</h4></div>
-
 <div class="container" style="margin-top: 1%">
-
-
-<!-- Agregar aquí -->
-	
-	 <div class="row" style="height: 70px">
-						<div class="col-md-2" >
-								<input class="form-control" id="id_txt_filtro"  name="filtro" placeholder="Ingrese el nombre" type="text" maxlength="30"/>
+<div class="row" style="height: 70px">
+						<div class="col-md-3" >
+								<input class="form-control" id="id_txt_filtro"  name="filtro" placeholder="Ingrese el nombre o apellidos" type="text" maxlength="30"/>
 						</div>
 						<div class="col-md-2" >
 							<button type="button" class="btn btn-primary" id="id_btn_filtrar" style="width: 150px">FILTRA</button>
@@ -54,11 +46,12 @@
 										<thead>
 											<tr>
 												<th style="width: 5%" >ID</th>
-												<th style="width: 25%">Nombre</th>
-											    <th style="width: 25%">Apellidos</th>
-												<th style="width: 8%">Telefono</th>
-												<th style="width: 8%">Pais</th>
-												<th style="width: 8%">Grado</th>
+												<th style="width: 10%">Nombres</th>
+												<th style="width: 10%">Apellidos</th>
+												<th style="width: 15%">Fecha de Nacimiento</th>
+												<th style="width: 9%">Teléfono</th>
+												<th style="width: 10%">Pais</th>
+												<th style="width: 10%">Grado</th>
 												<th style="width: 10%">Actualiza</th>
 												<th style="width: 10%">Elimina</th>
 											</tr>
@@ -69,24 +62,15 @@
 								</div>	
 						</div>
 					</div>
-	
-	
-	
-	
 </div>
 
 <script type="text/javascript">
-<!-- Agregar aquí -->
-
-
-
 $("#id_btn_filtrar").click(function(){
 	var fil=$("#id_txt_filtro").val();
 	$.getJSON("consultaCrudAutor",{"filtro":fil}, function (lista){
 		agregarGrilla(lista);
 	});
 });
-
 
 
 function agregarGrilla(lista){
@@ -103,19 +87,16 @@ function agregarGrilla(lista){
 				{data: "idAutor"},
 				{data: "nombres"},
 				{data: "apellidos"},
-				{data: "pais.idPais"},
-				{data: "grado.idGrado"},
+				{data: "fechaNacimiento"},
 				{data: "telefono"},
+				{data: "pais.nombre"},
+				{data: "grado.descripcion"},
 				{data: "estado"},
-				{data: "estado"}
-	
+				{data: "estado"},
 																
 			]                                     
 	    });
 }
-
-
-
 
 
 </script>   		
