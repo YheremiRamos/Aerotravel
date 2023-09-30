@@ -29,5 +29,15 @@ public class AlumnoServiceImp implements AlumnoService {
 		return repository.findByDni(dni);
 	}
 
+	@Override
+	public List<Alumno> listaPorNombresOrApellidos(String nombres, String apellidos) {
+		return repository.findByNombresOrApellidosIgnoreCase(nombres,apellidos);
+	}
+
+	@Override
+	public List<Alumno> listaPorNombresLike(String filtro) {
+		return repository.listaPorNombresLike(filtro);
+	}
+
 	
 }
