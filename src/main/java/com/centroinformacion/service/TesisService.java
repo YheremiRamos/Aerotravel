@@ -8,5 +8,6 @@ public interface TesisService {
 
 	public abstract Tesis insertaActualizaTesis(Tesis obj);
 	public abstract List<Tesis> listaPorTituloOrTema(String titulo, String tema);
+	public abstract List<Tesis>listaPorTituloLike(String filtro);
 
 }
