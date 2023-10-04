@@ -28,4 +28,9 @@ public class TesisServiceImp implements TesisService{
 		return repository.listaPorTituloLike(filtro);
 	}
 
+	/*@Override
+	public Tesis insertaTesis(Tesis obj) {
+		return repository.save(obj);
+	}*/
+
 }
