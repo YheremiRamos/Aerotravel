@@ -210,7 +210,7 @@
 		                   				  <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_pais">País</label>
 		                                        <div class="col-lg-8">
-													<select id="id_act_pais" name="pais" class='form-control'>
+													<select id="id_act_pais" name="pais.nombre" class='form-control'>
 														<option value=" ">[Seleccione]</option>
 													</select>
 		                                        </div>
@@ -244,22 +244,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -311,7 +295,7 @@ function agregarGrilla(lista){
             {data: "pais.nombre"},
             {data: "grado.descripcion"}, // Utiliza "grado.descripcion" en lugar de "autor.idDataCatalogo.descripcion"
             {data: function(row, type, val, meta){
-                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.pais.nombre + '\',\'' + row.idDataCatalogo + '\')">Editar</button>';
+                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.pais.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
                 return salida;
             }, className: 'text-center'},
             {data: function(row, type, val, meta){

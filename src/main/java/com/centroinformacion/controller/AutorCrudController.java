@@ -25,8 +25,9 @@ public class AutorCrudController {
 	@Autowired
 	private AutorService autorService;
 
-	@ResponseBody
 	@GetMapping("/consultaCrudAutor")
+	@ResponseBody
+
 	public List<Autor> consulta(String filtro){
 	 List<Autor>  listSalida =autorService.listaPorNombreLike("%"+filtro+"%");
 	
