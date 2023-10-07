@@ -31,7 +31,7 @@
 
 <div class="container" style="margin-top: 1%">
 	   <div class="row" style="height: 70px">
-						<div class="col-md-2" >
+				<div class="col-md-2" >
 								<input class="form-control" id="id_txt_filtro"  name="filtro" placeholder="Ingrese el nombre" type="text" maxlength="30"/>
 						</div>
 						<div class="col-md-2" >
@@ -48,8 +48,12 @@
 									<table id="id_table" class="table table-striped table-bordered" >
 										<thead>
 											<tr>
-												<th style="width: 5%" >ID</th>
-												<th style="width: 25%">Titulo</th>
+												<th style="width: 10%" >ID</th>
+												<th style="width: 15%">Titulo</th>
+												<th style="width: 10%">A&ntildeo</th>
+												<th style="width: 15%">Serie</th>
+											    <th style="width: 15%">Categoria</th>
+												<th style="width: 15%">Tipo</th>
 											</tr>
 										</thead>
 											<tbody>
@@ -63,17 +67,13 @@
 
 
 <script type="text/javascript">
+
 $("#id_btn_filtrar").click(function(){
 	var fil=$("#id_txt_filtro").val();
 	$.getJSON("consultaCrudLibro",{"filtro":fil}, function (lista){
 		agregarGrilla(lista);
 	});
 });
-
-
-
-
-
 
 function agregarGrilla(lista){
 	 $('#id_table').DataTable().clear();
@@ -87,8 +87,11 @@ function agregarGrilla(lista){
 			lengthChange: false,
 			columns:[
 				{data: "idLibro"},
-				{data: "titulo"}
-																
+				{data: "titulo"},
+				{data: "anio"},
+				{data: "serie"},
+				{data: "categoriaLibro.idDataCatalogo"},
+				{data: "tipoLibro.idDataCatalogo"}											
 			]                                     
 	    });
 }
