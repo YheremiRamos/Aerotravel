@@ -1,6 +1,7 @@
 package com.centroinformacion.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,11 @@ public class TesisServiceImp implements TesisService{
 	}
 	
 	@Override
+	public Tesis actualizaTesis(Tesis obj) {
+		return repository.save(obj);
+	}
+	
+	@Override
 	public List<Tesis> listaPorTituloOrTema(String titulo, String tema) {
 		return repository.findByTituloOrTemaIgnoreCase(titulo, tema);
 	}
@@ -28,9 +34,15 @@ public class TesisServiceImp implements TesisService{
 		return repository.listaPorTituloLike(filtro);
 	}
 
-	/*@Override
-	public Tesis insertaTesis(Tesis obj) {
-		return repository.save(obj);
-	}*/
+	@Override
+	public Optional<Tesis> buscaTesis(int idTesis) {
+		return repository.findById(idTesis);
+	}
+
+	@Override
+	public List<Tesis> listaPorTemaTituloIgual(String tema, String titulo) {
+		return repository.listaTesisPorTemaTituloIgual(tema, titulo);
+
+	}
 
 }

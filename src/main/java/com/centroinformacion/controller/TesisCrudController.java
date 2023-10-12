@@ -1,35 +1,58 @@
 package com.centroinformacion.controller;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.centroinformacion.entity.Tesis;
+import com.centroinformacion.entity.Usuario;
 import com.centroinformacion.service.TesisService;
+import com.centroinformacion.util.AppSettings;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class TesisCrudController {
-	
+
 	@Autowired
 	private TesisService tesisService;
-	
+
 	@ResponseBody
 	@GetMapping("/consultaCrudTesis")
-	public List<Tesis> consulta(String filtro){
-		 List<Tesis> lstSalida = tesisService.listaPorTituloLike("%"+filtro+"%");
-		 return lstSalida;
+	public List<Tesis> consulta(String filtro) {
+		List<Tesis> lstSalida = tesisService.listaPorTituloLike("%" + filtro + "%");
+		return lstSalida;
 	}
-	
-	/*@PostMapping("/registraCrudTesis")
+
+	/*REGISTRAR TESIS*/
+	@PostMapping("/registraCrudTesis")
 	@ResponseBody
-	public Map<?, ?> registra(Tesis obj) {
+	public Map<?, ?> registra(Tesis obj, HttpSession session){
+		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
+		obj.setFechaRegistro(new Date());
+		obj.setEstado(AppSettings.ACTIVO);
+		obj.setUsuarioRegistro(objUsuario);
+		obj.setUsuarioActualiza(objUsuario);
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		obj.setFechaRegistro(new Date()); 
-		obj.setFechaActualizacion(new Date());  
-		Tesis objSalida = tesisService.insertaTesis(obj);
+		obj.setFechaRegistro(new Date());
+		obj.setFechaActualizacion(new Date());
+		List<Tesis> lstSalida = tesisService.listaPorTemaTituloIgual(obj.getTema(), obj.getTitulo());
+		if (!CollectionUtils.isEmpty(lstSalida)) {
+			map.put("mensaje", "La Tesis " + obj.getTema() + " " + obj.getTitulo() + " ya existe");
+			return map;
+		}
+		
+		Tesis objSalida = tesisService.insertaActualizaTesis(obj);
 		if (objSalida == null) {
 			map.put("mensaje", "Error en el registro");
 		} else {
@@ -40,7 +63,64 @@ public class TesisCrudController {
 		return map;
 	}
 	
-	@GetMapping("/buscaPorTituloOrTemaTesis")
+	
+	/*ACTUALIZAR TESIS*/
+	@PostMapping("/actualizaCrudTesis")
+	@ResponseBody
+	public Map<?, ?> actualiza(Tesis obj, HttpSession session){
+		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
+		obj.setFechaRegistro(new Date());
+		obj.setEstado(AppSettings.ACTIVO);
+		obj.setUsuarioRegistro(objUsuario);
+		obj.setUsuarioActualiza(objUsuario);
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		Optional<Tesis> optTesis = tesisService.buscaTesis(obj.getIdTesis());
+		obj.setFechaRegistro(optTesis.get().getFechaRegistro());
+		obj.setEstado(optTesis.get().getEstado());
+		obj.setFechaActualizacion(new Date());
+
+		Tesis objSalida = tesisService.actualizaTesis(obj);
+		if (objSalida == null) {
+			map.put("mensaje", "Error en actualizar");
+		} else {
+			List<Tesis> lista = tesisService.listaPorTituloLike("%");
+			map.put("lista", lista);
+			map.put("mensaje", "Actualización exitosa");
+		}
+		return map;
+	}
+
+	
+	/*ELIMINAR TESIS*/
+	@ResponseBody
+	@PostMapping("/eliminaCrudTesis")
+	public Map<?, ?> elimina(int id, HttpSession session, Tesis obj) {
+		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
+		obj.setUsuarioRegistro(objUsuario);
+
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    Optional<Tesis> optTesis = tesisService.buscaTesis(id);
+	    if (optTesis.isPresent()) {
+	        Tesis objT = optTesis.get();
+	        objT.setFechaActualizacion(new Date());
+	        objT.setEstado(objT.getEstado() == AppSettings.ACTIVO ? AppSettings.INACTIVO : AppSettings.ACTIVO);
+	        Tesis objSalida = tesisService.actualizaTesis(obj);
+	        if (objSalida == null) {
+	            map.put("mensaje", "Error en actualizar");
+	        } else {
+	            List<Tesis> lista = tesisService.listaPorTituloLike("%");
+	            map.put("lista", lista);
+	        }
+	    } else {
+	        map.put("mensaje", "La Tesis con ID " + id + " no se encontró.");
+	    }
+	    return map;
+	}
+
+	
+	@GetMapping("/buscarPorTituloOrTemaTesis")
 	@ResponseBody
 	public String validaTituloOrTema(String titulo, String tema) {
 		List<Tesis> lstTesis = tesisService.listaPorTituloOrTema(titulo, tema);
@@ -49,5 +129,5 @@ public class TesisCrudController {
 		} else {
 			return "{\"valid\" : false }";
 		}
-	}*/
+	}
 }
