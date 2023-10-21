@@ -73,7 +73,7 @@
                 <h4><span class="glyphicon glyphicon-ok-sign"></span> Registro autor</h4>
             </div>
             <div class="modal-body" style="padding: 20px 10px;">
-                <form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudModalidad" class="form-horizontal" method="post">
+                <form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudAutor" class="form-horizontal" method="post">
                     <div class="panel-group" id="steps">
                         <!-- Step 1 -->
                         <div class="panel panel-default">
@@ -159,7 +159,7 @@
 				
 				
 			<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_registra" accept-charset="UTF-8" action="registraActualizaCrudModalidad" class="form-horizontal"     method="post">
+						<form id="id_form_actualiza" accept-charset="UTF-8" action="registraActualizaCrudAutor" class="form-horizontal"     method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
@@ -210,7 +210,7 @@
 		                   				  <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_pais">País</label>
 		                                        <div class="col-lg-8">
-													<select id="id_act_pais" name="pais.nombre" class='form-control'>
+													<select id="id_act_pais" name="pais" class='form-control'>
 														<option value=" ">[Seleccione]</option>
 													</select>
 		                                        </div>
@@ -295,7 +295,7 @@ function agregarGrilla(lista){
             {data: "pais.nombre"},
             {data: "grado.descripcion"}, // Utiliza "grado.descripcion" en lugar de "autor.idDataCatalogo.descripcion"
             {data: function(row, type, val, meta){
-                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.pais.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
+                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
                 return salida;
             }, className: 'text-center'},
             {data: function(row, type, val, meta){
@@ -309,19 +309,7 @@ function agregarGrilla(lista){
 
 
 
-function eliminar(id){	
-    $.ajax({
-          type: "POST",
-          url: "eliminaCrudAutor", 
-          data: {"id":id},
-          success: function(data){
-        	  agregarGrilla(data.lista);
-          },
-          error: function(){
-        	  mostrarMensaje(MSG_ERROR);
-          }
-     });
-}
+
 
 function editar(id, nombres, apellidos, fechaNacimiento, telefono, idPais, idGrado) {
     $('#id_ID').val(id);
@@ -330,7 +318,7 @@ function editar(id, nombres, apellidos, fechaNacimiento, telefono, idPais, idGra
     $('#id_act_fechaNaci').val(fechaNacimiento);
     $('#id_act_telefono').val(telefono);
     $('#id_act_pais').val(idPais); // Asegúrate de que idPais sea el valor correcto recibido
-    $('#id_act_grado').val(idGrado); // Asegúrate de que idGrado sea el valor correcto recibido
+    $('#id_act_grado').val(grado.idDataCatalogo); // Asegúrate de que idGrado sea el valor correcto recibido
 
     $('#id_div_modal_actualiza').modal("show");
 }
@@ -390,6 +378,36 @@ $("#id_btn_actualiza").click(function() {
 		});
 	}
 });
+
+
+function eliminar(id){	
+    $.ajax({
+          type: "POST",
+          url: "eliminaCrudAutor", 
+          data: {"id":id},
+          success: function(data){
+        	  agregarGrilla(data.lista);
+          },
+          error: function(){
+        	  mostrarMensaje(MSG_ERROR);
+          }
+     });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 	<script type="text/javascript">
@@ -401,8 +419,8 @@ $("#id_btn_actualiza").click(function() {
 				validating : 'glyphicon glyphicon-refresh'
 			},
 			fields : {
-			            nombres: {
-			                selector: "#id_reg_nombres",
+			            'nombres': {
+			                selector: "#id_reg_nombre",
 			                validators: {
 			                    notEmpty: {
 			                        message: 'El nombre es obligatorio'
@@ -415,8 +433,8 @@ $("#id_btn_actualiza").click(function() {
 			            }
 		            }
 		        },
-			            apellidos: {
-			                selector: "#id_reg_apellidos",
+			            'apellidos': {
+			                selector: "#id_reg_apellido",
 			                validators: {
 			                    notEmpty: {
 			                        message: 'El apellido es obligatorio'
@@ -429,7 +447,7 @@ $("#id_btn_actualiza").click(function() {
 			            }
 		            }
 		        },
-			            telefono: {
+			            'telefono': {
 			                selector: "#id_reg_telefono",
 			                validators: {
 			                    notEmpty: {
@@ -445,7 +463,7 @@ $("#id_btn_actualiza").click(function() {
 				             	}
 			                }
 			            },
-			            fechaNacimiento: {
+			            'fechaNacimiento': {
 			                selector: "#id_reg_fechaNaci",
 			                validators: {
 			                    notEmpty: {
@@ -453,16 +471,16 @@ $("#id_btn_actualiza").click(function() {
 			                    }
 			                }
 			            },
-			            pais: {
-			                selector: "#id_pais",
+			            'pais.idPais': {
+			                selector: "#id_reg_pais",
 			                validators: {
 			                    notEmpty: {
 			                        message: 'Seleccione un país'
 			                    }
 			                }
 			            },
-			            grado: {
-			                selector: "#id_grado",
+			            'grado.idCatalogo': {
+			                selector: "#id_reg_grado",
 			                validators: {
 			                    notEmpty: {
 			                        message: 'Seleccione un grado'
@@ -482,8 +500,8 @@ $("#id_btn_actualiza").click(function() {
 				validating : 'glyphicon glyphicon-refresh'
 			},
 			fields : {
-			    nombres: {
-	                selector: "#id_reg_nombres",
+			   'nombres': {
+	                selector: "#id_act_nombre",
 	                validators: {
 	                    notEmpty: {
 	                        message: 'El nombre es obligatorio'
@@ -496,8 +514,8 @@ $("#id_btn_actualiza").click(function() {
 	            }
             }
         },
-	            apellidos: {
-	                selector: "#id_reg_apellidos",
+	            'apellidos': {
+	                selector: "#id_act_apellido",
 	                validators: {
 	                    notEmpty: {
 	                        message: 'El apellido es obligatorio'
@@ -510,8 +528,8 @@ $("#id_btn_actualiza").click(function() {
 	            }
             }
         },
-	            telefono: {
-	                selector: "#id_reg_telefono",
+	            'telefono': {
+	                selector: "#id_act_telefono",
 	                validators: {
 	                    notEmpty: {
 	                        message: 'El teléfono es obligatorio'
@@ -526,24 +544,25 @@ $("#id_btn_actualiza").click(function() {
 		             	}
 	                }
 	            },
-	            fechaNacimiento: {
-	                selector: "#id_reg_fechaNaci",
+	            'fechaNacimiento': {
+	                selector: "#id_act_fechaNaci",
 	                validators: {
 	                    notEmpty: {
 	                        message: 'La fecha de nacimiento es obligatoria'
 	                    }
 	                }
 	            },
-	            pais: {
-	                selector: "#id_pais",
+	            
+	            'pais.idPais': {
+	                selector: "#id_act_pais",
 	                validators: {
 	                    notEmpty: {
 	                        message: 'Seleccione un país'
 	                    }
 	                }
 	            },
-	            grado: {
-	                selector: "#id_grado",
+	            'grado.idCatalogo': {
+	                selector: "#id_act_grado",
 	                validators: {
 	                    notEmpty: {
 	                        message: 'Seleccione un grado'

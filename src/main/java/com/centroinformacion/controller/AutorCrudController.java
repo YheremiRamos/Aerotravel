@@ -38,7 +38,10 @@ public class AutorCrudController {
 
 	@PostMapping("/registraCrudAutor")
 	@ResponseBody
-	public Map<?, ?> registra(Autor obj, HttpSession session){
+
+	public Map<?, ?> registraCrud(Autor obj, HttpSession session){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
 		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
 		obj.setFechaRegistro(new Date());
 		obj.setFechaActualizacion(new Date());
@@ -46,7 +49,6 @@ public class AutorCrudController {
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
 		
-		HashMap<String, String> map = new HashMap<String, String>();
 		Autor objSalida = autorService.insertaActualizaAutor(obj);
 		if (objSalida == null) {
 			map.put("MENSAJE", "Error en el registro");
@@ -58,9 +60,10 @@ public class AutorCrudController {
 	
 	
 	
-	
+
 	@PostMapping("/actualizaCrudAutor")
 	@ResponseBody
+
 	public Map<?, ?> actualiza(Autor obj) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Optional<Autor> optAutor = autorService.buscaAutor(obj.getIdAutor());
@@ -82,16 +85,17 @@ public class AutorCrudController {
 	
 	
 	
-	@ResponseBody
 	@PostMapping("/eliminaCrudAutor")
+	@ResponseBody
+
 	public Map<?, ?> elimina(int id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		Autor objModalidad= autorService.buscaAutor(id).get();
-		objModalidad.setFechaActualizacion(new Date());  
+		Autor objAutor= autorService.buscaAutor(id).get();
+		objAutor.setFechaActualizacion(new Date());  
 		/*1= activo : 0=iNACTIVO*/
-		objModalidad.setEstado( objModalidad.getEstado() == 1 ? 0 : 1);
-		Autor objSalida = autorService.insertaActualizaAutor(objModalidad);
+		objAutor.setEstado( objAutor.getEstado() == 1 ? 0 : 1);
+		Autor objSalida = autorService.insertaActualizaAutor(objAutor);
 		if (objSalida == null) {
 			map.put("mensaje", "Error en actualizar");
 		} else {
@@ -100,11 +104,5 @@ public class AutorCrudController {
 		}
 		return map;
 	}
-	
-	
-
-
-
-
 }
 
