@@ -251,10 +251,10 @@
 $.getJSON("listaPais", {}, function(data) {
     $.each(data, function(i, item) {
         $("#id_reg_pais").append(
-            "<option value="+item.pais +">" + item.nombre
+            "<option value="+item.idPais +">" + item.nombre
             + "</option>");
         $("#id_act_pais").append(
-            "<option value="+item.pais +">" + item.nombre
+            "<option value="+item.idPais +">" + item.nombre
             + "</option>");
     });
 });
@@ -322,6 +322,17 @@ function editar(id, nombres, apellidos, fechaNacimiento, telefono, idPais, idGra
 
     $('#id_div_modal_actualiza').modal("show");
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 $("#id_btn_registra").click(function() {

@@ -48,7 +48,7 @@ public class AutorCrudController {
 		obj.setEstado(AppSettings.ACTIVO);
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
-		
+
 		Autor objSalida = autorService.insertaActualizaAutor(obj);
 		if (objSalida == null) {
 			map.put("MENSAJE", "Error en el registro");
@@ -66,8 +66,10 @@ public class AutorCrudController {
 
 	public Map<?, ?> actualiza(Autor obj) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		Optional<Autor> optAutor = autorService.buscaAutor(obj.getIdAutor());
 		if (optAutor.isPresent()) {
+			
 			obj.setFechaActualizacion(new Date());
 			obj.setFechaRegistro(optAutor.get().getFechaRegistro());
 			obj.setEstado(optAutor.get().getEstado());
