@@ -15,6 +15,6 @@ public interface AlumnoRepository extends JpaRepository<Alumno, Integer>{
 	public List<Alumno> findByNombresOrApellidosIgnoreCase(String nombres, String apellidos);
 	
 	@Query("select a from Alumno a where a.nombres like ?1 or a.apellidos like ?1")
-	public List<Alumno> listaPorNombresLike(String filtro);
+	public List<Alumno> listaPorNombresApellidosLike(String filtro);
 	
 }
