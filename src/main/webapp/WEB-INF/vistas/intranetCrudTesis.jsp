@@ -247,7 +247,7 @@ function agregarGrilla(lista){
 			searching: false,
 			ordering: true,
 			processing: true,
-			pageLength: 10,
+			pageLength: 5,
 			lengthChange: false,
 			columns:[
 				{data: "idTesis"},
