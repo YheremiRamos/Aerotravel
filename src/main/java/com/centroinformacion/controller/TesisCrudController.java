@@ -1,4 +1,7 @@
 package com.centroinformacion.controller;
+/**
+ * @author Astrid Yovera
+ */
 
 import java.util.Date;
 import java.util.HashMap;
@@ -33,16 +36,16 @@ public class TesisCrudController {
 		return lstSalida;
 	}
 
-	/*REGISTRAR TESIS*/
+	/* REGISTRAR TESIS */
 	@PostMapping("/registraCrudTesis")
 	@ResponseBody
-	public Map<?, ?> registra(Tesis obj, HttpSession session){
-		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
+	public Map<?, ?> registra(Tesis obj, HttpSession session) {
+		Usuario objUsuario = (Usuario) session.getAttribute("objUsuario");
 		obj.setFechaRegistro(new Date());
 		obj.setEstado(AppSettings.ACTIVO);
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
-		
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		obj.setFechaRegistro(new Date());
 		obj.setFechaActualizacion(new Date());
@@ -51,7 +54,7 @@ public class TesisCrudController {
 			map.put("mensaje", "La Tesis " + obj.getTema() + " " + obj.getTitulo() + " ya existe");
 			return map;
 		}
-		
+
 		Tesis objSalida = tesisService.insertaActualizaTesis(obj);
 		if (objSalida == null) {
 			map.put("mensaje", "Error en el registro");
@@ -62,13 +65,12 @@ public class TesisCrudController {
 		}
 		return map;
 	}
-	
-	
-	/*ACTUALIZAR TESIS*/
+
+	/* ACTUALIZAR TESIS */
 	@PostMapping("/actualizaCrudTesis")
 	@ResponseBody
-	public Map<?, ?> actualiza(Tesis obj, HttpSession session){
-		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
+	public Map<?, ?> actualiza(Tesis obj, HttpSession session) {
+		Usuario objUsuario = (Usuario) session.getAttribute("objUsuario");
 		obj.setFechaRegistro(new Date());
 		obj.setEstado(AppSettings.ACTIVO);
 		obj.setUsuarioRegistro(objUsuario);
@@ -92,21 +94,20 @@ public class TesisCrudController {
 		return map;
 	}
 
-	
 	/*ELIMINAR TESIS*/
 	@ResponseBody
 	@PostMapping("/eliminaCrudTesis")
-	public Map<?, ?> elimina(int id, HttpSession session, Tesis obj) {
+	public Map<?, ?> elimina(int id, HttpSession session) {
 		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
-		obj.setUsuarioRegistro(objUsuario);
-
-	    HashMap<String, Object> map = new HashMap<String, Object>();
+	
+		HashMap<String, Object> map = new HashMap<String, Object>();
 	    Optional<Tesis> optTesis = tesisService.buscaTesis(id);
 	    if (optTesis.isPresent()) {
 	        Tesis objT = optTesis.get();
 	        objT.setFechaActualizacion(new Date());
+	        objT.setUsuarioActualiza(objUsuario);
 	        objT.setEstado(objT.getEstado() == AppSettings.ACTIVO ? AppSettings.INACTIVO : AppSettings.ACTIVO);
-	        Tesis objSalida = tesisService.actualizaTesis(obj);
+	        Tesis objSalida = tesisService.actualizaTesis(objT);
 	        if (objSalida == null) {
 	            map.put("mensaje", "Error en actualizar");
 	        } else {
@@ -119,7 +120,6 @@ public class TesisCrudController {
 	    return map;
 	}
 
-	
 	@GetMapping("/buscarPorTituloOrTemaTesis")
 	@ResponseBody
 	public String validaTituloOrTema(String titulo, String tema) {
