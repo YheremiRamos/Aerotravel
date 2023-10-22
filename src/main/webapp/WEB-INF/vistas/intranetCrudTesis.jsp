@@ -98,7 +98,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_reg_titulo"
 														name="titulo" placeholder="Ingrese el título" type="text"
-														maxlength="20" />
+														 />
 												</div>
 											</div>
 											<div class="form-group">
@@ -106,7 +106,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_reg_tema"
 														name="tema" placeholder="Ingrese el tema" type="text"
-														maxlength="20" />
+														 />
 												</div>
 											</div>
 											<div class="form-group">
@@ -171,7 +171,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_act_titulo"
 														name="titulo" placeholder="Ingrese el título" type="text"
-														maxlength="20" />
+														 />
 												</div>
 											</div>
 											<div class="form-group">
@@ -179,7 +179,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_act_tema"
 														name="tema" placeholder="Ingrese el tema" type="text"
-														maxlength="20" />
+														/>
 												</div>
 											</div>
 											<div class="form-group">
