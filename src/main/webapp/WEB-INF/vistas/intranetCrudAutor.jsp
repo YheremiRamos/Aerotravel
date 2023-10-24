@@ -10,6 +10,9 @@
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="Pragma" content="no-cache" />
 
+
+
+
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
@@ -310,24 +313,25 @@ function agregarGrilla(lista){
 
 
 
-
 function editar(id, nombres, apellidos, fechaNacimiento, telefono, idPais, idGrado) {
+	
     $('#id_ID').val(id);
     $('#id_act_nombre').val(nombres);
     $('#id_act_apellido').val(apellidos);
     $('#id_act_fechaNaci').val(fechaNacimiento);
     $('#id_act_telefono').val(telefono);
-    $('#id_act_pais').val(idPais); // Asegúrate de que idPais sea el valor correcto recibido
-    $('#id_act_grado').val(idGrado); // Asegúrate de que idGrado sea el valor correcto recibido
+    $('#id_act_pais').val(idPais);
+    $('#id_act_grado').val(idGrado);
 
+    // Abre el modal
     $('#id_div_modal_actualiza').modal("show");
 }
 
 
 
 
-
 $("#id_btn_actualiza").click(function() {
+
 	var validator = $('#id_form_actualiza').data('bootstrapValidator');
 	validator.validate();
 	if (validator.isValid()) {
@@ -525,17 +529,17 @@ function eliminar(id){
                 validators: {
                     notEmpty: {
                         message: 'Seleccione un grado'
-                    }
+                    },
                 }
-            }
+            },
         }
     });
 </script>
+
+
 <script type="text/javascript">
 
-$('#id_div_modal_actualiza').on('hidden.bs.modal', function () {
-    $('#id_form_actualiza').data('bootstrapValidator').resetForm();
-});
+
 
     $('#id_form_actualiza').bootstrapValidator({
         message: 'This value is not valid',
@@ -649,11 +653,13 @@ $('#id_div_modal_actualiza').on('hidden.bs.modal', function () {
                 validators: {
                     notEmpty: {
                         message: 'Seleccione un grado'
-                    }
+                    },
                 }
-            }
+            },
         }
     });
+    
+
 </script>
 </body>
 </html>
