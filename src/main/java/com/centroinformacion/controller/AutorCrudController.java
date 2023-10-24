@@ -76,6 +76,8 @@ public class AutorCrudController {
 			obj.setFechaRegistro(optAutor.get().getFechaRegistro());
 			obj.setEstado(optAutor.get().getEstado());
 			obj.setFechaActualizacion(new Date());
+			obj.setUsuarioRegistro(optAutor.get().getUsuarioRegistro());
+			obj.setUsuarioActualiza(optAutor.get().getUsuarioActualiza());
 
 			Autor objSalida = autorService.insertaActualizaAutor(obj);
 			if (objSalida == null) {
