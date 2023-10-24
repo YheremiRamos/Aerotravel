@@ -455,10 +455,10 @@ function eliminar(id){
                         url: 'buscaAutorNombreApellidoRegistro',
                         message: 'El Autor ya existe',
                         data: {
-                            nombres: function() {
+                            'nombres': function() {
                                 return $('#id_reg_nombre').val();
                             },
-                            apellidos: function() {
+                            'apellidos': function() {
                                 return $('#id_reg_apellido').val();
                             }
                         }
@@ -481,10 +481,10 @@ function eliminar(id){
                         url: 'buscaAutorNombreApellidoRegistro',
                         message: 'El Autor ya existe',
                         data: {
-                            nombres: function() {
+                            'nombres': function() {
                                 return $('#id_reg_nombre').val();
                             },
-                            apellidos: function() {
+                            'apellidos': function() {
                                 return $('#id_reg_apellido').val();
                             }
                         }
