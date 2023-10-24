@@ -10,6 +10,9 @@
 <meta http-equiv="Cache-Control" content="no-store" />
 <meta http-equiv="Pragma" content="no-cache" />
 
+
+
+
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
@@ -88,14 +91,14 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_nombre">Nombres</label>
                                         <div class="col-lg-8">
-                                            <input class="form-control" id="id_reg_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="20"/>
+                                            <input class="form-control" id="id_reg_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="40"/>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_apellido">Apellidos</label>
                                         <div class="col-lg-3">
-                                            <input class="form-control" id="id_reg_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="20"/>
+                                            <input class="form-control" id="id_reg_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="40"/>
                                         </div>
                                     </div>
 
@@ -125,7 +128,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_grado">Grado</label>
                                         <div class="col-lg-3">
-                                            <select id="id_reg_grado" name="autor.idDataCatalogo" class='form-control'>
+                                            <select id="id_reg_grado" name="grado" class='form-control'>
                                                 <option value=" ">[Seleccione]</option>
                                             </select>
                                         </div>
@@ -173,21 +176,21 @@
 												<label class="col-lg-3 control-label" for="id_ID">Código de Autor</label>
 												<div class="col-lg-8">
 													<input class="form-control" id="id_ID" readonly="readonly"
-														name="idProveedor" type="text" maxlength="8" />
+														name="idAutor" type="text" maxlength="8" />
 												</div>
 											</div>		                              
 		                                <div class="panel-body">
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_nombre">Nombres</label>
 		                                        <div class="col-lg-8">
-													<input class="form-control" id="id_act_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="20"/>
+													<input class="form-control" id="id_act_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                    
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_apellido">Apellidos</label>
 		                                        <div class="col-lg-3">
-													<input class="form-control" id="id_act_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="2"/>
+													<input class="form-control" id="id_act_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                    
@@ -220,7 +223,7 @@
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_grado">Grado</label>
 		                                        <div class="col-lg-3">
-														<select id="id_act_grado" name="autor.idDataCatalogo" class='form-control'>
+														<select id="id_act_grado" name="grado" class='form-control'>
 														<option value=" ">[Seleccione]</option>
 													</select>
 											 </div>
@@ -295,7 +298,7 @@ function agregarGrilla(lista){
             {data: "pais.nombre"},
             {data: "grado.descripcion"}, // Utiliza "grado.descripcion" en lugar de "autor.idDataCatalogo.descripcion"
             {data: function(row, type, val, meta){
-                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
+                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.pais.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
                 return salida;
             }, className: 'text-center'},
             {data: function(row, type, val, meta){
@@ -310,23 +313,47 @@ function agregarGrilla(lista){
 
 
 
-
 function editar(id, nombres, apellidos, fechaNacimiento, telefono, idPais, idGrado) {
+	
     $('#id_ID').val(id);
     $('#id_act_nombre').val(nombres);
     $('#id_act_apellido').val(apellidos);
     $('#id_act_fechaNaci').val(fechaNacimiento);
     $('#id_act_telefono').val(telefono);
-    $('#id_act_pais').val(idPais); // Asegúrate de que idPais sea el valor correcto recibido
-    $('#id_act_grado').val(grado.idDataCatalogo); // Asegúrate de que idGrado sea el valor correcto recibido
+    $('#id_act_pais').val(idPais);
+    $('#id_act_grado').val(idGrado);
 
+    // Abre el modal
     $('#id_div_modal_actualiza').modal("show");
 }
 
 
 
 
+$("#id_btn_actualiza").click(function() {
 
+	var validator = $('#id_form_actualiza').data('bootstrapValidator');
+	validator.validate();
+	if (validator.isValid()) {
+		$.ajax({
+			type : "POST",
+			url : "actualizaCrudAutor",
+			data : $('#id_form_actualiza').serialize(),
+			success : function(data) {
+				agregarGrilla(data.lista);
+				$('#id_div_modal_actualiza').modal("hide");
+				mostrarMensaje(data.mensaje);
+			
+	        	  validator.resetForm();
+
+
+			},
+			error : function() {
+				mostrarMensaje(MSG_ERROR);
+			}
+		});
+	}
+});
 
 
 
@@ -348,9 +375,9 @@ $("#id_btn_registra").click(function() {
 				agregarGrilla(data.lista);
 				$('#id_div_modal_registra').modal("hide");
 				mostrarMensaje(data.mensaje);
-				limpiarFormulario();
-				validator.resetForm();
-			},
+			 	  limpiarFormulario();
+	        	  validator.resetForm();
+	        	  },
 			error : function() {
 				mostrarMensaje(MSG_ERROR);
 			}
@@ -358,6 +385,14 @@ $("#id_btn_registra").click(function() {
 
 	}
 });
+
+
+
+
+
+
+
+
 
 function limpiarFormulario() {
 	$('#id_reg_nombre').val(' ');
@@ -370,25 +405,6 @@ function limpiarFormulario() {
 
 
 
-$("#id_btn_actualiza").click(function() {
-	var validator = $('#id_form_actualiza').data('bootstrapValidator');
-	validator.validate();
-	if (validator.isValid()) {
-		$.ajax({
-			type : "POST",
-			url : "actualizaCrudAutor",
-			data : $('#id_form_actualiza').serialize(),
-			success : function(data) {
-				agregarGrilla(data.lista);
-				$('#id_div_modal_actualiza').modal("hide");
-				mostrarMensaje(data.mensaje);
-			},
-			error : function() {
-				mostrarMensaje(MSG_ERROR);
-			}
-		});
-	}
-});
 
 
 function eliminar(id){	
@@ -407,181 +423,255 @@ function eliminar(id){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
-	<script type="text/javascript">
-		$('#id_form_registra').bootstrapValidator({
-			message : 'This value is not valid',
-			feedbackIcons : {
-				valid : 'glyphicon glyphicon-ok',
-				invalid : 'glyphicon glyphicon-remove',
-				validating : 'glyphicon glyphicon-refresh'
-			},
-			fields : {
-			            'nombres': {
-			                selector: "#id_reg_nombre",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'El nombre es obligatorio'
-			                    },
-			                    stringLength: {
-			                        min: 2,
-			                        max: 40,
-			                        message: 'El nombre es de 2 a 40 caracteres'
-			                   
-			            }
-		            }
-		        },
-			            'apellidos': {
-			                selector: "#id_reg_apellido",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'El apellido es obligatorio'
-			                    },
-			                    stringLength: {
-			                        min: 2,
-			                        max: 40,
-			                        message: 'El apellido es de 2 a 40 caracteres'
-			             
-			            }
-		            }
-		        },
-			            'telefono': {
-			                selector: "#id_reg_telefono",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'El teléfono es obligatorio'
-			                    },
-			                    regexp: {
-			                        regexp: /^[0-9]{9}$/,
-			                        message: 'El teléfono debe tener 9 dígitos'
-			                    },remote :{
-				            	    delay: 1000,
-				            	 	url: 'buscaPorTelefono',
-				            	 	message: 'El teléfono ya existe'
-				             	}
-			                }
-			            },
-			            'fechaNacimiento': {
-			                selector: "#id_reg_fechaNaci",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'La fecha de nacimiento es obligatoria'
-			                    }
-			                }
-			            },
-			            'pais.idPais': {
-			                selector: "#id_reg_pais",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'Seleccione un país'
-			                    }
-			                }
-			            },
-			            'grado.idCatalogo': {
-			                selector: "#id_reg_grado",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'Seleccione un grado'
-			                    },
-			                }
-			            },
-			        }
-			});
-	</script>
 
-	<script type="text/javascript">
-		$('#id_form_actualiza').bootstrapValidator({
-			message : 'This value is not valid',
-			feedbackIcons : {
-				valid : 'glyphicon glyphicon-ok',
-				invalid : 'glyphicon glyphicon-remove',
-				validating : 'glyphicon glyphicon-refresh'
-			},
-			fields : {
-			   'nombres': {
-	                selector: "#id_act_nombre",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'El nombre es obligatorio'
-	                    },
-	                    stringLength: {
-	                        min: 2,
-	                        max: 40,
-	                        message: 'El nombre es de 2 a 40 caracteres'
-	                   
-	            }
-            }
+<script type="text/javascript">
+
+
+
+
+    $('#id_form_registra').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
         },
-	            'apellidos': {
-	                selector: "#id_act_apellido",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'El apellido es obligatorio'
-	                    },
-	                    stringLength: {
-	                        min: 2,
-	                        max: 40,
-	                        message: 'El apellido es de 2 a 40 caracteres'
-	             
-	            }
-            }
+        fields: {
+            'nombres': {
+                selector: "#id_reg_nombre",
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El nombre es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoRegistro',
+                        message: 'El Autor ya existe',
+                        data: {
+                            nombres: function() {
+                                return $('#id_reg_nombre').val();
+                            },
+                            apellidos: function() {
+                                return $('#id_reg_apellido').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'apellidos': {
+                selector: "#id_reg_apellido",
+                validators: {
+                    notEmpty: {
+                        message: 'El apellido es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El apellido es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoRegistro',
+                        message: 'El Autor ya existe',
+                        data: {
+                            nombres: function() {
+                                return $('#id_reg_nombre').val();
+                            },
+                            apellidos: function() {
+                                return $('#id_reg_apellido').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'telefono': {
+                selector: "#id_reg_telefono",
+                validators: {
+                    notEmpty: {
+                        message: 'El teléfono es obligatorio'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{9}$/,
+                        message: 'El teléfono debe tener 9 dígitos'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaPorTelefono',
+                        message: 'El teléfono ya existe'
+                    }
+                }
+            },
+            'fechaNacimiento': {
+                selector: "#id_reg_fechaNaci",
+                validators: {
+                    notEmpty: {
+                        message: 'La fecha de nacimiento es obligatoria'
+                    },
+                    remote :{
+                    	delay   : 1000,
+                    	url     : 'buscaAutorMayorEdad',
+                    	message : 'El Autor debe ser mayor de edad'
+                    }
+                }
+            },
+              
+            'pais.idPais': {
+                selector: "#id_reg_pais",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un país'
+                    }
+                }
+            },
+            'grado.idCatalogo': {
+                selector: "#id_reg_grado",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un grado'
+                    },
+                }
+            },
+        }
+    });
+</script>
+
+
+<script type="text/javascript">
+
+
+
+    $('#id_form_actualiza').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
         },
-	            'telefono': {
-	                selector: "#id_act_telefono",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'El teléfono es obligatorio'
-	                    },
-	                    regexp: {
-	                        regexp: /^[0-9]{9}$/,
-	                        message: 'El teléfono debe tener 9 dígitos'
-	                    },remote :{
-		            	    delay: 1000,
-		            	 	url: 'buscaPorTelefono',
-		            	 	message: 'El teléfono ya existe'
-		             	}
-	                }
-	            },
-	            'fechaNacimiento': {
-	                selector: "#id_act_fechaNaci",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'La fecha de nacimiento es obligatoria'
-	                    }
-	                }
-	            },
-	            
-	            'pais.idPais': {
-	                selector: "#id_act_pais",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Seleccione un país'
-	                    }
-	                }
-	            },
-	            'grado.idCatalogo': {
-	                selector: "#id_act_grado",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Seleccione un grado'
-	                    },
-	                }
-	            },
-	        }
-	});
-	</script>
+        fields: {
+            'nombres': {
+                selector: "#id_act_nombre",
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El nombre es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoActualiza',
+                        message: 'El Autor ya existe',
+                        data: {
+                            'nombres': function() {
+                                return $('#id_act_nombre').val();
+                            },
+                            'apellidos': function() {
+                                return $('#id_act_apellido').val();
+                            },
+                            'id': function() {
+                                return $('#id_ID').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'apellidos': {
+                selector: "#id_act_apellido",
+                validators: {
+                    notEmpty: {
+                        message: 'El apellido es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El apellido es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoActualiza',
+                        message: 'El Autor ya existe',
+                        data: {
+                            'nombres': function() {
+                                return $('#id_act_nombre').val();
+                            },
+                            'apellidos': function() {
+                                return $('#id_act_apellido').val();
+                            },
+                            'id': function() {
+                                return $('#id_ID').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'telefono': {
+                selector: "#id_act_telefono",
+                validators: {
+                    notEmpty: {
+                        message: 'El teléfono es obligatorio'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{9}$/,
+                        message: 'El teléfono debe tener 9 dígitos'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorTelefonoIgualActualiza',
+                        message: 'El teléfono ya existe',
+                        data: {
+                            'telefono': function() {
+                                return $('#id_act_telefono').val();
+                            },
+                            'id': function() {
+                                return $('#id_ID').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'fechaNacimiento': {
+                selector: "#id_act_fechaNaci", 
+                validators: {
+                    notEmpty: {
+                        message: 'La fecha de nacimiento es obligatoria'
+                    },
+                    remote :{
+                    	delay   : 1000,
+                    	url     : 'buscaAutorMayorEdad',
+                    	message : 'El Autor debe ser mayor de edad'
+                    }
+                }
+            },
+              
+            'pais.idPais': {
+                selector: "#id_act_pais",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un país'
+                    }
+                }
+            },
+            'grado.idCatalogo': {
+                selector: "#id_act_grado",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un grado'
+                    },
+                }
+            },
+        }
+    });
+    
+
+</script>
 </body>
 </html>

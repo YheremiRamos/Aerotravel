@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +30,10 @@ public class AutorCrudController {
 	@ResponseBody
 
 	public List<Autor> consulta(String filtro){
-	 List<Autor>  listSalida =autorService.listaPorNombreLike("%"+filtro+"%");
+	 List<Autor>  listSalida =autorService.listaPorNombresApellidosLike("%"+filtro+"%");
 	
 	 return listSalida;
 	}
-
 
 
 	@PostMapping("/registraCrudAutor")
@@ -49,14 +49,29 @@ public class AutorCrudController {
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
 
+		
+		List<Autor> lstSalida = autorService.
+				listaPorNombresOrApellidos(
+						obj.getNombres(), 
+						obj.getApellidos());
+if (!CollectionUtils.isEmpty(lstSalida)) {
+	map.put("mensaje", "El Autor " + obj.getNombres() + " " + obj.getApellidos() + " ya existe");
+	return map;
+}
+		
 		Autor objSalida = autorService.insertaActualizaAutor(obj);
-		if (objSalida == null) {
-			map.put("MENSAJE", "Error en el registro");
-		}else {
-			map.put("MENSAJE", "Registro exitoso");
-		}
-		return map;
+	
+	  if (objSalida == null) {
+	        map.put("mensaje", "Error en el registro");
+	    } else {
+	        map.put("mensaje", "Registro exitoso");
+	        List<Autor> lista = autorService.listaPorNombresApellidosLike("%");
+	        map.put("lista", lista);
+	    }
+	    return map;
 	}
+	
+	
 	
 	
 	
@@ -66,27 +81,36 @@ public class AutorCrudController {
 
 	public Map<?, ?> actualiza(Autor obj) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+
 		
+
 		Optional<Autor> optAutor = autorService.buscaAutor(obj.getIdAutor());
 		if (optAutor.isPresent()) {
 			
-			obj.setFechaActualizacion(new Date());
 			obj.setFechaRegistro(optAutor.get().getFechaRegistro());
 			obj.setEstado(optAutor.get().getEstado());
+			obj.setFechaActualizacion(new Date());
+			obj.setUsuarioRegistro(optAutor.get().getUsuarioRegistro());
+			obj.setUsuarioActualiza(optAutor.get().getUsuarioActualiza());
+
 			Autor objSalida = autorService.insertaActualizaAutor(obj);
 			if (objSalida == null) {
 				map.put("mensaje", "Error en la actualización");
 			} else {
-				List<Autor> lstSalida = autorService.listaPorNombreLike("%");
+				map.put("mensaje", "Actualización exitosa");
+				List<Autor> lstSalida = autorService.listaPorNombresApellidosLike("%");
 				map.put("lista", lstSalida);
-				map.put("mensaje", "Actualizacón exitosa");
+
 			}
 		}
 		return map;
 	}
+
+
+
+
 	
-	
-	
+
 	@PostMapping("/eliminaCrudAutor")
 	@ResponseBody
 
@@ -101,10 +125,79 @@ public class AutorCrudController {
 		if (objSalida == null) {
 			map.put("mensaje", "Error en actualizar");
 		} else {
-			List<Autor> lista = autorService.listaPorNombreLike("%");
+			List<Autor> lista = autorService.listaPorNombresApellidosLike("%");
 			map.put("lista", lista);
 		}
 		return map;
 	}
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/buscaAutorNombreApellidoRegistro")
+	@ResponseBody
+	public String validaAutorRegistra(String nombres, String apellidos) {
+		List<Autor> lstSalida = autorService.listaPorNombreApellidoIgual(
+													nombres, apellidos);
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaAutorNombreApellidoActualiza")
+	@ResponseBody
+	public String validaAutorActualiza(String nombres, String apellidos, String id) {
+		
+		List<Autor> lstSalida = autorService.listaPorNombreApellidoIgualActualiza(
+				nombres, 
+				apellidos,
+				Integer.parseInt(id));
+		
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaAutorTelefonoIgualActualiza")
+	@ResponseBody
+	public String validaTelefonoActualiza(String telefono, String id) {
+		
+		List<Autor> lstSalida = autorService.listaPorTelefonoIgual(
+				telefono, 
+				Integer.parseInt(id));
+		
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	
+	
+
+	@GetMapping("/buscaAutorMayorEdad")
+	@ResponseBody
+	public String validaMayorEdad(String fechaNacimiento) {
+		if(AppSettings.isMayorEdad(fechaNacimiento)) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	
+	
+	
 }
+
+
+
 

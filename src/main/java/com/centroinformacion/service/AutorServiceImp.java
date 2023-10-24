@@ -14,6 +14,7 @@ import com.centroinformacion.repository.AutorRepository;
 public class AutorServiceImp implements AutorService{
 
 
+
 	@Autowired
 	private AutorRepository repository;
 
@@ -24,22 +25,44 @@ public class AutorServiceImp implements AutorService{
 
 	@Override
 	public List<Autor> listaPorTelefono(String telefono) {
-		return repository.findByTelefonoIgnoreCase(telefono);
+		return repository.findByTelefono(telefono);
 	}
 
 	
 	@Override
-	public List<Autor> listaPorNombreLike(String filtro) {
-		return repository.listaPorNombreLike(filtro);
+	public List<Autor> listaPorNombresOrApellidos(String nombres, String apellidos) {
+		return repository.findByNombresOrApellidosIgnoreCase(nombres,apellidos);
+	}
+	@Override
+	public List<Autor> listaPorNombresApellidosLike(String filtro) {
+		return repository.listaPorNombresApellidosLike(filtro);
 	}
 
 	@Override
 	public Optional<Autor> buscaAutor(int idAutor) {
-		// TODO Auto-generated method stub
 		return repository.findById(idAutor);
 	}
+
+	@Override
+	public List<Autor> listaPorNombreApellidoIgual(String nombres, String apellidos) {
+		return repository.listaAutorNombreApellidoIgual(nombres, apellidos);
+
+	}
+
+	@Override
+	public List<Autor> listaPorNombreApellidoIgualActualiza(String nombres, String apellidos, int idAutor) {
+		return repository.listaAutorNombreApellidoIgualActualiza(nombres, apellidos, idAutor);
+	}
+
+	@Override
+	public List<Autor> listaPorTelefonoIgual(String telefono, int idAutor) {
+		return repository.listaAutorTelefonoIgualActualiza(telefono, idAutor);
+	}
 	
+
 	
 	
 	 
 }
+
+
