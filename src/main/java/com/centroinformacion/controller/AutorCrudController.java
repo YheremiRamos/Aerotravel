@@ -50,8 +50,7 @@ public class AutorCrudController {
 		obj.setUsuarioActualiza(objUsuario);
 
 		
-		List<Autor> lstSalida = autorService.
-				listaPorNombresOrApellidos(
+		List<Autor> lstSalida = autorService.listaPorNombreApellidoIgual(
 						obj.getNombres(), 
 						obj.getApellidos());
 if (!CollectionUtils.isEmpty(lstSalida)) {
@@ -68,6 +67,7 @@ if (!CollectionUtils.isEmpty(lstSalida)) {
 	        List<Autor> lista = autorService.listaPorNombresApellidosLike("%");
 	        map.put("lista", lista);
 	    }
+	
 	    return map;
 	}
 	
