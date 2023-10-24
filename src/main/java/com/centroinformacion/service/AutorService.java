@@ -17,5 +17,5 @@ public interface AutorService {
 	
 
 	/*Encapsula un objeto, java util*/
-	public abstract Optional<Autor>buscaAutor(int idModalidad);
+	public abstract Optional<Autor>buscaAutor(int idAutor);
 }

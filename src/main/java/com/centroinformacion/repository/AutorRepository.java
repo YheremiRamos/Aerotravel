@@ -10,7 +10,7 @@ import com.centroinformacion.entity.Autor;
 public interface AutorRepository  extends JpaRepository<Autor, Integer> {
 
 	/*Buscar por nombre ignorando las mayuscula y miniscula*/
-	public List<Autor> findByTelefonoIgnoreCase(String telefono);
+	public List<Autor> findByTelefono(String telefono);
 
      /*Crear Query  JSPQL*/
 	@Query("Select a from Autor a where a.nombres like?1 or a.apellidos like?1")

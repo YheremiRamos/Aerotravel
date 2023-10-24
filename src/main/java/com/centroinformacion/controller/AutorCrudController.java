@@ -35,7 +35,6 @@ public class AutorCrudController {
 	}
 
 
-
 	@PostMapping("/registraCrudAutor")
 	@ResponseBody
 
@@ -51,42 +50,51 @@ public class AutorCrudController {
 
 		Autor objSalida = autorService.insertaActualizaAutor(obj);
 		if (objSalida == null) {
-			map.put("MENSAJE", "Error en el registro");
+			map.put("mensaje", "Error en el registro");
 		}else {
-			map.put("MENSAJE", "Registro exitoso");
+			map.put("mensaje", "Registro exitoso");
 		}
 		return map;
 	}
 	
 	
 	
+
+
 
 	@PostMapping("/actualizaCrudAutor")
 	@ResponseBody
 
 	public Map<?, ?> actualiza(Autor obj) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+
 		
+
 		Optional<Autor> optAutor = autorService.buscaAutor(obj.getIdAutor());
 		if (optAutor.isPresent()) {
 			
-			obj.setFechaActualizacion(new Date());
 			obj.setFechaRegistro(optAutor.get().getFechaRegistro());
 			obj.setEstado(optAutor.get().getEstado());
+			obj.setFechaActualizacion(new Date());
+
 			Autor objSalida = autorService.insertaActualizaAutor(obj);
 			if (objSalida == null) {
 				map.put("mensaje", "Error en la actualización");
 			} else {
+				map.put("mensaje", "Actualización exitosa");
 				List<Autor> lstSalida = autorService.listaPorNombreLike("%");
 				map.put("lista", lstSalida);
-				map.put("mensaje", "Actualizacón exitosa");
+
 			}
 		}
 		return map;
 	}
+
+
+
+
 	
-	
-	
+
 	@PostMapping("/eliminaCrudAutor")
 	@ResponseBody
 
@@ -106,5 +114,9 @@ public class AutorCrudController {
 		}
 		return map;
 	}
+
 }
+
+
+
 

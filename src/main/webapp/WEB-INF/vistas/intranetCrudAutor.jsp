@@ -173,7 +173,7 @@
 												<label class="col-lg-3 control-label" for="id_ID">Código de Autor</label>
 												<div class="col-lg-8">
 													<input class="form-control" id="id_ID" readonly="readonly"
-														name="idProveedor" type="text" maxlength="8" />
+														name="idAutor" type="text" maxlength="8" />
 												</div>
 											</div>		                              
 		                                <div class="panel-body">
@@ -327,6 +327,25 @@ function editar(id, nombres, apellidos, fechaNacimiento, telefono, idPais, idGra
 
 
 
+$("#id_btn_actualiza").click(function() {
+	var validator = $('#id_form_actualiza').data('bootstrapValidator');
+	validator.validate();
+	if (validator.isValid()) {
+		$.ajax({
+			type : "POST",
+			url : "actualizaCrudAutor",
+			data : $('#id_form_actualiza').serialize(),
+			success : function(data) {
+				agregarGrilla(data.lista);
+				$('#id_div_modal_actualiza').modal("hide");
+				mostrarMensaje(data.mensaje);
+			},
+			error : function() {
+				mostrarMensaje(MSG_ERROR);
+			}
+		});
+	}
+});
 
 
 
@@ -359,6 +378,14 @@ $("#id_btn_registra").click(function() {
 	}
 });
 
+
+
+
+
+
+
+
+
 function limpiarFormulario() {
 	$('#id_reg_nombre').val(' ');
 	$('#id_reg_apellido').val(' ');
@@ -370,25 +397,6 @@ function limpiarFormulario() {
 
 
 
-$("#id_btn_actualiza").click(function() {
-	var validator = $('#id_form_actualiza').data('bootstrapValidator');
-	validator.validate();
-	if (validator.isValid()) {
-		$.ajax({
-			type : "POST",
-			url : "actualizaCrudAutor",
-			data : $('#id_form_actualiza').serialize(),
-			success : function(data) {
-				agregarGrilla(data.lista);
-				$('#id_div_modal_actualiza').modal("hide");
-				mostrarMensaje(data.mensaje);
-			},
-			error : function() {
-				mostrarMensaje(MSG_ERROR);
-			}
-		});
-	}
-});
 
 
 function eliminar(id){	
@@ -404,18 +412,6 @@ function eliminar(id){
           }
      });
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
