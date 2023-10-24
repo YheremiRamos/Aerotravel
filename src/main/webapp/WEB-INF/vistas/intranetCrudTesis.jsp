@@ -366,7 +366,7 @@ $('#id_form_registra').bootstrapValidator({
 				},
 				remote :{
             	    delay: 1000,
-            	 	url: 'buscarPorTituloOrTemaTesis',
+            	 	url: 'buscarPorTituloOrTemaTesisRegistra',
             	 	message: 'El Título ya existe'
              	}
             }
@@ -384,7 +384,7 @@ $('#id_form_registra').bootstrapValidator({
 				},
                 remote :{
             	    delay: 1000,
-            	 	url: 'buscarPorTituloOrTemaTesis',
+            	 	url: 'buscarPorTituloOrTemaTesisRegistra',
             	 	message: 'El Tema ya existe'
              	}
             }
@@ -427,7 +427,20 @@ $('#id_form_actualiza').bootstrapValidator({
 					message : 'El título es de 2 a 40 caracteres',
 					min : 2,
 					max : 40
-				}
+				},
+                remote :{
+                	delay   : 1000,
+                	url     : 'buscarTesisPorTituloActualiza',
+                	message : 'El título ya existe',
+                	data: {
+		                nombres: function() {
+		                    return $('#id_act_titulo').val();
+		                },
+		                id: function() {
+		                    return $('#id_ID').val();
+		                },
+		        	},
+                } 
             }
         },
 		tema : {

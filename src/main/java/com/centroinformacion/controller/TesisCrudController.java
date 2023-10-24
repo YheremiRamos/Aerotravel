@@ -120,7 +120,7 @@ public class TesisCrudController {
 	    return map;
 	}
 
-	@GetMapping("/buscarPorTituloOrTemaTesis")
+	@GetMapping("/buscarPorTituloOrTemaTesisRegistra")
 	@ResponseBody
 	public String validaTituloOrTema(String titulo, String tema) {
 		List<Tesis> lstTesis = tesisService.listaPorTituloOrTema(titulo, tema);
@@ -128,6 +128,17 @@ public class TesisCrudController {
 			return "{\"valid\" : true }";
 		} else {
 			return "{\"valid\" : false }";
+		}
+	}
+	
+	@GetMapping("/buscarTesisPorTituloActualiza")
+	@ResponseBody
+	public String validaTituloActualiza(String titulo) {
+		List<Tesis> lst = tesisService.listaPorTituloIgualActualiza(titulo);
+		if(CollectionUtils.isEmpty(lst)) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
 		}
 	}
 }

@@ -45,4 +45,9 @@ public class TesisServiceImp implements TesisService{
 
 	}
 
+	@Override
+	public List<Tesis> listaPorTituloIgualActualiza(String titulo) {
+		return repository.listaPorTituloIgualActualiza(titulo);
+	}
+
 }
