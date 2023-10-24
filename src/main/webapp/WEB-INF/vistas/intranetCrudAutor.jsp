@@ -88,14 +88,14 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_nombre">Nombres</label>
                                         <div class="col-lg-8">
-                                            <input class="form-control" id="id_reg_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="20"/>
+                                            <input class="form-control" id="id_reg_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="40"/>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_apellido">Apellidos</label>
                                         <div class="col-lg-3">
-                                            <input class="form-control" id="id_reg_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="20"/>
+                                            <input class="form-control" id="id_reg_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="40"/>
                                         </div>
                                     </div>
 
@@ -125,7 +125,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_grado">Grado</label>
                                         <div class="col-lg-3">
-                                            <select id="id_reg_grado" name="autor.idDataCatalogo" class='form-control'>
+                                            <select id="id_reg_grado" name="grado" class='form-control'>
                                                 <option value=" ">[Seleccione]</option>
                                             </select>
                                         </div>
@@ -180,14 +180,14 @@
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_nombre">Nombres</label>
 		                                        <div class="col-lg-8">
-													<input class="form-control" id="id_act_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="20"/>
+													<input class="form-control" id="id_act_nombre" name="nombres" placeholder="Ingrese el Nombre" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                    
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_apellido">Apellidos</label>
 		                                        <div class="col-lg-3">
-													<input class="form-control" id="id_act_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="2"/>
+													<input class="form-control" id="id_act_apellido" name="apellidos" placeholder="Ingrese el apellido" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                    
@@ -220,7 +220,7 @@
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_grado">Grado</label>
 		                                        <div class="col-lg-3">
-														<select id="id_act_grado" name="autor.idDataCatalogo" class='form-control'>
+														<select id="id_act_grado" name="grado" class='form-control'>
 														<option value=" ">[Seleccione]</option>
 													</select>
 											 </div>
@@ -295,7 +295,7 @@ function agregarGrilla(lista){
             {data: "pais.nombre"},
             {data: "grado.descripcion"}, // Utiliza "grado.descripcion" en lugar de "autor.idDataCatalogo.descripcion"
             {data: function(row, type, val, meta){
-                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
+                var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.pais.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
                 return salida;
             }, className: 'text-center'},
             {data: function(row, type, val, meta){
@@ -318,7 +318,7 @@ function editar(id, nombres, apellidos, fechaNacimiento, telefono, idPais, idGra
     $('#id_act_fechaNaci').val(fechaNacimiento);
     $('#id_act_telefono').val(telefono);
     $('#id_act_pais').val(idPais); // Asegúrate de que idPais sea el valor correcto recibido
-    $('#id_act_grado').val(grado.idDataCatalogo); // Asegúrate de que idGrado sea el valor correcto recibido
+    $('#id_act_grado').val(idGrado); // Asegúrate de que idGrado sea el valor correcto recibido
 
     $('#id_div_modal_actualiza').modal("show");
 }
