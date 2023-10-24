@@ -366,10 +366,7 @@ $("#id_btn_registra").click(function() {
 			success : function(data) {
 				agregarGrilla(data.lista);
 				$('#id_div_modal_registra').modal("hide");
-				mostrarMensaje(data.mensaje);
-				limpiarFormulario();
-				validator.resetForm();
-			},
+				mostrarMensaje(data.mensaje);			},
 			error : function() {
 				mostrarMensaje(MSG_ERROR);
 			}
@@ -437,9 +434,22 @@ function eliminar(id){
 			                        max: 40,
 			                        message: 'El nombre es de 2 a 40 caracteres'
 			                   
-			            }
-		            }
-		        },
+			                        	,
+			                            remote :{
+			                            	delay   : 1000,
+			                            	url     : 'buscaAutorNombreApellidoRegistro',
+			                            	message : 'El Autor ya existe',
+			                            	data: {
+			                		                nombres: function() {
+			                		                    return $('#id_reg_nombres').val();
+			                		                },
+			                		                apellidos: function() {
+			                		                    return $('#id_reg_apellidos').val();
+			                		                }
+			                		        },
+			                            }
+			                        }
+			                    },
 			            'apellidos': {
 			                selector: "#id_reg_apellido",
 			                validators: {
@@ -451,10 +461,23 @@ function eliminar(id){
 			                        max: 40,
 			                        message: 'El apellido es de 2 a 40 caracteres'
 			             
-			            }
-		            }
-		        },
-			            'telefono': {
+			                        	,
+			                            remote :{
+			                            	delay   : 1000,
+			                            	url     : 'buscaAutorNombreApellidoRegistro',
+			                            	message : 'El Autor ya existe',
+			                            	data: {
+			                		                nombres: function() {
+			                		                    return $('#id_reg_nombre').val();
+			                		                },
+			                		                apellidos: function() {
+			                		                    return $('#id_reg_apellido').val();
+			                		                }
+			                		        },
+			                            }
+			                        }
+			                    },			           
+			                    'telefono': {
 			                selector: "#id_reg_telefono",
 			                validators: {
 			                    notEmpty: {
@@ -518,7 +541,23 @@ function eliminar(id){
 	                        max: 40,
 	                        message: 'El nombre es de 2 a 40 caracteres'
 	                   
-	            }
+	            },
+                remote :{
+                	delay   : 1000,
+                	url     : 'buscaAutorNombreApellidoActualiza',
+                	message : 'El Autor ya existe',
+                	data: {
+    		                'nombres': function() {
+    		                    return $('#id_act_nombre').val();
+    		                },
+    		                'apellidos': function() {
+    		                    return $('#id_act_apellido').val();
+    		                },
+    		                id: function() {
+    		                    return $('#id_ID').val();
+    		                }
+    		        },
+                }
             }
         },
 	            'apellidos': {
@@ -532,7 +571,23 @@ function eliminar(id){
 	                        max: 40,
 	                        message: 'El apellido es de 2 a 40 caracteres'
 	             
-	            }
+	            },
+                remote :{
+                	delay   : 1000,
+                	url     : 'buscaAutorNombreApellidoActualiza',
+                	message : 'El Autor ya existe',
+                	data: {
+    		                'nombres': function() {
+    		                    return $('#id_act_nombre').val();
+    		                },
+    		                'apellidos': function() {
+    		                    return $('#id_act_apellido').val();
+    		                },
+    		                'id': function() {
+    		                    return $('#id_ID').val();
+    		                }
+    		        },
+                }
             }
         },
 	            'telefono': {
@@ -540,15 +595,19 @@ function eliminar(id){
 	                validators: {
 	                    notEmpty: {
 	                        message: 'El teléfono es obligatorio'
-	                    },
+	                    } ,
 	                    regexp: {
 	                        regexp: /^[0-9]{9}$/,
 	                        message: 'El teléfono debe tener 9 dígitos'
-	                    },remote :{
+	                    
+	             
+	            },
+	                 remote :{
 		            	    delay: 1000,
 		            	 	url: 'buscaPorTelefono',
 		            	 	message: 'El teléfono ya existe'
-		             	}
+		            	 	
+		            	 		}
 	                }
 	            },
 	            'fechaNacimiento': {

@@ -7,8 +7,7 @@ import com.centroinformacion.entity.Autor;
 
 public interface AutorService {
 
-	public abstract List<Autor> listaTodo();
-
+     /*CRUD*/
 	public abstract Autor insertaActualizaAutor(Autor obj);
 	public abstract List<Autor> listaPorTelefono(String telefono);
 
@@ -17,5 +16,11 @@ public interface AutorService {
 	public abstract List<Autor>listaPorNombresApellidosLike(String filtro);
 	/*Encapsula un objeto, java util*/
 	public abstract Optional<Autor>buscaAutor(int idAutor);
+	
+	
+	
+	//Validaciones
+	public abstract List<Autor> listaPorNombreApellidoIgual(String nombres, String apellidos); 
+	public abstract List<Autor> listaPorNombreApellidoIgualActualiza(String nombres, String apellidos, int idAutor);
 }
 

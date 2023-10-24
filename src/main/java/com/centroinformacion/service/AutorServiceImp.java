@@ -14,11 +14,7 @@ import com.centroinformacion.repository.AutorRepository;
 public class AutorServiceImp implements AutorService{
 
 
-	
-	@Override
-	public List<Autor> listaTodo() {
-		return repository.findByOrderByApellidosAsc();
-	}
+
 	@Autowired
 	private AutorRepository repository;
 
@@ -44,10 +40,21 @@ public class AutorServiceImp implements AutorService{
 
 	@Override
 	public Optional<Autor> buscaAutor(int idAutor) {
-		// TODO Auto-generated method stub
 		return repository.findById(idAutor);
 	}
+
+	@Override
+	public List<Autor> listaPorNombreApellidoIgual(String nombres, String apellidos) {
+		return repository.listaAutorNombreApellidoIgual(nombres, apellidos);
+
+	}
+
+	@Override
+	public List<Autor> listaPorNombreApellidoIgualActualiza(String nombres, String apellidos, int idAutor) {
+		return repository.listaAutorNombreApellidoIgualActualiza(nombres, apellidos, idAutor);
+	}
 	
+
 	
 	
 	 

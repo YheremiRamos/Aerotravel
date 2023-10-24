@@ -10,7 +10,6 @@ import com.centroinformacion.entity.Autor;
 public interface AutorRepository  extends JpaRepository<Autor, Integer> {
 
 	
-	public List<Autor> findByOrderByApellidosAsc();
 
 	
 	public List<Autor> findByTelefono(String telefono);
@@ -21,9 +20,12 @@ public interface AutorRepository  extends JpaRepository<Autor, Integer> {
 	@Query("Select a from Autor a where a.nombres like?1 or a.apellidos like?1")
 	public List<Autor>listaPorNombresApellidosLike(String filtro);
 	
+	@Query("select a from Autor a where a.nombres = ?1 and a.apellidos = ?2")
+	public List<Autor> listaAutorNombreApellidoIgual(String nombres, String apellidos);
+
 	
-
-
+	@Query("select a from Autor a where a.nombres = ?1 and a.apellidos = ?2 and a.idAutor != ?3")
+	public List<Autor> listaAutorNombreApellidoIgualActualiza(String nombres, String apellidos, int idAutor);
 
 	
 }
