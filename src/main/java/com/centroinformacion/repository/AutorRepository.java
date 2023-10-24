@@ -9,13 +9,19 @@ import com.centroinformacion.entity.Autor;
 
 public interface AutorRepository  extends JpaRepository<Autor, Integer> {
 
-	/*Buscar por nombre ignorando las mayuscula y miniscula*/
+	
+	public abstract List<Autor> findByOrderByApellidosAsc();
 	public List<Autor> findByTelefono(String telefono);
+
+	public List<Autor> findByNombresOrApellidosIgnoreCase(String nombres, String apellidos);
 
      /*Crear Query  JSPQL*/
 	@Query("Select a from Autor a where a.nombres like?1 or a.apellidos like?1")
-	public List<Autor>listaPorNombreLike(String filtro);
+	public List<Autor>listaPorNombresApellidosLike(String filtro);
 	
 	
+
+
+
 	
 }

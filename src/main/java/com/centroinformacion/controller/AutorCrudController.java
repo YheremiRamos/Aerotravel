@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class AutorCrudController {
 	@ResponseBody
 
 	public List<Autor> consulta(String filtro){
-	 List<Autor>  listSalida =autorService.listaPorNombreLike("%"+filtro+"%");
+	 List<Autor>  listSalida =autorService.listaPorNombresApellidosLike("%"+filtro+"%");
 	
 	 return listSalida;
 	}
@@ -48,6 +49,16 @@ public class AutorCrudController {
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
 
+		
+		List<Autor> lstSalida = autorService.
+				listaPorNombresOrApellidos(
+						obj.getNombres(), 
+						obj.getApellidos());
+if (!CollectionUtils.isEmpty(lstSalida)) {
+	map.put("mensaje", "El alumno " + obj.getNombres() + " " + obj.getApellidos() + " ya existe");
+	return map;
+}
+		
 		Autor objSalida = autorService.insertaActualizaAutor(obj);
 		if (objSalida == null) {
 			map.put("mensaje", "Error en el registro");
@@ -58,9 +69,6 @@ public class AutorCrudController {
 	}
 	
 	
-	
-
-
 
 	@PostMapping("/actualizaCrudAutor")
 	@ResponseBody
@@ -84,7 +92,7 @@ public class AutorCrudController {
 				map.put("mensaje", "Error en la actualización");
 			} else {
 				map.put("mensaje", "Actualización exitosa");
-				List<Autor> lstSalida = autorService.listaPorNombreLike("%");
+				List<Autor> lstSalida = autorService.listaPorNombresApellidosLike("%");
 				map.put("lista", lstSalida);
 
 			}
@@ -111,7 +119,7 @@ public class AutorCrudController {
 		if (objSalida == null) {
 			map.put("mensaje", "Error en actualizar");
 		} else {
-			List<Autor> lista = autorService.listaPorNombreLike("%");
+			List<Autor> lista = autorService.listaPorNombresApellidosLike("%");
 			map.put("lista", lista);
 		}
 		return map;

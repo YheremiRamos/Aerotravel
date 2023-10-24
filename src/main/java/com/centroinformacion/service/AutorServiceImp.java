@@ -14,6 +14,11 @@ import com.centroinformacion.repository.AutorRepository;
 public class AutorServiceImp implements AutorService{
 
 
+	
+	@Override
+	public List<Autor> listaTodo() {
+		return repository.findByOrderByApellidosAsc();
+	}
 	@Autowired
 	private AutorRepository repository;
 
@@ -29,8 +34,12 @@ public class AutorServiceImp implements AutorService{
 
 	
 	@Override
-	public List<Autor> listaPorNombreLike(String filtro) {
-		return repository.listaPorNombreLike(filtro);
+	public List<Autor> listaPorNombresOrApellidos(String nombres, String apellidos) {
+		return repository.findByNombresOrApellidosIgnoreCase(nombres,apellidos);
+	}
+	@Override
+	public List<Autor> listaPorNombresApellidosLike(String filtro) {
+		return repository.listaPorNombresApellidosLike(filtro);
 	}
 
 	@Override
@@ -43,3 +52,5 @@ public class AutorServiceImp implements AutorService{
 	
 	 
 }
+
+
