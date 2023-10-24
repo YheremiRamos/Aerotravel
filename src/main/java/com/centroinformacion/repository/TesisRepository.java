@@ -17,4 +17,7 @@ public interface TesisRepository extends JpaRepository<Tesis, Integer> {
 	
 	@Query("select e from Tesis e where e.tema = ?1 and e.titulo = ?2 ")
 	public List<Tesis> listaTesisPorTemaTituloIgual(String tema, String titulo);
+	
+	@Query("select x from Tesis x where x.titulo = ?1 ")
+	public List<Tesis> listaPorTituloIgualActualiza(String titulo);
 	}

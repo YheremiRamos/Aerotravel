@@ -98,7 +98,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_reg_titulo"
 														name="titulo" placeholder="Ingrese el título" type="text"
-														maxlength="20" />
+														 />
 												</div>
 											</div>
 											<div class="form-group">
@@ -106,7 +106,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_reg_tema"
 														name="tema" placeholder="Ingrese el tema" type="text"
-														maxlength="20" />
+														 />
 												</div>
 											</div>
 											<div class="form-group">
@@ -171,7 +171,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_act_titulo"
 														name="titulo" placeholder="Ingrese el título" type="text"
-														maxlength="20" />
+														 />
 												</div>
 											</div>
 											<div class="form-group">
@@ -179,7 +179,7 @@
 												<div class="col-lg-8">
 													<input class="form-control" id="id_act_tema"
 														name="tema" placeholder="Ingrese el tema" type="text"
-														maxlength="20" />
+														/>
 												</div>
 											</div>
 											<div class="form-group">
@@ -366,7 +366,7 @@ $('#id_form_registra').bootstrapValidator({
 				},
 				remote :{
             	    delay: 1000,
-            	 	url: 'buscarPorTituloOrTemaTesis',
+            	 	url: 'buscarPorTituloOrTemaTesisRegistra',
             	 	message: 'El Título ya existe'
              	}
             }
@@ -384,7 +384,7 @@ $('#id_form_registra').bootstrapValidator({
 				},
                 remote :{
             	    delay: 1000,
-            	 	url: 'buscarPorTituloOrTemaTesis',
+            	 	url: 'buscarPorTituloOrTemaTesisRegistra',
             	 	message: 'El Tema ya existe'
              	}
             }
@@ -427,7 +427,20 @@ $('#id_form_actualiza').bootstrapValidator({
 					message : 'El título es de 2 a 40 caracteres',
 					min : 2,
 					max : 40
-				}
+				},
+                remote :{
+                	delay   : 1000,
+                	url     : 'buscarTesisPorTituloActualiza',
+                	message : 'El título ya existe',
+                	data: {
+		                nombres: function() {
+		                    return $('#id_act_titulo').val();
+		                },
+		                id: function() {
+		                    return $('#id_ID').val();
+		                },
+		        	},
+                } 
             }
         },
 		tema : {
