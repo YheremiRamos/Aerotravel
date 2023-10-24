@@ -55,18 +55,24 @@ public class AutorCrudController {
 						obj.getNombres(), 
 						obj.getApellidos());
 if (!CollectionUtils.isEmpty(lstSalida)) {
-	map.put("mensaje", "El alumno " + obj.getNombres() + " " + obj.getApellidos() + " ya existe");
+	map.put("mensaje", "El Autor " + obj.getNombres() + " " + obj.getApellidos() + " ya existe");
 	return map;
 }
 		
 		Autor objSalida = autorService.insertaActualizaAutor(obj);
-		if (objSalida == null) {
-			map.put("mensaje", "Error en el registro");
-		}else {
-			map.put("mensaje", "Registro exitoso");
-		}
-		return map;
+	
+	  if (objSalida == null) {
+	        map.put("mensaje", "Error en el registro");
+	    } else {
+	        map.put("mensaje", "Registro exitoso");
+	        List<Autor> lista = autorService.listaPorNombresApellidosLike("%");
+	        map.put("lista", lista);
+	    }
+	    return map;
 	}
+	
+	
+	
 	
 	
 
@@ -173,6 +179,22 @@ if (!CollectionUtils.isEmpty(lstSalida)) {
 			return "{\"valid\":false}";
 		}
 	}
+	
+	
+	
+
+	@GetMapping("/buscaAutorMayorEdad")
+	@ResponseBody
+	public String validaMayorEdad(String fechaNacimiento) {
+		if(AppSettings.isMayorEdad(fechaNacimiento)) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	
+	
 	
 }
 

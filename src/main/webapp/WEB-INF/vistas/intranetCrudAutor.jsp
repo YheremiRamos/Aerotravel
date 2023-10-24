@@ -513,9 +513,15 @@ function eliminar(id){
                 validators: {
                     notEmpty: {
                         message: 'La fecha de nacimiento es obligatoria'
+                    },
+                    remote :{
+                    	delay   : 1000,
+                    	url     : 'buscaAutorMayorEdad',
+                    	message : 'El Autor debe ser mayor de edad'
                     }
                 }
             },
+              
             'pais.idPais': {
                 selector: "#id_reg_pais",
                 validators: {
@@ -633,13 +639,19 @@ function eliminar(id){
                 }
             },
             'fechaNacimiento': {
-                selector: "#id_act_fechaNaci",
+                selector: "#id_act_fechaNaci", 
                 validators: {
                     notEmpty: {
                         message: 'La fecha de nacimiento es obligatoria'
+                    },
+                    remote :{
+                    	delay   : 1000,
+                    	url     : 'buscaAutorMayorEdad',
+                    	message : 'El Autor debe ser mayor de edad'
                     }
                 }
             },
+              
             'pais.idPais': {
                 selector: "#id_act_pais",
                 validators: {
