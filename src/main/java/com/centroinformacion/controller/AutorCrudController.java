@@ -133,7 +133,7 @@ if (!CollectionUtils.isEmpty(lstSalida)) {
 	
 	@GetMapping("/buscaAutorNombreApellidoRegistro")
 	@ResponseBody
-	public String validaEmpleadoRegistra(String nombres, String apellidos) {
+	public String validaAutorRegistra(String nombres, String apellidos) {
 		List<Autor> lstSalida = autorService.listaPorNombreApellidoIgual(
 													nombres, apellidos);
 		if(lstSalida.isEmpty()) {
@@ -145,11 +145,26 @@ if (!CollectionUtils.isEmpty(lstSalida)) {
 	
 	@GetMapping("/buscaAutorNombreApellidoActualiza")
 	@ResponseBody
-	public String validaEmpleadoActualiza(String nombres, String apellidos, String id) {
+	public String validaAutorActualiza(String nombres, String apellidos, String id) {
 		
 		List<Autor> lstSalida = autorService.listaPorNombreApellidoIgualActualiza(
 				nombres, 
 				apellidos,
+				Integer.parseInt(id));
+		
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaAutorTelefonoIgualActualiza")
+	@ResponseBody
+	public String validaTelefonoActualiza(String telefono, String id) {
+		
+		List<Autor> lstSalida = autorService.listaPorTelefonoIgual(
+				telefono, 
 				Integer.parseInt(id));
 		
 		if(lstSalida.isEmpty()) {

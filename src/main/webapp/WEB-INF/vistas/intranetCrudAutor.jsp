@@ -339,6 +339,10 @@ $("#id_btn_actualiza").click(function() {
 				agregarGrilla(data.lista);
 				$('#id_div_modal_actualiza').modal("hide");
 				mostrarMensaje(data.mensaje);
+			
+	        	  validator.resetForm();
+
+
 			},
 			error : function() {
 				mostrarMensaje(MSG_ERROR);
@@ -366,7 +370,10 @@ $("#id_btn_registra").click(function() {
 			success : function(data) {
 				agregarGrilla(data.lista);
 				$('#id_div_modal_registra').modal("hide");
-				mostrarMensaje(data.mensaje);			},
+				mostrarMensaje(data.mensaje);
+			 	  limpiarFormulario();
+	        	  validator.resetForm();
+	        	  },
 			error : function() {
 				mostrarMensaje(MSG_ERROR);
 			}
@@ -414,229 +421,239 @@ function eliminar(id){
 
 </script>
 
-	<script type="text/javascript">
-		$('#id_form_registra').bootstrapValidator({
-			message : 'This value is not valid',
-			feedbackIcons : {
-				valid : 'glyphicon glyphicon-ok',
-				invalid : 'glyphicon glyphicon-remove',
-				validating : 'glyphicon glyphicon-refresh'
-			},
-			fields : {
-			            'nombres': {
-			                selector: "#id_reg_nombre",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'El nombre es obligatorio'
-			                    },
-			                    stringLength: {
-			                        min: 2,
-			                        max: 40,
-			                        message: 'El nombre es de 2 a 40 caracteres'
-			                   
-			                        	,
-			                            remote :{
-			                            	delay   : 1000,
-			                            	url     : 'buscaAutorNombreApellidoRegistro',
-			                            	message : 'El Autor ya existe',
-			                            	data: {
-			                		                nombres: function() {
-			                		                    return $('#id_reg_nombres').val();
-			                		                },
-			                		                apellidos: function() {
-			                		                    return $('#id_reg_apellidos').val();
-			                		                }
-			                		        },
-			                            }
-			                        }
-			                    },
-			            'apellidos': {
-			                selector: "#id_reg_apellido",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'El apellido es obligatorio'
-			                    },
-			                    stringLength: {
-			                        min: 2,
-			                        max: 40,
-			                        message: 'El apellido es de 2 a 40 caracteres'
-			             
-			                        	,
-			                            remote :{
-			                            	delay   : 1000,
-			                            	url     : 'buscaAutorNombreApellidoRegistro',
-			                            	message : 'El Autor ya existe',
-			                            	data: {
-			                		                nombres: function() {
-			                		                    return $('#id_reg_nombre').val();
-			                		                },
-			                		                apellidos: function() {
-			                		                    return $('#id_reg_apellido').val();
-			                		                }
-			                		        },
-			                            }
-			                        }
-			                    },			           
-			                    'telefono': {
-			                selector: "#id_reg_telefono",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'El teléfono es obligatorio'
-			                    },
-			                    regexp: {
-			                        regexp: /^[0-9]{9}$/,
-			                        message: 'El teléfono debe tener 9 dígitos'
-			                    },remote :{
-				            	    delay: 1000,
-				            	 	url: 'buscaPorTelefono',
-				            	 	message: 'El teléfono ya existe'
-				             	}
-			                }
-			            },
-			            'fechaNacimiento': {
-			                selector: "#id_reg_fechaNaci",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'La fecha de nacimiento es obligatoria'
-			                    }
-			                }
-			            },
-			            'pais.idPais': {
-			                selector: "#id_reg_pais",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'Seleccione un país'
-			                    }
-			                }
-			            },
-			            'grado.idCatalogo': {
-			                selector: "#id_reg_grado",
-			                validators: {
-			                    notEmpty: {
-			                        message: 'Seleccione un grado'
-			                    },
-			                }
-			            },
-			        }
-			});
-	</script>
 
-	<script type="text/javascript">
-		$('#id_form_actualiza').bootstrapValidator({
-			message : 'This value is not valid',
-			feedbackIcons : {
-				valid : 'glyphicon glyphicon-ok',
-				invalid : 'glyphicon glyphicon-remove',
-				validating : 'glyphicon glyphicon-refresh'
-			},
-			fields : {
-			   'nombres': {
-	                selector: "#id_act_nombre",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'El nombre es obligatorio'
-	                    },
-	                    stringLength: {
-	                        min: 2,
-	                        max: 40,
-	                        message: 'El nombre es de 2 a 40 caracteres'
-	                   
-	            },
-                remote :{
-                	delay   : 1000,
-                	url     : 'buscaAutorNombreApellidoActualiza',
-                	message : 'El Autor ya existe',
-                	data: {
-    		                'nombres': function() {
-    		                    return $('#id_act_nombre').val();
-    		                },
-    		                'apellidos': function() {
-    		                    return $('#id_act_apellido').val();
-    		                },
-    		                id: function() {
-    		                    return $('#id_ID').val();
-    		                }
-    		        },
+<script type="text/javascript">
+
+
+
+
+    $('#id_form_registra').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            'nombres': {
+                selector: "#id_reg_nombre",
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El nombre es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoRegistro',
+                        message: 'El Autor ya existe',
+                        data: {
+                            nombres: function() {
+                                return $('#id_reg_nombre').val();
+                            },
+                            apellidos: function() {
+                                return $('#id_reg_apellido').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'apellidos': {
+                selector: "#id_reg_apellido",
+                validators: {
+                    notEmpty: {
+                        message: 'El apellido es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El apellido es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoRegistro',
+                        message: 'El Autor ya existe',
+                        data: {
+                            nombres: function() {
+                                return $('#id_reg_nombre').val();
+                            },
+                            apellidos: function() {
+                                return $('#id_reg_apellido').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'telefono': {
+                selector: "#id_reg_telefono",
+                validators: {
+                    notEmpty: {
+                        message: 'El teléfono es obligatorio'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{9}$/,
+                        message: 'El teléfono debe tener 9 dígitos'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaPorTelefono',
+                        message: 'El teléfono ya existe'
+                    }
+                }
+            },
+            'fechaNacimiento': {
+                selector: "#id_reg_fechaNaci",
+                validators: {
+                    notEmpty: {
+                        message: 'La fecha de nacimiento es obligatoria'
+                    }
+                }
+            },
+            'pais.idPais': {
+                selector: "#id_reg_pais",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un país'
+                    }
+                }
+            },
+            'grado.idCatalogo': {
+                selector: "#id_reg_grado",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un grado'
+                    }
                 }
             }
+        }
+    });
+</script>
+<script type="text/javascript">
+
+$('#id_div_modal_actualiza').on('hidden.bs.modal', function () {
+    $('#id_form_actualiza').data('bootstrapValidator').resetForm();
+});
+
+    $('#id_form_actualiza').bootstrapValidator({
+        message: 'This value is not valid',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
         },
-	            'apellidos': {
-	                selector: "#id_act_apellido",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'El apellido es obligatorio'
-	                    },
-	                    stringLength: {
-	                        min: 2,
-	                        max: 40,
-	                        message: 'El apellido es de 2 a 40 caracteres'
-	             
-	            },
-                remote :{
-                	delay   : 1000,
-                	url     : 'buscaAutorNombreApellidoActualiza',
-                	message : 'El Autor ya existe',
-                	data: {
-    		                'nombres': function() {
-    		                    return $('#id_act_nombre').val();
-    		                },
-    		                'apellidos': function() {
-    		                    return $('#id_act_apellido').val();
-    		                },
-    		                'id': function() {
-    		                    return $('#id_ID').val();
-    		                }
-    		        },
+        fields: {
+            'nombres': {
+                selector: "#id_act_nombre",
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El nombre es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoActualiza',
+                        message: 'El Autor ya existe',
+                        data: {
+                            'nombres': function() {
+                                return $('#id_act_nombre').val();
+                            },
+                            'apellidos': function() {
+                                return $('#id_act_apellido').val();
+                            },
+                            'id': function() {
+                                return $('#id_ID').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'apellidos': {
+                selector: "#id_act_apellido",
+                validators: {
+                    notEmpty: {
+                        message: 'El apellido es obligatorio'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 40,
+                        message: 'El apellido es de 2 a 40 caracteres'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorNombreApellidoActualiza',
+                        message: 'El Autor ya existe',
+                        data: {
+                            'nombres': function() {
+                                return $('#id_act_nombre').val();
+                            },
+                            'apellidos': function() {
+                                return $('#id_act_apellido').val();
+                            },
+                            'id': function() {
+                                return $('#id_ID').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'telefono': {
+                selector: "#id_act_telefono",
+                validators: {
+                    notEmpty: {
+                        message: 'El teléfono es obligatorio'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{9}$/,
+                        message: 'El teléfono debe tener 9 dígitos'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAutorTelefonoIgualActualiza',
+                        message: 'El teléfono ya existe',
+                        data: {
+                            'telefono': function() {
+                                return $('#id_act_telefono').val();
+                            },
+                            'id': function() {
+                                return $('#id_ID').val();
+                            }
+                        }
+                    }
+                }
+            },
+            'fechaNacimiento': {
+                selector: "#id_act_fechaNaci",
+                validators: {
+                    notEmpty: {
+                        message: 'La fecha de nacimiento es obligatoria'
+                    }
+                }
+            },
+            'pais.idPais': {
+                selector: "#id_act_pais",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un país'
+                    }
+                }
+            },
+            'grado.idCatalogo': {
+                selector: "#id_act_grado",
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un grado'
+                    }
                 }
             }
-        },
-	            'telefono': {
-	                selector: "#id_act_telefono",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'El teléfono es obligatorio'
-	                    } ,
-	                    regexp: {
-	                        regexp: /^[0-9]{9}$/,
-	                        message: 'El teléfono debe tener 9 dígitos'
-	                    
-	             
-	            },
-	                 remote :{
-		            	    delay: 1000,
-		            	 	url: 'buscaPorTelefono',
-		            	 	message: 'El teléfono ya existe'
-		            	 	
-		            	 		}
-	                }
-	            },
-	            'fechaNacimiento': {
-	                selector: "#id_act_fechaNaci",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'La fecha de nacimiento es obligatoria'
-	                    }
-	                }
-	            },
-	            
-	            'pais.idPais': {
-	                selector: "#id_act_pais",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Seleccione un país'
-	                    }
-	                }
-	            },
-	            'grado.idCatalogo': {
-	                selector: "#id_act_grado",
-	                validators: {
-	                    notEmpty: {
-	                        message: 'Seleccione un grado'
-	                    },
-	                }
-	            },
-	        }
-	});
-	</script>
+        }
+    });
+</script>
 </body>
 </html>

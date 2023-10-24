@@ -28,4 +28,8 @@ public interface AutorRepository  extends JpaRepository<Autor, Integer> {
 	public List<Autor> listaAutorNombreApellidoIgualActualiza(String nombres, String apellidos, int idAutor);
 
 	
+	
+	@Query("select a from Autor a where a.telefono = ?1 and a.idAutor != ?2")
+	public List<Autor> listaAutorTelefonoIgualActualiza(String telefono, int idAutor);
+
 }
