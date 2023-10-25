@@ -225,14 +225,33 @@
 
 <script type="text/javascript">
 
-
-
-
-
 $("#id_btn_filtrar").click(function(){
 	var fil=$("#id_txt_filtro").val();
 	$.getJSON("consultaCrudLibro",{"filtro":fil}, function (lista){
 		agregarGrilla(lista);
+	});
+});
+
+
+$.getJSON("listaCategoriaDeLibro", {}, function(data) {
+	$.each(data, function(index, item) {
+		$("#id_reg_categoria").append(
+				"<option value="+item.idDataCatalogo +">" + item.descripcion
+						+ "</option>");
+		$("#id_act_categoria").append(
+				"<option value="+item.idDataCatalogo +">" + item.descripcion
+						+ "</option>");
+	});
+});
+
+$.getJSON("listaTipoLibroRevista", {}, function(data) {
+	$.each(data, function(index, item) {
+		$("#id_reg_tipo").append(
+				"<option value="+item.idDataCatalogo +">" + item.descripcion
+						+ "</option>");
+		$("#id_act_tipo").append(
+				"<option value="+item.idDataCatalogo +">" + item.descripcion
+						+ "</option>");
 	});
 });
 
@@ -251,25 +270,243 @@ function agregarGrilla(lista){
 				{data: "titulo"},
 				{data: "anio"},
 				{data: "serie"},
-				{data: "categoriaLibro.idDataCatalogo"},
-				{data: "tipoLibro.idDataCatalogo"},
+				{data: "categoriaLibro.descripcion"},
+				{data: "tipoLibro.descripcion"},
 				{data: function(row, type, val, meta){
-					var salida='<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\''+row.idLibro + '\',\'' + row.titulo +'\',\'' + row.anio +'\',\''+ row.serie +'\',\''+ row.categoriaLibro.idDataCatalogo +'\',\'' + row.tipoLibro.idDataCatalogo +'\',\'')">Editar</button>';
+					var salida='<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\''+row.idLibro + '\',\'' + row.titulo +'\',\'' + row.anio  +'\',\'' + row.serie +  '\',\''  + row.categoriaLibro.idDataCatalogo + '\',\'' + row.tipoLibro.idDataCatalogo + '\')">Editar</button>';
 					return salida;
 				},className:'text-center'},	
 				{data: function(row, type, val, meta){
 				    var salida='<button type="button" style="width: 90px" class="btn btn-warning btn-sm" onclick="accionEliminar(\'' + row.idLibro + '\')">'+ (row.estado == 1? 'Activo':'Inactvo') +  '</button>';
 					return salida;
-				},className:'text-center'},
+				},className:'text-center'},	
 			]                                     
 	    });
 }
 
+function accionEliminar(id){	
+    $.ajax({
+          type: "POST",
+          url: "eliminaCrudLibro", 
+          data: {"id":id},
+          success: function(data){
+        	  agregarGrilla(data.lista);
+          },
+          error: function(){
+        	  mostrarMensaje(MSG_ERROR);
+          }
+     });
+}
+
+function editar(idLibro,titulo,anio,serie,idCategoria,idDataCatalogo){	
+	$('#id_ID').val(idLibro);
+	$('#id_act_titulo').val(titulo);
+	$('#id_act_anio').val(anio);
+	$('#id_act_serie').val(serie);
+	$('#id_act_categoria').val(idCategoria);
+	$('#id_act_tipo').val(idDataCatalogo);
+	$('#id_div_modal_actualiza').modal("show");
+}
+
+$("#id_btn_registra").click(function(){
+	var validator = $('#id_form_registra').data('bootstrapValidator');
+    validator.validate();
+	
+    if (validator.isValid()) {
+        $.ajax({
+          type: "POST",
+          url: "registraCrudLibro", 
+          data: $('#id_form_registra').serialize(),
+          success: function(data){
+        	  agregarGrilla(data.lista);
+        	  $('#id_div_modal_registra').modal("hide");
+        	  mostrarMensaje(data.mensaje);
+        	  limpiarFormulario();
+        	  validator.resetForm();
+          },
+          error: function(){
+        	  mostrarMensaje(MSG_ERROR);
+          }
+        });
+    }
+});
+
+$("#id_btn_actualiza").click(function(){
+	var validator = $('#id_form_actualiza').data('bootstrapValidator');
+    validator.validate();
+    if (validator.isValid()) {
+        $.ajax({
+          type: "POST",
+          url: "actualizaCrudLibro", 
+          data: $('#id_form_actualiza').serialize(),
+          success: function(data){
+        	  agregarGrilla(data.lista);
+        	  $('#id_div_modal_actualiza').modal("hide");
+        	  mostrarMensaje(data.mensaje);
+          },
+          error: function(){
+        	  mostrarMensaje(MSG_ERROR);
+          }
+        });
+    }
+});
 
 
+function limpiarFormulario(){	
+	$('#id_reg_nombre').val('');
+	$('#id_reg_frecuencia').val('');
+	$('#id_reg_fechaCreacion').val('');
+	$('#id_reg_pais').val(' ');
+	$('#id_reg_revista').val(' ');
+}
+
+$('#id_form_registra').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+    	"titulo": {
+    		selector : '#id_reg_titulo',
+            validators: {
+                notEmpty: {
+                    message: 'El titulo del libro es un campo obligatorio'
+                },
+                stringLength :{
+                	message:'El titulo es de 2 a 40 caracteres',
+                	min : 2,
+                	max : 40
+                },
+                	remote:{
+                    	deplay:1000,
+                    	url: 'buscaPorTituloCrudLibro',
+                    	message: "el titulo ya existe"
+                    }
+                }
+            },
+        "anio": {
+    		selector : '#id_reg_anio',
+            validators: {
+                notEmpty: {
+                	message: 'El año es un campo obligatorio',
+                    callback: function(value, validator, $field) {
+                        var añoValue = $('#id_año').val();
+                        if (value === '' && añoValue === '') {
+                            return false;
+                        }
+                        return true;
+                    }
+                },
+                regexp: {
+                    regexp: /^\d{4}$/,
+                    message: 'El año debe ser un número de 4 dígitos'
+                }
+            }
+        },
+        "serie": {
+    		selector : '#id_reg_serie',
+            validators: {
+            	notEmpty: {
+                    message: 'La serie es un campo obligatorio'
+            	}
+            }
+        },
+        "categoriaLibro.idDataCatalogo": {
+    		selector : '#id_reg_categoria',
+            validators: {
+            	notEmpty: {
+                    message: 'La categoria un campo obligatorio'
+                },
+            }
+        },
+        "tipoLibro.idDataCatalogo": {
+    		selector : '#id_reg_tipo',
+            validators: {
+            	notEmpty: {
+                    message: 'El tipo del libro es un campo obligatorio'
+                },
+            }
+        },
+    }   
+});
+</script> 
 
 
-
-</script>   		
+ 
+<script type="text/javascript">
+$('#id_form_actualiza').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+    	"titulo": {
+    		selector : '#id_act_titulo',
+            validators: {
+                notEmpty: {
+                    message: 'El titulo del libro es un campo obligatorio'
+                },
+                stringLength :{
+                	message:'El titulo es de 2 a 40 caracteres',
+                	min : 2,
+                	max : 40
+                },
+            	remote:{
+                	deplay:1000,
+                	url: 'buscaPorTituloCrudLibro',
+                	message: "el titulo ya existe"
+                }
+            }
+        },
+        "anio": {
+    		selector : '#id_act_anio',
+            validators: {
+                notEmpty: {
+                	message: 'El año es un campo obligatorio',
+                    callback: function(value, validator, $field) {
+                        var añoValue = $('#id_año').val();
+                        if (value === '' && añoValue === '') {
+                            return false;
+                        }
+                        return true;
+                    }
+                },
+                regexp: {
+                    regexp: /^\d{4}$/,
+                    message: 'El año debe ser un número de 4 dígitos'
+                }
+            }
+        },
+        "serie": {
+    		selector : '#id_act_serie',
+            validators: {
+            	notEmpty: {
+                    message: 'La serie es un campo obligatorio'
+            	}
+            }
+        },
+        "categoriaLibro.idDataCatalogo": {
+    		selector : '#id_act_categoria',
+            validators: {
+            	notEmpty: {
+                    message: 'La categoria un campo obligatorio'
+                },
+            }
+        },
+        "tipoLibro.idDataCatalogo": {
+    		selector : '#id_act_tipo',
+            validators: {
+            	notEmpty: {
+                    message: 'El tipo del libro es un campo obligatorio'
+                },
+            }
+        },
+    }   
+});
+</script>   
 </body>
 </html>
