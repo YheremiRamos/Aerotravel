@@ -85,6 +85,6 @@ public class UtilController {
 	@ResponseBody
 	public List<DataCatalogo> listaEstadoLibro() {
 		return dataCatalogoService.listaDataCatalogo(AppSettings.CATALOGO_08_ESTADO_DE_LIBRO);
-	}	
+	}
 	
 }
