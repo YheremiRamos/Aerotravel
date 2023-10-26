@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,14 +42,7 @@ public class AlumnoCrudController {
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
 		
-		List<Alumno> lstSalida = alumnoService.
-						listaPorNombresOrApellidos(
-								obj.getNombres(), 
-								obj.getApellidos());
-		if (!CollectionUtils.isEmpty(lstSalida)) {
-			map.put("mensaje", "El alumno " + obj.getNombres() + " " + obj.getApellidos() + " ya existe");
-			return map;
-		}
+		
 		
 		Alumno objSalida = alumnoService.insertaActualizaAlumno(obj);
 		if (objSalida == null) {
@@ -91,9 +83,9 @@ public class AlumnoCrudController {
 	public Map<?, ?> elimina(int id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		Alumno objEmpleado= alumnoService.buscaAlumno(id).get();
-		objEmpleado.setEstado( objEmpleado.getEstado() == 1 ? 0 : 1);
-		Alumno objSalida = alumnoService.insertaActualizaAlumno(objEmpleado);
+		Alumno objAlumno= alumnoService.buscaAlumno(id).get();
+		objAlumno.setEstado(objAlumno.getEstado() == 1 ? 0 : 1);
+		Alumno objSalida = alumnoService.insertaActualizaAlumno(objAlumno);
 		if (objSalida == null) {
 			map.put("mensaje", "Error en actualizar");
 		} else {
@@ -103,6 +95,52 @@ public class AlumnoCrudController {
 		return map;
 	}
 	
+	@GetMapping("/buscaAlumnoMayorEdad")
+	@ResponseBody
+	public String validaFecha(String fechaNacimiento) {
+		if(com.centroinformacion.util.FunctionUtil.isMayorEdad(fechaNacimiento)) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
 	
+	@GetMapping("/buscaAlumnoNombreApellidoRegistra")
+	@ResponseBody
+	public String validaAlumnoRegistra(String nombres, String apellidos) {
+		List<Alumno> lstSalida = alumnoService.listaPorNombreApellidoIgualRegistra(
+													nombres, apellidos);
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaAlumnoNombreApellidoActualiza")
+	@ResponseBody
+	public String validaEmpleadoActualiza(String nombres, String apellidos, String id) {
+		
+		List<Alumno> lstSalida = alumnoService.listaPorNombreApellidoIgualActualiza(
+				nombres, 
+				apellidos,
+				Integer.parseInt(id));
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaAlumnoDNI")
+	@ResponseBody
+	public String validaAlumnoDNI(String dni) {
+		List<Alumno> lstSalida = alumnoService.listaPorDniIgual(dni);
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
 	
 }

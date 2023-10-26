@@ -26,8 +26,8 @@ public class AlumnoServiceImp implements AlumnoService {
 	}
 
 	@Override
-	public List<Alumno> listaPorDni(String dni) {
-		return repository.findByDni(dni);
+	public List<Alumno> listaPorDniIgual(String dni) {
+		return repository.listaPorDniIgual(dni);
 	}
 
 	@Override
@@ -45,5 +45,14 @@ public class AlumnoServiceImp implements AlumnoService {
 		return repository.findById(idAlumno);
 	}
 
+	@Override
+	public List<Alumno> listaPorNombreApellidoIgualRegistra(String nombre, String apellido) {
+		return repository.listaAlumnoNombreApellidoIgualRegistra(nombre, apellido); 
+	}
+
+	@Override
+	public List<Alumno> listaPorNombreApellidoIgualActualiza(String nombre, String apellido, int idAlumno) {
+		return repository.listaAlumnoNombreApellidoIgualActualiza(nombre, apellido, idAlumno);
+	}
 	
 }

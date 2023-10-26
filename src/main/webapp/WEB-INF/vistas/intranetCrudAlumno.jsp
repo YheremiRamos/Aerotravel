@@ -411,6 +411,19 @@ $('#id_form_registra').bootstrapValidator({
                 	message:'El nombre es de 3 a 100 caracteres',
                 	min : 3,
                 	max : 100
+                },
+                remote :{
+                	delay   : 1000,
+                	url     : 'buscaAlumnoNombreApellidoRegistra',
+                	message : 'El alumno ya existe',
+                	data: {
+    		                nombres: function() {
+    		                    return $('#id_reg_nombres').val();
+    		                },
+    		                apellidos: function() {
+    		                    return $('#id_reg_apellidos').val();
+    		                }
+    		        },
                 }
             }
         },
@@ -424,6 +437,19 @@ $('#id_form_registra').bootstrapValidator({
                 	message: 'El apellido es de 3 a 100 caracteres',
                 	min : 3,
                 	max : 100
+                },
+                remote :{
+                	delay   : 1000,
+                	url     : 'buscaAlumnoNombreApellidoRegistra',
+                	message : 'El alumno ya existe',
+                	data: {
+    		                nombres: function() {
+    		                    return $('#id_reg_nombres').val();
+    		                },
+    		                apellidos: function() {
+    		                    return $('#id_reg_apellidos').val();
+    		                }
+    		        },
                 }
             }
         },
@@ -450,9 +476,14 @@ $('#id_form_registra').bootstrapValidator({
                     message: 'el DNI es 8 dígitos'
                 },
                 remote :{
-                	delay: 200,
-                	url: 'buscaPorDniAlumno',
-                	message: 'El DNI ya existe'
+                	delay   : 1000,
+                	url     : 'buscaAlumnoDNI',
+                	message : 'El DNI ya existe',
+                	data: {
+    		                nombres: function() {
+    		                    return $('#id_reg_dni').val();
+    		                },
+    		        },
                 }
             }
         },
@@ -473,7 +504,11 @@ $('#id_form_registra').bootstrapValidator({
             	notEmpty: {
                     message: 'La fecha de Nacimiento es un campo obligatorio'
                 },
-                
+                remote :{
+                	delay   : 1000,
+                	url     : 'buscaAlumnoMayorEdad',
+                	message : 'El alumno debe ser mayor de edad'
+                }
             }
         },
         "pais.idPais": {
@@ -516,6 +551,22 @@ $('#id_form_registra').bootstrapValidator({
                     	message:'El nombre es de 5 a 100 caracteres',
                     	min : 5,
                     	max : 100
+                    },
+                    remote :{
+                    	delay   : 1000,
+                    	url     : 'buscaAlumnoNombreApellidoActualiza',
+                    	message : 'El alumno ya existe',
+                    	data: {
+        		                nombres: function() {
+        		                    return $('#id_act_nombres').val();
+        		                },
+        		                apellidos: function() {
+        		                    return $('#id_act_apellidos').val();
+        		                },
+        		                id: function() {
+        		                    return $('#id_ID').val();
+        		                }
+        		        },
                     }
                 }
             },
@@ -529,6 +580,22 @@ $('#id_form_registra').bootstrapValidator({
                     	message: 'El apellido es de 3 a 100 caracteres',
                     	min : 3,
                     	max : 100
+                    },
+                    remote :{
+                    	delay   : 1000,
+                    	url     : 'buscaAlumnoNombreApellidoActualiza',
+                    	message : 'El alumno ya existe',
+                    	data: {
+        		                nombres: function() {
+        		                    return $('#id_act_nombres').val();
+        		                },
+        		                apellidos: function() {
+        		                    return $('#id_act_apellidos').val();
+        		                },
+        		                id: function() {
+        		                    return $('#id_ID').val();
+        		                }
+        		        },
                     }
                 }
             },
@@ -553,7 +620,7 @@ $('#id_form_registra').bootstrapValidator({
                     regexp: {
                         regexp: /^[0-9]{8}$/,
                         message: 'el DNI es 8 dígitos'
-                    },
+                    }
                 }
             },
             "correo":{
@@ -573,6 +640,11 @@ $('#id_form_registra').bootstrapValidator({
                     notEmpty: {
                          message: 'La fecha es obligatorio'
                     },
+                    remote :{
+                    	delay   : 1000,
+                    	url     : 'buscaAlumnoMayorEdad',
+                    	message : 'El alumno debe ser mayor de edad'
+                    }
                 }
             },
             "pais.idPais": {
