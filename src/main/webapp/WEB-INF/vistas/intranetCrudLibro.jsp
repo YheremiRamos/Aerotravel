@@ -97,7 +97,7 @@
                                  	<div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_anio">Año</label>
                                         <div class="col-lg-4">
-											<input class="form-control" id="id_reg_anio" name="anio" type="date"/>
+											<input class="form-control" id="id_reg_anio" name="anio" type="text" placeholder="Ingrese Año"  maxlength="4"/>
                                         </div>
                                     </div>	
                              
@@ -105,7 +105,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_serie">Serie</label>
                                         <div class="col-lg-6">
-											<input class="form-control" id="id_reg_serie" name="serie" placeholder="Ingrese la serie" type="text" maxlength="9"/>
+											<input class="form-control" id="id_reg_serie" name="serie" placeholder="Ingrese la serie" type="text" maxlength="12"/>
                                         </div>
                                     </div>
              
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_categoria">Categoria</label>
                                         <div class="col-lg-4">
-											 <select id="id_reg_categoria" name="categoria" class='form-control'>
+											 <select id="id_reg_categoria" name="categoriaLibro" class='form-control'>
 					                            	<option value=" ">[Seleccione]</option>    
 					                         </select>
                                         </div>
@@ -121,7 +121,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_tipo">Tipo</label>
                                         <div class="col-lg-4">
-											 <select id="id_reg_tipo" name="tipo" class='form-control'>
+											 <select id="id_reg_tipo" name="tipoLibro" class='form-control'>
 					                            	<option value=" ">[Seleccione]</option>    
 					                         </select>
                                         </div>
@@ -177,20 +177,20 @@
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_anio">Año</label>
 		                                        <div class="col-lg-4">
-													<input class="form-control" id="id_act_anio" name="anio" placeholder="Ingrese el Año" type="date" maxlength="100"/>
+													<input class="form-control" id="id_act_anio" name="anio" type="text" placeholder="Ingrese Año" maxlength="4"/>
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
 	                                        <label class="col-lg-3 control-label" for="id_serie">Serie</label>
 	                                        <div class="col-lg-6">
-												<input class="form-control" id="id_act_serie" name="serie" placeholder="Ingrese la serie" type="text" maxlength="9"/>
+												<input class="form-control" id="id_act_serie" name="serie" placeholder="Ingrese la serie" type="text" maxlength="12"/>
 	                                        </div>
 		                                    </div>    
 		                                  
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_act_categoria">Categoria</label>
 		                                        <div class="col-lg-4">
-													<select id="id_act_categoria" name="categoria" class='form-control'>
+													<select id="id_act_categoria" name="categoriaLibro" class='form-control'>
 							                            	<option value=" ">[Seleccione]</option>    
 							                         </select>
 		                                        </div>
@@ -198,7 +198,7 @@
 		                                    <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_act_tipo">Tipo</label>
                                         <div class="col-lg-4">
-											 <select id="id_act_tipo" name="tipo" class='form-control'>
+											 <select id="id_act_tipo" name="tipoLibro" class='form-control'>
 					                            	<option value=" ">[Seleccione]</option>    
 					                         </select>
                                         </div>
@@ -277,7 +277,7 @@ function agregarGrilla(lista){
 					return salida;
 				},className:'text-center'},	
 				{data: function(row, type, val, meta){
-				    var salida='<button type="button" style="width: 90px" class="btn btn-warning btn-sm" onclick="accionEliminar(\'' + row.idLibro + '\')">'+ (row.estado == 1? 'Activo':'Inactvo') +  '</button>';
+				    var salida='<button type="button" style="width: 90px" class="btn btn-warning btn-sm" onclick="accionEliminar(\'' + row.idLibro + '\')">'+ (row.estado == 1? 'Activo':'Inactivo') +  '</button>';
 					return salida;
 				},className:'text-center'},	
 			]                                     
@@ -353,11 +353,11 @@ $("#id_btn_actualiza").click(function(){
 
 
 function limpiarFormulario(){	
-	$('#id_reg_nombre').val('');
-	$('#id_reg_frecuencia').val('');
-	$('#id_reg_fechaCreacion').val('');
-	$('#id_reg_pais').val(' ');
-	$('#id_reg_revista').val(' ');
+	$('#id_reg_titulo').val('');
+	$('#id_reg_anio').val('');
+	$('#id_reg_serie').val('');
+	$('#id_reg_categoria').val(' ');
+	$('#id_reg_tipo').val(' ');
 }
 
 $('#id_form_registra').bootstrapValidator({
@@ -386,31 +386,44 @@ $('#id_form_registra').bootstrapValidator({
                     }
                 }
             },
-        "anio": {
-    		selector : '#id_reg_anio',
+            "anio": {
+                selector: '#id_reg_anio',
+                validators: {
+                    notEmpty: {
+                        message: 'El año es un campo obligatorio'
+                    },
+                    regexp: {
+                        regexp: /^[0-9]{4}$/,
+                        message: 'El año debe tener 4 dígitos numéricos'
+                    },
+                    callback: {
+                        callback: function(value, validator, $field) {
+                            var year = parseInt(value, 10);
+                            var maxYear = 2024;  
+                            if (isNaN(year) || year >= maxYear) {
+                                return {
+                                    valid: false,
+                                    message: 'El año debe ser menor a ' + maxYear
+                                };
+                            }
+                            return {
+                                valid: true
+                            };
+                        },
+                        message: 'El año debe ser menor a 2024'
+                    }
+                }
+            },
+        "serie": {
+            selector: '#id_reg_serie',
             validators: {
                 notEmpty: {
-                	message: 'El año es un campo obligatorio',
-                    callback: function(value, validator, $field) {
-                        var añoValue = $('#id_año').val();
-                        if (value === '' && añoValue === '') {
-                            return false;
-                        }
-                        return true;
-                    }
+                    message: 'La serie es un campo obligatorio'
                 },
                 regexp: {
-                    regexp: /^\d{4}$/,
-                    message: 'El año debe ser un número de 4 dígitos'
+                    regexp: /^[A-Z]{2}\d{10}$/,
+                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez dígitos'
                 }
-            }
-        },
-        "serie": {
-    		selector : '#id_reg_serie',
-            validators: {
-            	notEmpty: {
-                    message: 'La serie es un campo obligatorio'
-            	}
             }
         },
         "categoriaLibro.idDataCatalogo": {
@@ -463,30 +476,43 @@ $('#id_form_actualiza').bootstrapValidator({
             }
         },
         "anio": {
-    		selector : '#id_act_anio',
+            selector: '#id_act_anio',
             validators: {
                 notEmpty: {
-                	message: 'El año es un campo obligatorio',
-                    callback: function(value, validator, $field) {
-                        var añoValue = $('#id_año').val();
-                        if (value === '' && añoValue === '') {
-                            return false;
-                        }
-                        return true;
-                    }
+                    message: 'El año es un campo obligatorio'
                 },
                 regexp: {
-                    regexp: /^\d{4}$/,
-                    message: 'El año debe ser un número de 4 dígitos'
+                    regexp: /^[0-9]{4}$/,
+                    message: 'El año debe tener 4 dígitos numéricos'
+                },
+                callback: {
+                    callback: function(value, validator, $field) {
+                        var year = parseInt(value, 10);
+                        var maxYear = 2024;  
+                        if (isNaN(year) || year >= maxYear) {
+                            return {
+                                valid: false,
+                                message: 'El año debe ser menor a ' + maxYear
+                            };
+                        }
+                        return {
+                            valid: true
+                        };
+                    },
+                    message: 'El año debe ser menor a 2024'
                 }
             }
         },
         "serie": {
-    		selector : '#id_act_serie',
+            selector: '#id_act_serie',
             validators: {
-            	notEmpty: {
+                notEmpty: {
                     message: 'La serie es un campo obligatorio'
-            	}
+                },
+                regexp: {
+                    regexp: /^[A-Z]{2}\d{10}$/,
+                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez dígitos'
+                }
             }
         },
         "categoriaLibro.idDataCatalogo": {

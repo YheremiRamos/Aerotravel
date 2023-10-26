@@ -4,6 +4,7 @@ package com.centroinformacion.service;
  */
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,28 @@ public class LibroServiceImp implements LibroService {
 	}
 
 	@Override
-	public List<Libro> listaPorNumeroSerie(String serie) {
-		return repository.findBySerieIgnoreCase(serie);
-	}
-
-	@Override
 	public List<Libro> listaPorTituloLike(String filtro) {
 		return repository.listPorTituloLike(filtro);
 	}
+
+	@Override
+	public List<Libro> listaPorTituloOrSerie(String titulo, String serie) {
+		return repository.findByTituloOrSerieIgnoreCase(titulo,serie);
+	}
+
+	@Override
+	public Optional<Libro> buscaTitulo(int idLibro) {
+		return repository.findById(idLibro);
+	}
+
+	@Override
+	public List<Libro> listaPorTitulo(String titulo) {
+		return repository.findByTitulo(titulo);
+	}
+	
+	@Override
+	public List<Libro> listaPorSerie(String serie) {
+		return repository.findBySerie(serie);
+	}
+	
 }
