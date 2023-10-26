@@ -52,7 +52,7 @@ public class AlumnoRegistroController {
 	@GetMapping("/buscaPorDniAlumno" )
 	@ResponseBody
 	public String validaDni(String dni){
-		List<Alumno> lstAlumno = alumnoService.listaPorDni(dni);
+		List<Alumno> lstAlumno = alumnoService.listaPorDniIgual(dni);
 		if (CollectionUtils.isEmpty(lstAlumno)) {
 			return "{\"valid\" : true }";
 		} else {
