@@ -153,7 +153,7 @@
 					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Libro</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaLibro" class="form-horizontal"     method="post">
+						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaLibro" class="form-horizontal" method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
@@ -171,7 +171,7 @@
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_titulo">Titulo</label>
 		                                        <div class="col-lg-6">
-													<input class="form-control" id="id_act_titulo" name="titulo" placeholder="Ingrese el Titulo" type="text" maxlength="20"/>
+													<input class="form-control" id="id_act_titulo" name="titulo" placeholder="Ingrese el Titulo" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                     <div class="form-group">
@@ -422,7 +422,7 @@ $('#id_form_registra').bootstrapValidator({
                 },
                 regexp: {
                     regexp: /^[A-Z]{2}\d{10}$/,
-                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez dígitos'
+                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez numeros'
                 }
             }
         },
@@ -511,7 +511,7 @@ $('#id_form_actualiza').bootstrapValidator({
                 },
                 regexp: {
                     regexp: /^[A-Z]{2}\d{10}$/,
-                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez dígitos'
+                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez numeros'
                 }
             }
         },
