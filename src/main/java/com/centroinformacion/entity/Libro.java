@@ -4,6 +4,8 @@ package com.centroinformacion.entity;
  */
 import java.util.Date;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -43,8 +45,10 @@ public class Libro {
 	
 	private int estado;
 	
+	
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@ManyToOne(fetch = FetchType.LAZY)
+	
 	@JoinColumn(name = "idCategoriaLibro")
 	private DataCatalogo categoriaLibro;
 	

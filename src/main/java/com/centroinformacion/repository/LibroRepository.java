@@ -13,6 +13,11 @@ public interface LibroRepository extends JpaRepository<Libro, Integer>  {
 
 	public List<Libro> findBySerieIgnoreCase(String serie);
 	
+	public List<Libro> findByTituloOrSerieIgnoreCase(String titulo,String serie);
+	
+	public List<Libro> findByTitulo(String titulo);
+	public List<Libro> findBySerie(String serie);
+	
 	@Query("select p from Libro p where p.titulo like ?1")
 	public List<Libro> listPorTituloLike(String filtro);
 	
