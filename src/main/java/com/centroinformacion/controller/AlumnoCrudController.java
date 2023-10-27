@@ -42,8 +42,6 @@ public class AlumnoCrudController {
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
 		
-		
-		
 		Alumno objSalida = alumnoService.insertaActualizaAlumno(obj);
 		if (objSalida == null) {
 			map.put("mensaje", "Error en el registro");
@@ -59,7 +57,6 @@ public class AlumnoCrudController {
 	@ResponseBody
 	public Map<?, ?> actualiza(Alumno obj) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		  
 		Optional<Alumno> optAlumno= alumnoService.buscaAlumno(obj.getIdAlumno());
 		obj.setFechaRegistro(optAlumno.get().getFechaRegistro());
 		obj.setFechaActualizacion(optAlumno.get().getFechaActualizacion());
@@ -136,6 +133,21 @@ public class AlumnoCrudController {
 	@ResponseBody
 	public String validaAlumnoDNI(String dni) {
 		List<Alumno> lstSalida = alumnoService.listaPorDniIgual(dni);
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaAlumnoDniIgualActualiza")
+	@ResponseBody
+	public String validaDniActualiza(String dni, String id) {
+		
+		List<Alumno> lstSalida = alumnoService.listaPorDniIgualActualiza(
+				dni, 
+				Integer.parseInt(id));
+		
 		if(lstSalida.isEmpty()) {
 			return "{\"valid\":true}";
 		}else {

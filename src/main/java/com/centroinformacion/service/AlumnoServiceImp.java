@@ -54,5 +54,11 @@ public class AlumnoServiceImp implements AlumnoService {
 	public List<Alumno> listaPorNombreApellidoIgualActualiza(String nombre, String apellido, int idAlumno) {
 		return repository.listaAlumnoNombreApellidoIgualActualiza(nombre, apellido, idAlumno);
 	}
+
+	@Override
+	public List<Alumno> listaPorDniIgualActualiza(String dni, int idAlumno) {
+		return repository.listaAlumnoDniIgualActualiza(dni, idAlumno);
+	}
+	
 	
 }

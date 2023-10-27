@@ -18,4 +18,5 @@ public interface AlumnoService {
 	//Validaciones
 	public abstract List<Alumno> listaPorNombreApellidoIgualRegistra(String nombre, String apellido); 
 	public abstract List<Alumno> listaPorNombreApellidoIgualActualiza(String nombre, String apellido, int idAlumno);
+	public abstract List<Alumno> listaPorDniIgualActualiza(String dni, int idAlumno); 
 }
