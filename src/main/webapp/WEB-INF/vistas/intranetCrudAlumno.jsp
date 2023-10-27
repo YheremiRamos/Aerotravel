@@ -620,6 +620,19 @@ $('#id_form_registra').bootstrapValidator({
                     regexp: {
                         regexp: /^[0-9]{8}$/,
                         message: 'el DNI es 8 dígitos'
+                    },
+                    remote: {
+                        delay: 1000,
+                        url: 'buscaAlumnoDniIgualActualiza',
+                        message: 'El DNI ya existe',
+                        data: {
+                            'dni': function() {
+                                return $('#id_act_dni').val();
+                            },
+                            'id': function() {
+                                return $('#id_ID').val();
+                            }
+                        }
                     }
                 }
             },

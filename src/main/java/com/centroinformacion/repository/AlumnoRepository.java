@@ -11,7 +11,7 @@ public interface AlumnoRepository extends JpaRepository<Alumno, Integer>{
 	
 	public abstract List<Alumno> findByOrderByApellidosAsc();
 	
-	@Query("select x from Alumno x where x.dni = ?1")
+	@Query("select a from Alumno a where a.dni = ?1")
 	public abstract List<Alumno> listaPorDniIgual(String dni);
 	
 	public List<Alumno> findByNombresOrApellidosIgnoreCase(String nombres, String apellidos);
@@ -24,4 +24,7 @@ public interface AlumnoRepository extends JpaRepository<Alumno, Integer>{
 	
 	@Query("select a from Alumno a where a.nombres = ?1 and a.apellidos = ?2 and a.idAlumno != ?3")
 	public List<Alumno> listaAlumnoNombreApellidoIgualActualiza(String nombre, String apellido, int idAlumno);
+	
+	@Query("select a from Alumno a where a.dni = ?1 and a.idAlumno != ?2")
+	public List<Alumno> listaAlumnoDniIgualActualiza(String dni, int idAlumno);
 }
