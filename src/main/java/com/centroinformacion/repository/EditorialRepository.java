@@ -13,8 +13,17 @@ public interface EditorialRepository extends JpaRepository<Editorial, Integer> {
 	
 	
 	
-	@Query("select p from Editorial p where p.ruc like ?1")
-	public List<Editorial> listaPorRucLike(String filtro);
+	
+	@Query("select p from Editorial p where p.razonSocial like ?1")
+	public List<Editorial> listaPorRazonSocialLike(String filtro);
+
+	
+	
+	
+	
+	
+	@Query("select e from Editorial e where e.ruc = ?1 and e.idEditorial != ?2")
+	public List<Editorial> listaEditorialRucIgualActualiza(String ruc, int idEditorial);
 
 
 }
