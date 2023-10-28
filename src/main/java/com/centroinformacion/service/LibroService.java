@@ -14,8 +14,7 @@ public interface LibroService {
 	public abstract Optional<Libro> buscaTitulo(int titulo);
 	public abstract List<Libro> listaPorTituloOrSerie(String titulo, String serie);
 	public abstract List<Libro> listaPorTituloLike(String filtro);
-	
-	
+	public abstract Libro actualizarLibro(Libro obj); 
 	
 	public abstract List<Libro> listaPorTituloActualizar(String titulo,int idLibro);
 	public abstract List<Libro> listaPorSerieActualizar(String serie, int idLibro);

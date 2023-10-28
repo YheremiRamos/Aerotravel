@@ -73,47 +73,64 @@ public class LibroCrudController {
 	
 	@PostMapping("/actualizaCrudLibro")
 	@ResponseBody
-	public Map<?, ?> actualiza(Libro obj) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		  
-		Optional<Libro> optLibro= libroService.buscaTitulo(obj.getIdLibro());
-		obj.setFechaRegistro(optLibro.get().getFechaRegistro());
-		obj.setFechaActualizacion(optLibro.get().getFechaActualizacion());
-		obj.setEstado(optLibro.get().getEstado());
-		obj.setUsuarioRegistro(optLibro.get().getUsuarioRegistro());
-		obj.setUsuarioActualiza(optLibro.get().getUsuarioActualiza());
-		
-		DataCatalogo objData = new DataCatalogo();
-		objData.setIdDataCatalogo(27);
-		obj.setEstadoPrestamo(objData);
-		
-		Libro objSalida = libroService.insertaActualizaLibro(obj);
-		if (objSalida == null) {
-			map.put("mensaje", "Error en actualizar");
-		} else {
-			List<Libro> lista = libroService.listaPorTituloLike("%");
-			map.put("lista", lista);
-			map.put("mensaje", "Actualización exitosa");
-		}
-		return map;
-	}
+		public Map<?, ?> actualiza(Libro obj, HttpSession session) { 
+
+			 Usuario objUsuario = (Usuario)session.getAttribute("objUsuario"); 
+			HashMap<String, Object> map = new HashMap<String, Object>(); 
+
+			  
+			Optional<Libro> optLibro = libroService.buscaTitulo(obj.getIdLibro()); 
+			obj.setUsuarioRegistro(objUsuario); 
+			obj.setUsuarioActualiza(objUsuario); 
+			 
+
+			obj.setFechaRegistro(optLibro.get().getFechaRegistro()); 
+			obj.setEstado(optLibro.get().getEstado()); 
+			obj.setFechaActualizacion(new Date()); 
+			
+			DataCatalogo objData = new DataCatalogo();
+			objData.setIdDataCatalogo(27);
+			obj.setEstadoPrestamo(objData);
+
+			Libro objSalida = libroService.actualizarLibro(obj); 
+			if (objSalida == null) { 
+				map.put("mensaje", "Error en actualizar"); 
+			} else { 
+				map.put("mensaje", "Actualización exitosa"); 
+				List<Libro> lista = libroService.listaPorTituloLike("%"); 
+				map.put("listaA", lista); 
+
+			} 
+			return map; 
+		} 
 	
 	@ResponseBody
 	@PostMapping("/eliminaCrudLibro")
-	public Map<?, ?> elimina(int id) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		Libro objLibro = libroService.buscaTitulo(id).get();
-		objLibro.setEstado( objLibro.getEstado() == 1 ? 0 : 1);
-		Libro objSalida = libroService.insertaActualizaLibro(objLibro);
-		if (objSalida == null) {
-			map.put("mensaje", "Error en actualizar");
-		} else {
-			List<Libro> lista = libroService.listaPorTituloLike("%");
-			map.put("lista", lista);
-		}
-		return map;
-	}
+	public Map<?, ?> elimina(Libro obj, HttpSession session, int id) { 
+
+		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario"); 
+		HashMap<String, Object> map = new HashMap<String, Object>(); 
+
+		Libro objlibro = libroService.buscaTitulo(id).get(); 
+		objlibro.setFechaActualizacion(new Date());  
+		objlibro.setEstado( objlibro.getEstado() == 1 ? 0 : 1); 
+
+		obj.setUsuarioRegistro(objUsuario); 
+		obj.setUsuarioActualiza(objUsuario); 
+		obj.setFechaActualizacion(new Date()); 
+		 
+		Libro objSalida = libroService.actualizarLibro(objlibro); 
+		if (objSalida == null) { 
+
+			map.put("mensaje", "Error en actualizar"); 
+		} else { 
+
+			List<Libro> lista = libroService.listaPorTituloLike("%"); 
+			map.put("lista", lista); 
+		} 
+		return map; 
+
+	} 
 	
 	@GetMapping("/buscarLibroPorTituloActualiza")
 	@ResponseBody
