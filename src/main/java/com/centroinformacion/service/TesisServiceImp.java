@@ -40,14 +40,15 @@ public class TesisServiceImp implements TesisService{
 	}
 
 	@Override
-	public List<Tesis> listaPorTemaTituloIgual(String tema, String titulo) {
-		return repository.listaTesisPorTemaTituloIgual(tema, titulo);
-
+	public List<Tesis> listaPorTituloIgualRegistra(String titulo) {
+		return repository.listaPorTituloIgualRegistra(titulo);
 	}
 
 	@Override
-	public List<Tesis> listaPorTituloIgualActualiza(String titulo) {
-		return repository.listaPorTituloIgualActualiza(titulo);
+	public List<Tesis> listaPorTituloIgualActualiza(String titulo, int idTesis) {
+		return repository.listaPorTituloIgualActualiza(titulo,idTesis);
 	}
+
+
 
 }

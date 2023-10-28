@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.centroinformacion.entity.DataCatalogo;
 import com.centroinformacion.entity.Libro;
-import com.centroinformacion.entity.Tesis;
 import com.centroinformacion.entity.Usuario;
 import com.centroinformacion.service.LibroService;
 

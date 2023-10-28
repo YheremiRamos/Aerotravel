@@ -49,11 +49,7 @@ public class TesisCrudController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		obj.setFechaRegistro(new Date());
 		obj.setFechaActualizacion(new Date());
-		List<Tesis> lstSalida = tesisService.listaPorTemaTituloIgual(obj.getTema(), obj.getTitulo());
-		if (!CollectionUtils.isEmpty(lstSalida)) {
-			map.put("mensaje", "La Tesis " + obj.getTema() + " " + obj.getTitulo() + " ya existe");
-			return map;
-		}
+
 
 		Tesis objSalida = tesisService.insertaActualizaTesis(obj);
 		if (objSalida == null) {
@@ -71,18 +67,17 @@ public class TesisCrudController {
 	@ResponseBody
 	public Map<?, ?> actualiza(Tesis obj, HttpSession session) {
 		Usuario objUsuario = (Usuario) session.getAttribute("objUsuario");
-		obj.setFechaRegistro(new Date());
-		obj.setEstado(AppSettings.ACTIVO);
-		obj.setUsuarioRegistro(objUsuario);
-		obj.setUsuarioActualiza(objUsuario);
-
+		
 		HashMap<String, Object> map = new HashMap<String, Object>();
 
 		Optional<Tesis> optTesis = tesisService.buscaTesis(obj.getIdTesis());
 		obj.setFechaRegistro(optTesis.get().getFechaRegistro());
+		obj.setUsuarioRegistro(optTesis.get().getUsuarioRegistro());
 		obj.setEstado(optTesis.get().getEstado());
 		obj.setFechaActualizacion(new Date());
+		obj.setUsuarioActualiza(objUsuario);
 
+		
 		Tesis objSalida = tesisService.actualizaTesis(obj);
 		if (objSalida == null) {
 			map.put("mensaje", "Error en actualizar");
@@ -120,10 +115,10 @@ public class TesisCrudController {
 	    return map;
 	}
 
-	@GetMapping("/buscarPorTituloOrTemaTesisRegistra")
+	@GetMapping("/buscarTesisPorTituloRegistra")
 	@ResponseBody
-	public String validaTituloOrTema(String titulo, String tema) {
-		List<Tesis> lstTesis = tesisService.listaPorTituloOrTema(titulo, tema);
+	public String validaTituloOrTema(String titulo) {
+		List<Tesis> lstTesis = tesisService.listaPorTituloIgualRegistra(titulo.trim());
 		if (CollectionUtils.isEmpty(lstTesis)) {
 			return "{\"valid\" : true }";
 		} else {
@@ -133,8 +128,8 @@ public class TesisCrudController {
 	
 	@GetMapping("/buscarTesisPorTituloActualiza")
 	@ResponseBody
-	public String validaTituloActualiza(String titulo) {
-		List<Tesis> lst = tesisService.listaPorTituloIgualActualiza(titulo);
+	public String validaTituloActualiza(String titulo, int idTesis) {
+		List<Tesis> lst = tesisService.listaPorTituloIgualActualiza(titulo.trim(), idTesis);
 		if(CollectionUtils.isEmpty(lst)) {
 			return "{\"valid\":true}";
 		}else {

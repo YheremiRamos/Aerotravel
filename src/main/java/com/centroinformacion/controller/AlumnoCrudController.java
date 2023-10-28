@@ -55,14 +55,15 @@ public class AlumnoCrudController {
 	
 	@PostMapping("/actualizaCrudAlumno")
 	@ResponseBody
-	public Map<?, ?> actualiza(Alumno obj) {
+	public Map<?, ?> actualiza(Alumno obj, HttpSession session) {
+		Usuario objUsuario = (Usuario)session.getAttribute("objUsuario");
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Optional<Alumno> optAlumno= alumnoService.buscaAlumno(obj.getIdAlumno());
 		obj.setFechaRegistro(optAlumno.get().getFechaRegistro());
-		obj.setFechaActualizacion(optAlumno.get().getFechaActualizacion());
+		obj.setFechaActualizacion(new Date());
 		obj.setEstado(optAlumno.get().getEstado());
 		obj.setUsuarioRegistro(optAlumno.get().getUsuarioRegistro());
-		obj.setUsuarioActualiza(optAlumno.get().getUsuarioActualiza());
+		obj.setUsuarioActualiza(objUsuario);
 		
 		Alumno objSalida = alumnoService.insertaActualizaAlumno(obj);
 		if (objSalida == null) {

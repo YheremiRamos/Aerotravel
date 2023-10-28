@@ -45,7 +45,7 @@
                         <table id="id_table" class="table table-striped table-bordered" >
                             <thead>
                                 <tr>
-                                    <th style="width: 10%" >ID</th>
+                                    <th style="width: 10%" >C&oacute;digo</th>
                                 <th style="width: 10%">N&uacutemero</th>
                                 <th style="width: 10%">Piso</th>
                                 <th style="width: 20%">N&uacutemero de Alumnos</th>

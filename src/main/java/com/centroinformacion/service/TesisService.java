@@ -12,7 +12,11 @@ public interface TesisService {
 	public abstract Tesis actualizaTesis(Tesis obj);
 	public abstract List<Tesis>listaPorTituloLike(String filtro);
 	public abstract Optional<Tesis> buscaTesis(int idTesis);
-	public abstract List<Tesis> listaPorTemaTituloIgual(String tema, String titulo); 
-	public abstract List<Tesis> listaPorTituloIgualActualiza(String titulo);
+	
+	
+	
+	public List<Tesis> listaPorTituloIgualRegistra(String titulo);
+	public List<Tesis> listaPorTituloIgualActualiza(String titulo, int idTesis);
+	
 
 }

@@ -48,8 +48,8 @@
 									<table id="id_table" class="table table-striped table-bordered" >
 										<thead>
 											<tr>
-												<th style="width: 10%" >ID</th>
-												<th style="width: 15%">Titulo</th>
+												<th style="width: 10%" >Código</th>
+												<th style="width: 15%">Título</th>
 												<th style="width: 10%">A&ntildeo</th>
 												<th style="width: 15%">Serie</th>
 											    <th style="width: 15%">Categoria</th>
@@ -88,7 +88,7 @@
                             <div id="stepOne" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                      <div class="form-group">
-                                        <label class="col-lg-3 control-label" for="id_reg_titulo">Titulo</label>
+                                        <label class="col-lg-3 control-label" for="id_reg_titulo">Título</label>
                                         <div class="col-lg-6">
 											<input class="form-control" id="id_reg_titulo" name="titulo" placeholder="Ingrese el titulo" type="text" maxlength="40"/>
                                         </div>
@@ -169,9 +169,9 @@
 		                                        </div>
 		                                     </div>
 		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_titulo">Titulo</label>
+		                                        <label class="col-lg-3 control-label" for="id_titulo">Título</label>
 		                                        <div class="col-lg-6">
-													<input class="form-control" id="id_act_titulo" name="titulo" placeholder="Ingrese el Titulo" type="text" maxlength="40"/>
+													<input class="form-control" id="id_act_titulo" name="titulo" placeholder="Ingrese el Título" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                     <div class="form-group">

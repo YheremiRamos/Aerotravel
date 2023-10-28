@@ -46,7 +46,7 @@
 									<table id="id_table" class="table table-striped table-bordered" >
 										<thead>
 											<tr>
-												<th style="width: 5%" >Código</th>
+												<th style="width: 5%" >C&oacute;digo</th>
 												<th style="width: 17%">Título</th>
 												<th style="width: 18%">Tema</th>
 												<th style="width: 10%">Fecha Creación</th>
@@ -366,8 +366,13 @@ $('#id_form_registra').bootstrapValidator({
 				},
 				remote :{
             	    delay: 1000,
-            	 	url: 'buscarPorTituloOrTemaTesisRegistra',
-            	 	message: 'El Título ya existe'
+            	 	url: 'buscarTesisPorTituloRegistra',
+            	 	message: 'El Título ya existe',
+            	 	data: {
+		                nombres: function() {
+		                    return $('#id_reg_titulo').val();
+		                },
+		        	},
              	}
             }
         },
@@ -382,11 +387,6 @@ $('#id_form_registra').bootstrapValidator({
 					min : 2,
 					max : 40
 				},
-                remote :{
-            	    delay: 1000,
-            	 	url: 'buscarPorTituloOrTemaTesisRegistra',
-            	 	message: 'El Tema ya existe'
-             	}
             }
         },
 		fechaCreacion : {
@@ -436,7 +436,7 @@ $('#id_form_actualiza').bootstrapValidator({
 		                nombres: function() {
 		                    return $('#id_act_titulo').val();
 		                },
-		                id: function() {
+		                idTesis: function() {
 		                    return $('#id_ID').val();
 		                },
 		        	},
