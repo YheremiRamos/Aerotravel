@@ -47,5 +47,15 @@ public class LibroServiceImp implements LibroService {
 	public List<Libro> listaPorSerie(String serie) {
 		return repository.findBySerie(serie);
 	}
+
+	@Override
+	public List<Libro> listaPorTituloActualizar(String titulo, int idLibro) {
+		return repository.listaPorTituloActualizar(titulo,idLibro);
+	}
+
+	@Override
+	public List<Libro> listaPorSerieActualizar(String serie, int idLibro) {
+		return repository.listaPorSerieActualizar(serie, idLibro);
+	}
 	
 }

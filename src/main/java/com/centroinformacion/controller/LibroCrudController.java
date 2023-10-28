@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.centroinformacion.entity.DataCatalogo;
 import com.centroinformacion.entity.Libro;
+import com.centroinformacion.entity.Tesis;
 import com.centroinformacion.entity.Usuario;
 import com.centroinformacion.service.LibroService;
 
@@ -112,6 +113,17 @@ public class LibroCrudController {
 			map.put("lista", lista);
 		}
 		return map;
+	}
+	
+	@GetMapping("/buscarLibroPorTituloActualiza")
+	@ResponseBody
+	public String validaTituloActualiza(String titulo) {
+		List<Libro> lst = libroService.listaPorTitulo(titulo);
+		if(CollectionUtils.isEmpty(lst)) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
 	}
 	
 	

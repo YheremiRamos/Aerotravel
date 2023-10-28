@@ -49,8 +49,49 @@ public class LibroRegistroController {
 	
 	@GetMapping("/buscaPorTituloCrudLibro" )
 	@ResponseBody
-	public String validaSerie(String titulo){
+	public String validaTitulo(String titulo){
 		List<Libro> lstLibro = libroService.listaPorTitulo(titulo);
+		if (CollectionUtils.isEmpty(lstLibro)) {
+			return "{\"valid\" : true }";
+		} else {
+			return "{\"valid\" : false }";
+		}
+	}
+	
+	@GetMapping("/buscaPorTituloCrudLibroAct" )
+	@ResponseBody
+	public String validaLibroActualiza(String titulo, String id) {
+		
+		List<Libro> lstSalida = libroService.listaPorTituloActualizar(
+				titulo,
+				Integer.parseInt(id));
+		
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaPorSerieCrudLibroAct" )
+	@ResponseBody
+	public String validaSerieActualiza(String serie, String id) {
+		
+		List<Libro> lstSalida = libroService.listaPorSerieActualizar(
+				serie,
+				Integer.parseInt(id));
+		
+		if(lstSalida.isEmpty()) {
+			return "{\"valid\":true}";
+		}else {
+			return "{\"valid\":false}";
+		}
+	}
+	
+	@GetMapping("/buscaPorSerieCrudLibro" )
+	@ResponseBody
+	public String validaSerie(String serie){
+		List<Libro> lstLibro = libroService.listaPorSerie(serie);
 		if (CollectionUtils.isEmpty(lstLibro)) {
 			return "{\"valid\" : true }";
 		} else {
