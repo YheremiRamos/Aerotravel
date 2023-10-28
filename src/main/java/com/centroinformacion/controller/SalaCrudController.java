@@ -33,8 +33,7 @@ private SalaService salaService;
 	@PostMapping("/eliminaCrudSala")
 	public Map<?, ?> elimina(int id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		Sala objSala= salaService.buscaSala(id).get();
+		Sala objSala= salaService.buscaSala(id).get();  
 		objSala.setEstado( objSala.getEstado() == 1 ? 0 : 1);
 		Sala objSalida = salaService.insertaActualizaSala(objSala);
 		if (objSalida == null) {
@@ -78,13 +77,12 @@ private SalaService salaService;
 	@ResponseBody
 	public Map<?, ?> actualiza(Sala obj) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		  
-		Optional<Sala> optSala= salaService.buscaSala(obj.getIdSala());
-		obj.setFechaRegistro(optSala.get().getFechaRegistro());
-		obj.setFechaActualizacion(optSala.get().getFechaActualizacion());
-		obj.setEstado(optSala.get().getEstado());
+		Optional<Sala> optSala = salaService.buscaSala(obj.getIdSala());
 		obj.setUsuarioRegistro(optSala.get().getUsuarioRegistro());
 		obj.setUsuarioActualiza(optSala.get().getUsuarioActualiza());
+		obj.setFechaRegistro(optSala.get().getFechaRegistro());
+		obj.setEstado(optSala.get().getEstado());
+		obj.setFechaActualizacion(new Date());
 		
 		Sala objSalida = salaService.insertaActualizaSala(obj);
 		if (objSalida == null) {
