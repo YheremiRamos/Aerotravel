@@ -49,6 +49,28 @@ public class AutorCrudController {
 		obj.setUsuarioRegistro(objUsuario);
 		obj.setUsuarioActualiza(objUsuario);
 
+
+		
+		List<Autor> lstSalida = autorService.listaPorNombreApellidoIgual(
+						obj.getNombres(), 
+						obj.getApellidos());
+if (!CollectionUtils.isEmpty(lstSalida)) {
+	map.put("mensaje", "El Autor " + obj.getNombres() + " " + obj.getApellidos() + " ya existe");
+	return map;
+}
+		
+		Autor objSalida = autorService.insertaActualizaAutor(obj);
+	
+	  if (objSalida == null) {
+	        map.put("mensaje", "Error en el registro");
+	    } else {
+	        map.put("mensaje", "Registro exitoso");
+	        List<Autor> lista = autorService.listaPorNombresApellidosLike("%");
+	        map.put("lista", lista);
+	    }
+	
+	    return map;
+
 		List<Autor> lstSalida = autorService.listaPorNombresOrApellidos(obj.getNombres(), obj.getApellidos());
 		if (!CollectionUtils.isEmpty(lstSalida)) {
 			map.put("mensaje", "El Autor " + obj.getNombres() + " " + obj.getApellidos() + " ya existe");
