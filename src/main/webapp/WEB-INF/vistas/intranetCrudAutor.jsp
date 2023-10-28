@@ -450,6 +450,10 @@ function eliminar(id){
                         max: 40,
                         message: 'El nombre es de 2 a 40 caracteres'
                     },
+                    regexp: {
+        	            regexp:/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/ , // Expresión regular para permitir espacios en blanco en medio, pero no al final
+        	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
+        	        },
                     remote: {
                         delay: 1000,
                         url: 'buscaAutorNombreApellidoRegistro',
@@ -476,6 +480,10 @@ function eliminar(id){
                         max: 40,
                         message: 'El apellido es de 2 a 40 caracteres'
                     },
+                    regexp: {
+        	            regexp:/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/ , // Expresión regular para permitir espacios en blanco en medio, pero no al final
+        	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
+        	        },
                     remote: {
                         delay: 1000,
                         url: 'buscaAutorNombreApellidoRegistro',
@@ -487,6 +495,7 @@ function eliminar(id){
                             'apellidos': function() {
                                 return $('#id_reg_apellido').val();
                             }
+                            
                         }
                     }
                 }
@@ -565,7 +574,14 @@ function eliminar(id){
                         min: 2,
                         max: 40,
                         message: 'El nombre es de 2 a 40 caracteres'
-                    },
+                    },regexp: {
+        	            regexp:/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/ , // Expresión regular para permitir espacios en blanco en medio, pero no al final
+        	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
+        	        },
+                    
+                    
+                    
+
                     remote: {
                         delay: 1000,
                         url: 'buscaAutorNombreApellidoActualiza',
@@ -595,6 +611,10 @@ function eliminar(id){
                         max: 40,
                         message: 'El apellido es de 2 a 40 caracteres'
                     },
+                    regexp: {
+        	            regexp:/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1])[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/ , // Expresión regular para permitir espacios en blanco en medio, pero no al final
+        	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
+        	        },
                     remote: {
                         delay: 1000,
                         url: 'buscaAutorNombreApellidoActualiza',
