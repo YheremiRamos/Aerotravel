@@ -247,11 +247,7 @@ $.getJSON("listaSede", {}, function(data){
 		$("#id_act_sede").append("<option value="+item.idDataCatalogo +">"+ item.descripcion +"</option>");
 		});
 });
-$(document).ready(function() {
-	$.getJSON("consultaCrudSala",{"filtro":""}, function (lista){
-		agregarGrilla(lista);
-	});
-});
+
 
 function agregarGrilla(lista){
 	 $('#id_table').DataTable().clear();
@@ -329,7 +325,7 @@ $("#id_btn_actualiza").click(function() {
 				$('#id_div_modal_actualiza').modal("hide");
 				mostrarMensaje(data.mensaje);
 			
-	        	  validator.resetForm();
+	        	 
 
 
 			},
@@ -367,7 +363,7 @@ $('#id_form_registra').bootstrapValidator({
 
                   	url     : 'buscaModalidadPorNumeroRegistra',
 
-                  	message : 'El Número de Sala  ya existe o ya a sido registrada',
+                  	message : 'El Número de Sala ya a sido registrada',
 
                   	data: {
 
