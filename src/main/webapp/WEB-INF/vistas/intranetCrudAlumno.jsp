@@ -46,14 +46,14 @@
 					<table id="id_table" class="table table-striped table-bordered" >
 						<thead>
 							<tr>
-								<th style="width: 5%" >ID</th>
+							<th style="width: 5%" >ID</th>
 							<th style="width: 10%">Nombre</th>
 							<th style="width: 10%">Apellidos</th>
-							<th style="width: 10%">Telèfono</th>
+							<th style="width: 10%">Teléfono</th>
 							<th style="width: 10%">DNI</th>
 							<th style="width: 10%">Correo</th>
 							<th style="width: 10%">Fecha Nacimiento</th>
-							<th style="width: 10%">Pais</th>
+							<th style="width: 10%">País</th>
 							<th style="width: 5%">Modalidad</th>
 							<th style="width: 10%">Actualiza</th>
 							<th style="width: 10%">Elimina</th>
@@ -102,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="id_reg_telefono">Teléfono</label>
                                         <div class="col-lg-6">
-											<input class="form-control" id="id_reg_telefono" name="telefono" placeholder="Ingrese el telefono" type="text" maxlength="9"/>
+											<input class="form-control" id="id_reg_telefono" name="telefono" placeholder="Ingrese el teléfono" type="text" maxlength="9"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -196,7 +196,7 @@
 		                                    <div class="form-group">
 	                                        <label class="col-lg-3 control-label" for="id_telefono">Teléfono</label>
 	                                        <div class="col-lg-6">
-												<input class="form-control" id="id_act_telefono" name="telefono" placeholder="Ingrese el telefono" type="text" maxlength="9"/>
+												<input class="form-control" id="id_act_telefono" name="telefono" placeholder="Ingrese el teléfono" type="text" maxlength="9"/>
 	                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
@@ -218,7 +218,7 @@
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_act_pais">Pais</label>
+		                                        <label class="col-lg-3 control-label" for="id_act_pais">País</label>
 		                                        <div class="col-lg-4">
 													<select id="id_act_pais" name="pais" class='form-control'>
 							                            	<option value=" ">[Seleccione]</option>    
@@ -515,7 +515,7 @@ $('#id_form_registra').bootstrapValidator({
     		selector : '#id_reg_pais',
             validators: {
             	notEmpty: {
-                    message: 'El país un campo obligatorio'
+                    message: 'El país es un campo obligatorio'
                 },
             }
         },
@@ -523,7 +523,7 @@ $('#id_form_registra').bootstrapValidator({
     		selector : '#id_reg_modalidad',
             validators: {
             	notEmpty: {
-                    message: 'El país un campo obligatorio'
+                    message: 'El país es un campo obligatorio'
                 },
             }
         },
@@ -664,7 +664,7 @@ $('#id_form_registra').bootstrapValidator({
         		selector : '#id_act_pais',
                 validators: {
                 	notEmpty: {
-                        message: 'El pais es un campo obligatorio'
+                        message: 'El país es un campo obligatorio'
                     },
                 }
             },
@@ -672,7 +672,7 @@ $('#id_form_registra').bootstrapValidator({
         		selector : '#id_act_modalidad',
                 validators: {
                 	notEmpty: {
-                        message: 'El pais es un campo obligatorio'
+                        message: 'El país es un campo obligatorio'
                     },
                 }
             },
