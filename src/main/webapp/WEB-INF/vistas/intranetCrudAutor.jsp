@@ -47,7 +47,7 @@
             <table id="id_table" class="table table-striped table-bordered" >
                 <thead>
                     <tr>
-                        <th style="width: 5%">ID</th>
+                        <th style="width: 5%">C&oacute;digo</th>
                         <th style="width: 10%">Nombres</th>
                         <th style="width: 10%">Apellidos</th>
                         <th style="width: 15%">Fecha de Nacimiento</th>

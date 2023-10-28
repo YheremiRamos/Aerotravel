@@ -1,5 +1,6 @@
 package com.centroinformacion.service;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,35 @@ public class EditorialServiceImp implements EditorialService {
 		return repository.save(obj);
 	}
 
+	
+	
 	@Override
 	public List<Editorial> listaPorRuc(String ruc){
 		return repository.findByRuc(ruc);
 	}
-}
+	
+	
+	@Override
+	public List<Editorial> listaPorRazonSocialLike(String filtro) {
+		return repository.listaPorRazonSocialLike(filtro);
+	}
+
+	@Override
+	public Optional<Editorial> buscaEditorial(int idEditorial) {
+		return repository.findById(idEditorial);
+
+	}
+
+	
+	
+	
+	@Override
+	public List<Editorial> listaPorRucIgual(String ruc, int idEditorial) {
+		return repository.listaEditorialRucIgualActualiza(ruc, idEditorial);
+
+	}
+
+	
+	
+	
+	}
