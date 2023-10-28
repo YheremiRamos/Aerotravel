@@ -153,7 +153,7 @@
 					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Libro</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaLibro" class="form-horizontal"     method="post">
+						<form id="id_form_actualiza" accept-charset="UTF-8"  action="registraActualizaLibro" class="form-horizontal" method="post">
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
@@ -171,7 +171,7 @@
 		                                     <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_titulo">Titulo</label>
 		                                        <div class="col-lg-6">
-													<input class="form-control" id="id_act_titulo" name="titulo" placeholder="Ingrese el Titulo" type="text" maxlength="20"/>
+													<input class="form-control" id="id_act_titulo" name="titulo" placeholder="Ingrese el Titulo" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                     <div class="form-group">
@@ -369,51 +369,64 @@ $('#id_form_registra').bootstrapValidator({
     },
     fields: {
     	"titulo": {
-    		selector : '#id_reg_titulo',
-            validators: {
-                notEmpty: {
-                    message: 'El titulo del libro es un campo obligatorio'
-                },
-                stringLength :{
-                	message:'El titulo es de 2 a 40 caracteres',
-                	min : 2,
-                	max : 40
-                },
-                	remote:{
-                    	deplay:1000,
-                    	url: 'buscaPorTituloCrudLibro',
-                    	message: "el titulo ya existe"
-                    }
-                }
-            },
-            "anio": {
-                selector: '#id_reg_anio',
-                validators: {
-                    notEmpty: {
-                        message: 'El año es un campo obligatorio'
-                    },
-                    regexp: {
-                        regexp: /^[0-9]{4}$/,
-                        message: 'El año debe tener 4 dígitos numéricos'
-                    },
-                    callback: {
-                        callback: function(value, validator, $field) {
-                            var year = parseInt(value, 10);
-                            var maxYear = 2024;  
-                            if (isNaN(year) || year >= maxYear) {
-                                return {
-                                    valid: false,
-                                    message: 'El año debe ser menor a ' + maxYear
-                                };
-                            }
-                            return {
-                                valid: true
-                            };
-                        },
-                        message: 'El año debe ser menor a 2024'
-                    }
-                }
-            },
+    	    selector: '#id_reg_titulo',
+    	    validators: {
+    	        notEmpty: {
+    	            message: 'El título del libro es un campo obligatorio'
+    	        },
+    	        stringLength: {
+    	            message: 'El título es de 2 a 40 caracteres',
+    	            min: 2,
+    	            max: 40
+    	        },
+    	        regexp: {
+    	            regexp: /^(?!.*\s$)[a-zA-Z0-9\s]+$/, // Expresión regular para permitir espacios en blanco en medio, pero no al final
+    	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
+    	        },
+    	        remote: {
+    	            delay: 500,
+    	            url: 'buscaPorTituloCrudLibro',
+    	            message: 'El título ya existe'
+    	        }
+    	    }
+    	}
+
+			,
+			"anio": {
+			    selector: '#id_reg_anio',
+			    validators: {
+			        notEmpty: {
+			            message: 'El año es un campo obligatorio'
+			        },
+			        regexp: {
+			            regexp: /^[0-9]{4}$/,
+			            message: 'El año debe tener 4 dígitos numéricos'
+			        },
+			        callback: {
+			            callback: function(value, validator, $field) {
+			                if (!/^[0-9]{4}$/.test(value)) {
+			                    return {
+			                        valid: false,
+			                        message: 'El año no debe de contener letras'
+			                    };
+			                }
+			                var year = parseInt(value, 10);
+			                var maxYear = 2024;
+			                if (isNaN(year) || year >= maxYear) {
+			                    return {
+			                        valid: false,
+			                        message: 'El año debe ser menor a ' + maxYear
+			                    };
+			                }
+			                return {
+			                    valid: true
+			                };
+			            },
+			            message: 'El año debe ser menor a 2024'
+			        }
+			    }
+			}
+,
         "serie": {
             selector: '#id_reg_serie',
             validators: {
@@ -422,8 +435,13 @@ $('#id_form_registra').bootstrapValidator({
                 },
                 regexp: {
                     regexp: /^[A-Z]{2}\d{10}$/,
-                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez dígitos'
-                }
+                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez números'
+                },
+                remote: {
+    	            delay: 500,
+    	            url: 'buscaPorSerieCrudLibro',
+    	            message: 'La Serie ya existe'
+    	        }
             }
         },
         "categoriaLibro.idDataCatalogo": {
@@ -458,52 +476,70 @@ $('#id_form_actualiza').bootstrapValidator({
     },
     fields: {
     	"titulo": {
-    		selector : '#id_act_titulo',
-            validators: {
-                notEmpty: {
-                    message: 'El titulo del libro es un campo obligatorio'
-                },
-                stringLength :{
-                	message:'El titulo es de 2 a 40 caracteres',
-                	min : 2,
-                	max : 40
-                },
-            	remote:{
-                	deplay:1000,
-                	url: 'buscaPorTituloCrudLibro',
-                	message: "el titulo ya existe"
-                }
-            }
-        },
-        "anio": {
-            selector: '#id_act_anio',
-            validators: {
-                notEmpty: {
-                    message: 'El año es un campo obligatorio'
-                },
-                regexp: {
-                    regexp: /^[0-9]{4}$/,
-                    message: 'El año debe tener 4 dígitos numéricos'
-                },
-                callback: {
-                    callback: function(value, validator, $field) {
-                        var year = parseInt(value, 10);
-                        var maxYear = 2024;  
-                        if (isNaN(year) || year >= maxYear) {
-                            return {
-                                valid: false,
-                                message: 'El año debe ser menor a ' + maxYear
-                            };
-                        }
-                        return {
-                            valid: true
-                        };
-                    },
-                    message: 'El año debe ser menor a 2024'
-                }
-            }
-        },
-        "serie": {
+    	    selector: '#id_act_titulo',
+    	    validators: {
+    	        notEmpty: {
+    	            message: 'El título del libro es un campo obligatorio'
+    	        },
+    	        stringLength: {
+    	            message: 'El título es de 2 a 40 caracteres',
+    	            min: 2,
+    	            max: 40
+    	        },
+    	        regexp: {
+    	            regexp: /^(?!.*\s$)[a-zA-Z0-9\s]+$/, // Expresión regular para permitir espacios en blanco en medio, pero no al final
+    	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
+    	        },
+    	        remote: {
+    	            delay: 500,
+    	            url: 'buscaPorTituloCrudLibroAct',
+    	            message: 'El título ya existe',
+    	            	data: {
+    		                nombres: function() {
+    		                    return $('#id_act_titulo').val();
+    		                },
+    		                id: function() {
+    		                    return $('#id_ID').val();
+    		                },
+    		        	},
+    	        }
+    	    }
+    	},
+    	"anio": {
+		    selector: '#id_act_anio',
+		    validators: {
+		        notEmpty: {
+		            message: 'El año es un campo obligatorio'
+		        },
+		        regexp: {
+		            regexp: /^[0-9]{4}$/,
+		            message: 'El año debe tener 4 dígitos numéricos'
+		        },
+		        callback: {
+		            callback: function(value, validator, $field) {
+		                if (!/^[0-9]{4}$/.test(value)) {
+		                    return {
+		                        valid: false,
+		                        message: 'El año no debe de contener letras'
+		                    };
+		                }
+		                var year = parseInt(value, 10);
+		                var maxYear = 2024;
+		                if (isNaN(year) || year >= maxYear) {
+		                    return {
+		                        valid: false,
+		                        message: 'El año debe ser menor a ' + maxYear
+		                    };
+		                }
+		                return {
+		                    valid: true
+		                };
+		            },
+		            message: 'El año debe ser menor a 2024'
+		        }
+		    }
+		},
+		"serie": {
             selector: '#id_act_serie',
             validators: {
                 notEmpty: {
@@ -511,8 +547,21 @@ $('#id_form_actualiza').bootstrapValidator({
                 },
                 regexp: {
                     regexp: /^[A-Z]{2}\d{10}$/,
-                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez dígitos'
-                }
+                    message: 'La serie debe tener dos letras mayúsculas seguidas de diez números'
+                },
+                remote: {
+    	            delay: 500,
+    	            url: 'buscaPorSerieCrudLibroAct',
+    	            message: 'La Serie ya existe',
+    	            data: {
+		                nombres: function() {
+		                    return $('#id_act_sere').val();
+		                },
+		                id: function() {
+		                    return $('#id_ID').val();
+		                },
+		        	},
+    	        }
             }
         },
         "categoriaLibro.idDataCatalogo": {
