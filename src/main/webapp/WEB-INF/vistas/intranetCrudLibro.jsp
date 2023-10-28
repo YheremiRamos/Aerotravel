@@ -380,7 +380,7 @@ $('#id_form_registra').bootstrapValidator({
     	            max: 40
     	        },
     	        regexp: {
-    	            regexp: /^(?!.*\s$)[a-zA-Z0-9\s]+$/, // Expresión regular para permitir espacios en blanco en medio, pero no al final
+    	            regexp:/^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/ , // Expresión regular para permitir espacios en blanco en medio, pero no al final
     	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
     	        },
     	        remote: {
@@ -487,7 +487,7 @@ $('#id_form_actualiza').bootstrapValidator({
     	            max: 40
     	        },
     	        regexp: {
-    	            regexp: /^(?!.*\s$)[a-zA-Z0-9\s]+$/, // Expresión regular para permitir espacios en blanco en medio, pero no al final
+    	            regexp: /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/ , // Expresión regular para permitir espacios en blanco en medio, pero no al final
     	            message: 'El título solo puede contener letras y números, sin espacios en blanco al final'
     	        },
     	        remote: {
