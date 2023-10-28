@@ -296,7 +296,7 @@ function agregarGrilla(lista){
             {data: "fechaNacimiento"},
             {data: "telefono"},
             {data: "pais.nombre"},
-            {data: "grado.descripcion"}, // Utiliza "grado.descripcion" en lugar de "autor.idDataCatalogo.descripcion"
+            {data: "grado.descripcion"}, // Utiliza "grado.descripcion" en lugar de "autor.idDataCatalogo.descripcion" es recomendable
             {data: function(row, type, val, meta){
                 var salida = '<button type="button" style="width: 90px" class="btn btn-info btn-sm" onclick="editar(\'' + row.idAutor + '\',\'' + row.nombres + '\',\'' + row.apellidos + '\',\'' + row.fechaNacimiento + '\',\'' + row.telefono + '\',\''  +  row.pais.idPais + '\',\'' + row.grado.idDataCatalogo + '\')">Editar</button>';
                 return salida;
