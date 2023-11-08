@@ -19,7 +19,7 @@
     	<c:if test="${ !empty sessionScope.objMenusTipo1}">
 	    	<li class="dropdown">
 		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		           Registros (PC1)<b class="caret"></b>
+		           Reservar<b class="caret"></b>
 		        </a>
 		        <ul class="dropdown-menu">
 		        	<c:forEach var="x" items="${sessionScope.objMenusTipo1}">
@@ -34,7 +34,7 @@
      	<c:if test="${ !empty sessionScope.objMenusTipo3}">
 	    	<li class="dropdown">
 		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		           CRUD (PC2)<b class="caret"></b>
+		          	Pendientes<b class="caret"></b>
 		        </a>
 		        <ul class="dropdown-menu">
 		        	<c:forEach var="x" items="${sessionScope.objMenusTipo3}">
@@ -49,7 +49,7 @@
       	<c:if test="${ !empty sessionScope.objMenusTipo2}">
 	    	<li class="dropdown">
 		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		           Consulta y Reporte (PC3)<b class="caret"></b>
+		           Paquetes<b class="caret"></b>
 		        </a>
 		        <ul class="dropdown-menu">
 		        	<c:forEach var="x" items="${sessionScope.objMenusTipo2}">
@@ -64,7 +64,7 @@
      	<c:if test="${ !empty sessionScope.objMenusTipo4}">
 	    	<li class="dropdown">
 		        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-		          Transacciones (AP)<b class="caret"></b>
+		          Pagos<b class="caret"></b>
 		        </a>
 		        <ul class="dropdown-menu">
 		        	<c:forEach var="x" items="${sessionScope.objMenusTipo4}">
