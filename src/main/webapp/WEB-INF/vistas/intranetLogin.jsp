@@ -46,11 +46,11 @@
 			                    <form id="id_form"  action="login" method="post" class="login-form">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Usuario</label>
-			                        	<input type="text" name="login" placeholder="Ingrese Usuario" class="form-username form-control" id="form-username" maxlength="20" value="luis">
+			                        	<input type="text" name="usuario" placeholder="Ingrese Usuario" class="form-username form-control" id="form-username" maxlength="20" value="juan">
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Contraseña</label>
-			                        	<input type="password" name="password" placeholder="Ingrese Contraseña" class="form-password form-control" id="form-password" maxlength="20" value="luis">
+			                        	<input type="password" name="contra" placeholder="Ingrese Contraseña" class="form-password form-control" id="form-password" maxlength="20" value="123">
 			                        </div>
 			                        <button type="submit" class="btn btn-primary">Ingresar</button>
 			                    </form>

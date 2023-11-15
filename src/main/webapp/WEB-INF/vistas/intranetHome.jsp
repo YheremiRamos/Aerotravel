@@ -31,8 +31,10 @@
 <div class="container" style="margin-top: 5%">
 <h3>Intranet Sistema</h3>
 <br><br>
-<h4>Bienvenido Sr(a): ${sessionScope.objUsuario.nombreCompleto}</h4><br>                
+<h4>Bienvenido Sr(a): </h4><br>     
+<!--            
 <h4>DNI: ${sessionScope.objUsuario.dni}</h4><br>
+
 <h4>Roles:</h4>
 	<ul>
         <c:forEach var="x" items="${sessionScope.objRoles}">
@@ -42,7 +44,7 @@
         </c:forEach>
     </ul><br>
 </div>
-
+--> 
 <div class="container" >
 <div class="col-md-12" align="center" style="width: 50px; height: 150px" > 
 </div>
